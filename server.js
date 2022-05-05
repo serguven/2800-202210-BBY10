@@ -70,12 +70,15 @@ app.get('/userAccount', (req, res) => {
 
 
 
-app.get('/register', (req, res) => {
-    res.sendFile(path.resolve('public/register.html'));
+app.get('/signUp', (req, res) => {
+    res.sendFile(path.resolve('public/signUp.html'));
 })
 
-app.post('/register', async (req, res) => {
+
+app.post('/signUp', async (req, res) => {
     const new_user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: req.body.password
     });
@@ -87,6 +90,7 @@ app.post('/register', async (req, res) => {
 
     res.redirect('/login');
 })
+
 
 app.post('/logout', (req, res) => {
     req.session.destroy();
