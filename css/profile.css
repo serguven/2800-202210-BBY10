@@ -1,0 +1,87 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    padding: 0rem 1rem;
+    color: rgb(251, 247, 247);
+    background-color: rgb(68, 20, 11);
+  }
+  
+  .navbar ul {
+    list-style: none;
+  }
+  
+  .navbar ul li {
+    display: inline-block;
+    margin-left: 3rem;
+    font-size: 1rem;
+  }
+  
+  .navbar h2 {
+    font-family: 'Passions Conflict', cursive;
+    font-size: 2.25rem;
+  }
+  
+  .navbar ul li a {
+    text-decoration: none;
+    color: rgb(251, 250, 250);
+    border: 2px solid transparent;
+  }
+  
+  .navbar ul li a:hover {
+    border-bottom: 2px solid rgb(252, 251, 251);
+  }
+
+.profile-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.profile-form h1{
+    text-align: center;
+}
+
+.profile {
+    width: 100%;
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+}
+
+.profile-info{
+    padding: 12px 20px;
+    
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10vh;
+    padding: 0rem 1rem;
+    color: rgb(255, 251, 251);
+    background-color: rgb(68, 20, 11);
+  }
+  
+  .footer ul {
+    list-style: none;
+  }
+  
+  .footer ul li {
+    display: inline-block;
+    margin-left: 3rem;
+    font-size: 1.2rem;
+  }
+  
+  .footer ul li a {
+    text-decoration: none;
+    color: rgb(255, 251, 251);
+    border: 2px solid transparent;
+  }
+  
+  .footer ul li a:hover {
+    border-bottom: 2px solid rgb(255, 251, 251);
+  }
