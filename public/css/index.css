@@ -1,0 +1,30 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#loginbutton {
+    text-decoration: none;
+    text-align: center;
+    color: white;
+}
+
+#signupbutton {
+    text-decoration: none;
+    text-align: center;
+    color: gray;
+}
+
+@media screen and (max-width:576px) {
+    #btn-container {
+        display: grid;
+        justify-content: center;
+    }
+    .btn-primary {
+        max-width: 200px;
+    }
+    .btn-outline-secondary {
+        max-width: 200px;
+    }
+}
