@@ -97,13 +97,29 @@ app.post('/signUp', async (req, res) => {
     });
 
 
+    User.findOne({email: req.body.email}, function(err, user){
+        if(err) {
+            console.log(err);
+        }
+        if(!user){
+            new_user.save()
+                .then((result) => {
+                    console.log(result);
+                });
 
-        new_user.save()
-        .then((result) => {
-            console.log(result);
-        });
+             res.redirect('/login');
+        } else {
+            console.log('Account with this email adress exists.');
+            res.redirect('/signUp');
+        }
+    })
 
-        res.redirect('/login');
+    // new_user.save()
+    //     .then((result) => {
+    //         console.log(result);
+    //     });
+
+    // res.redirect('/login');
 
 
 
