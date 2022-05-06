@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="/css/login.css">
+    <title>Icarus</title>
+
+    <!-------------------------------------------------------->
+    <!-- Firebase 8 Library related CSS, JS, JQuery go here -->
+    <!-------------------------------------------------------->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+
+</head>
+<body>
+    <br>
+    <br>
+    <br>
+
+  <div class="login-form" id="login-page">
+    <h1>Welcome to ICARUS</h1>
+    <p>Let's Login</p>
+  </div>
+  <br>
+  <br> 
+  <form class="login-info" action="/login" method="POST">
+    <div class="login-container mb-3">
+      <label>Email: </label>
+      <input type="email" id="emailInput" required placeholder="Enter your email">
+    </div>
+    <div class="login-container mb-3">
+      <label>Password: </label>
+      <input type="password" id="passwordInput" placeholder="Enter Password">
+    </div>
+
+    <div class="container"  >
+      <button type="submit">Login</button>
+
+      <!--<a class="btn btn-success" id="submit">Login</a>
+      <a class="btn btn-secondary">Cancel</a>-->
+
+
+      <!-- <a href="/public/profile.html" class="btn btn-success" id="submit">Login</a>
+      <a href="/public/index.html" class="btn btn-secondary">Cancel</a> -->
+
+    </div>
+  </form>
+  <br>
+  <br>
+
+
+
+</body>
+
+</html>

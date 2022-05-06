@@ -68,6 +68,16 @@ app.get('/userAccount', (req, res) => {
     }
 })
 
+/////////////////////////////////////////////////////////////////////////////////////////////////
+app.get('/admin', (req, res) => {
+    if(req.session.isLoggedIn && req.session.user.userType == "Doctor") {
+        res.sendFile(path.resolve('public/admin.html'));
+    } else {
+        res.sendFile(path.resolve('public/notAllowed.html'));
+    }
+})
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
 app.get('/signUp', (req, res) => {
@@ -80,7 +90,8 @@ app.post('/signUp', async (req, res) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        userType: req.body.userType
     });
 
     new_user.save()
