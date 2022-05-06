@@ -42,7 +42,7 @@ app.post('/login', (req, res) => {
     User.findOne({
         email: req.body.email,
         password: req.body.password
-    }, function (err, user) {
+    }, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -61,7 +61,7 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/userAccount', (req, res) => {
-    if(req.session.isLoggedIn) {
+    if (req.session.isLoggedIn) {
         res.sendFile(path.resolve('public/userAccount.html'));
     } else {
         res.redirect('/login');
@@ -75,7 +75,7 @@ app.get('/signUp', (req, res) => {
 })
 
 
-app.post('/signUp', async (req, res) => {
+app.post('/signUp', async(req, res) => {
     const new_user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
