@@ -68,6 +68,8 @@ app.get('/userAccount', (req, res) => {
     }
 })
 
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/admin', (req, res) => {
     if(req.session.isLoggedIn && req.session.user.userType == "Doctor") {
@@ -94,12 +96,17 @@ app.post('/signUp', async (req, res) => {
         userType: req.body.userType
     });
 
-    new_user.save()
+
+
+        new_user.save()
         .then((result) => {
             console.log(result);
         });
 
-    res.redirect('/login');
+        res.redirect('/login');
+
+
+
 })
 
 
