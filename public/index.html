@@ -5,28 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ICARUS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css" type="text/css">
 </head>
 
 <body>
-    <div id="container">
-        <div id="logo-container">
-            <img src="/images/logo.jpg" id="logo-front">
+    <!--HTML provided by Bootstrap-->
+    <div class="px-4 py-5 my-5 text-center">
+        <img class="d-block mx-auto mb-4" src="/images/logo.jpg" alt="" width="220.5" height="146.5">
+        <h1 class="display-5 fw-bold ">Welcome to ICARUS</h1>
+        <div class="col-lg-6 mx-auto ">
+            <p class="lead mb-4 ">Therapy sessions accessible for everyone</p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" id="btn-container">
+                <button type="button" class="btn btn-primary btn-lg px-4 gap-3"><a id="loginbutton" href="/login ">Login</a></button>
+                <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a id="signupbutton" href="/signUp ">Sign Up</a></button>
+            </div>
         </div>
-        <div id="title-container">
-            <h1 id="title-front">Welcome to ICARUS!</h1>
-        </div>
-        <div id="desc-container">
-            <p id="desc1">Therapy sessions accessible for everyone</p>
-        </div>
-
-        <div id="login-container">
-            <button><a id="loginbutton" href="/login">Login</a></button>
-        </div>
-        <div id="signup-container">
-            <button><a id="signupbutton" href="/signUp">Sign Up</a></button>
-        </div>
-
     </div>
 </body>
 

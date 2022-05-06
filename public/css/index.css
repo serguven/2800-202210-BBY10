@@ -4,80 +4,27 @@
     box-sizing: border-box;
 }
 
-#container {
-    display: grid;
-    width: 90vw;
-    height: 100vh;
-    grid-template-columns: repeat(4, 25%);
-    grid-template-rows: 10% 30% 10% 10% 10% 30%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#logo-container {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-row: 2;
-    grid-column: 2 / 4;
-}
-
-#logo-front {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-}
-
-#title-container {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-row: 3;
-    grid-column: 2 / 4;
-}
-
-#title-front {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-#desc-container {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-row: 4;
-    grid-column: 2 / 4;
-}
-
-#desc1 {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-}
-
-#login-container {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-column: 2;
-    grid-row: 5;
-}
-
 #loginbutton {
-    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
     text-align: center;
-    padding: 40px;
-}
-
-#signup-container {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-column: 3;
-    grid-row: 5;
+    color: white;
 }
 
 #signupbutton {
-    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
     text-align: center;
-    padding: 40px;
+    color: gray;
+}
+
+@media screen and (max-width:576px) {
+    #btn-container {
+        display: grid;
+        justify-content: center;
+    }
+    .btn-primary {
+        max-width: 200px;
+    }
+    .btn-outline-secondary {
+        max-width: 200px;
+    }
 }
