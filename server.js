@@ -7,7 +7,8 @@ const session = require('express-session');
 
 const port = 8000;
 
-const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/COMP2800?retryWrites=true&w=majority";
 mongoose.connect(uri, {
         useNewUrlParser: true,
         useUnifiedTopology: true
