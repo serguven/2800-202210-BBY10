@@ -39,6 +39,7 @@ app.get('/login', (req, res) => {
 })
 
 
+
 app.post('/login', (req, res) => {
     User.findOne({
         email: req.body.email,
@@ -54,20 +55,29 @@ app.post('/login', (req, res) => {
         } else {
             req.session.user = user;
             req.session.isLoggedIn = true;
-            return res.redirect('/userAccount');
+            return res.redirect('/profile');
         }
     });
 
 
 })
 
-app.get('/userAccount', (req, res) => {
+// app.get('/userAccount', (req, res) => {
+//     if (req.session.isLoggedIn) {
+//         res.sendFile(path.resolve('public/userAccount.html'));
+//     } else {
+//         res.redirect('/login');
+//     }
+// })
+
+app.get('/profile', (req, res) => {
     if (req.session.isLoggedIn) {
-        res.sendFile(path.resolve('public/userAccount.html'));
+        res.sendFile(path.resolve('public/profile.html'));
     } else {
         res.redirect('/login');
     }
 })
+
 
 
 
