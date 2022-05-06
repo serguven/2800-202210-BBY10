@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const User = require("./models/user");
 const session = require('express-session');
 
-const port = 3000;
+const port = 8000;
 
 const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 mongoose.connect(uri, {
