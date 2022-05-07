@@ -7,7 +7,6 @@ const session = require('express-session');
 
 const port = 8000;
 
-//const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/COMP2800?retryWrites=true&w=majority";
 mongoose.connect(uri, {
         useNewUrlParser: true,
@@ -58,17 +57,7 @@ app.post('/login', (req, res) => {
             return res.redirect('/profile');
         }
     });
-
-
 })
-
-// app.get('/userAccount', (req, res) => {
-//     if (req.session.isLoggedIn) {
-//         res.sendFile(path.resolve('public/userAccount.html'));
-//     } else {
-//         res.redirect('/login');
-//     }
-// })
 
 app.get('/profile', (req, res) => {
     if (req.session.isLoggedIn) {
@@ -80,8 +69,6 @@ app.get('/profile', (req, res) => {
 
 
 
-
-/////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/admin', (req, res) => {
     if(req.session.isLoggedIn && req.session.user.userType == "Doctor") {
         res.sendFile(path.resolve('public/admin.html'));
@@ -89,8 +76,6 @@ app.get('/admin', (req, res) => {
         res.sendFile(path.resolve('public/notAllowed.html'));
     }
 })
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
 app.get('/signUp', (req, res) => {
@@ -124,16 +109,6 @@ app.post('/signUp', async(req, res) => {
             res.redirect('/signUp');
         }
     })
-
-    // new_user.save()
-    //     .then((result) => {
-    //         console.log(result);
-    //     });
-
-    // res.redirect('/login');
-
-
-
 })
 
 
