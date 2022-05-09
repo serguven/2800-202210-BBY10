@@ -4,6 +4,55 @@
     box-sizing: border-box;
 }
 
+.bg-dark {
+    background-color: #6F58C9 !important;
+}
+
+.container-fluid {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mt-10 {
+    margin-top: 6rem !important;
+}
+
+.mb-10 {
+    margin-bottom: 6rem !important;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+.nav-link:hover {
+    color: #B6B8D6 !important;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #6F58C9 !important;
+    border-color: #7E78D2;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #7E78D2 !important;
+    border-color: #B6B8D6 !important;
+}
+
+.btn-secondary {
+    color: #000;
+    background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;
+}
+
+.btn-secondary:hover {
+    color: #000;
+    background-color: #BBDBD1 !important;
+    border-color: #BBDBD1 !important;
+}
+
 #loginbutton {
     text-decoration: none;
     text-align: center;
@@ -13,10 +62,10 @@
 #signupbutton {
     text-decoration: none;
     text-align: center;
-    color: gray;
 }
 
-@media screen and (max-width:576px) {
+
+/* @media screen and (max-width:576px) {
     #btn-container {
         display: grid;
         justify-content: center;
@@ -27,4 +76,4 @@
     .btn-outline-secondary {
         max-width: 200px;
     }
-}
+} */

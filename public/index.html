@@ -8,21 +8,53 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/index.css" type="text/css">
+
+
 </head>
 
 <body>
     <!--HTML provided by Bootstrap-->
-    <div class="px-4 py-5 my-5 text-center">
-        <img class="d-block mx-auto mb-4" src="/images/logo.jpg" alt="" width="220.5" height="146.5">
-        <h1 class="display-5 fw-bold ">Welcome to ICARUS</h1>
-        <div class="col-lg-6 mx-auto ">
-            <p class="lead mb-4 ">Therapy sessions accessible for everyone</p>
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center" id="btn-container">
-                <button type="button" class="btn btn-primary btn-lg px-4 gap-3"><a id="loginbutton" href="/login">Login</a></button>
-                <button type="button" class="btn btn-outline-secondary btn-lg px-4"><a id="signupbutton" href="/signUp ">Sign Up</a></button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">ICARUS</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">About</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <a class="nav-link active" href="/login">Login</a>
+                    <a class="btn btn-secondary" id="signupbutton" href="/signUp">Sign Up</a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-10 mb-10 col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+            <div class="col-10 col-sm-8 col-lg-6">
+                <!-- Temporary -->
+                <svg class="bd-placeholder-img bd-placeholder-img-lg img-fluid" width="100%" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Responsive image" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#868e96"></rect><text x="50%" y="50%" fill="#dee2e6" dy=".3em">Responsive image</text></svg>
+                <!-- will use this once we have an proper image -->
+                <!-- <img src="..." class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy"> -->
+            </div>
+            <div class="col-lg-6">
+                <h1 class="display-5 fw-bold lh-1 mb-3">Welcome to ICARUS!</h1>
+                <p class="lead">Therapy sessions accessible for everyone. Sign up today and talk to our therapists, or people who just want to chat about certain mental-health topics.</p>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                    <a class="btn btn-primary btn-lg px-4 me-md-2" href="/login">Login</a>
+                    <a class="btn btn-secondary btn-lg px-4" href="/signUp">Sign Up</a>
+                </div>
             </div>
         </div>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
