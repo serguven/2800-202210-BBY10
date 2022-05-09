@@ -63,17 +63,3 @@
     text-decoration: none;
     text-align: center;
 }
-
-
-/* @media screen and (max-width:576px) {
-    #btn-container {
-        display: grid;
-        justify-content: center;
-    }
-    .btn-primary {
-        max-width: 200px;
-    }
-    .btn-outline-secondary {
-        max-width: 200px;
-    }
-} */

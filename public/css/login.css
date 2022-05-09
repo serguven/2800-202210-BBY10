@@ -1,70 +1,66 @@
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 10vh;
-    padding: 0rem 1rem;
-    color: white;
-    background-color: rgb(68, 20, 11);
-}
-
-.navbar ul {
-    list-style: none;
-}
-
-.navbar ul li {
-    display: inline-block;
-    margin-left: 3rem;
-    font-size: 1rem;
-}
-
-.navbar h2 {
-    font-family: 'Passions Conflict', cursive;
-    font-size: 2.25rem;
-}
-
-.navbar ul li a {
-    text-decoration: none;
-    color: white;
-    border: 2px solid transparent;
-}
-
-.navbar ul li a:hover {
-    border-bottom: 2px solid white;
-}
-
-.login-form {
-    text-align: center;
-}
-
-.login-form h1 {
+/* .login-form h1 {
     color: maroon;
 }
 
 .login-form p {
     font-size: 2rem;
     color: midnightblue
-}
+} */
 
-.login-info {
+
+/* .login-info {
     margin-left: auto;
     margin-right: auto;
     width: 20%;
     padding: 20px 20px;
     height: 50%;
-    /**display: inline-block;**/
+    *display: inline-block;*
     border: 1px solid #ccc;
     box-sizing: border-box;
     text-align: center;
     background-color: slategrey;
     color: white;
-}
+} */
 
+
+/*
 .container {
     text-align: center;
 }
 
+
+
+
 span .passwrd {
     float: left;
     padding-top: 16px;
+} */
+
+.mt-10 {
+    margin-top: 6rem !important;
+}
+
+.mb-10 {
+    margin-bottom: 6rem !important;
+}
+
+.card {
+    background-color: #6F58C9 !important;
+    border-radius: 1rem !important;
+}
+
+.card-title {
+    color: white !important;
+}
+
+.btn-primary {
+    color: #000;
+    background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;
+}
+
+.btn-primary:hover {
+    color: #000;
+    background-color: #BBDBD1 !important;
+    border-color: #BBDBD1 !important;
 }
