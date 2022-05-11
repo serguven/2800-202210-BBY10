@@ -15,28 +15,11 @@
 </head>
 
 <body>
-  <header class="header">
-    <nav class="navbar">
-      <h2><img src="/images/logo.jpg" alt="logo" width="10%">ICARUS</h2>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  
   <form action="/logout" method="POST">
     <div class="profile-form">
       <h1>Your Profile</h1>
       <fieldset class="profile">
-        <div class="profile-info">
-          <label>Name</label>
-          <input type="text" id="nameInput" class="name"  placeholder="Enter your name">
-        </div>
-        <div class="profile-info">
-          <label>Email</label>
-          <input type="email" id="emailInput" class="email"  placeholder="Enter your email">
-        </div>
         <div class="profile-info">
           <label>Firstname</label>
           <input type="text" id="fnameInput" class="fname"  placeholder="Enter your Firstname">
@@ -46,6 +29,14 @@
           <input type="text" id="lnameInput" class="lname"  placeholder="Enter your Lastname">
         </div>
         <div class="profile-info">
+          <label>Email</label>
+          <input type="email" id="emailInput" class="email"  placeholder="Enter your email">
+        </div>
+        <div class="profile-info">
+          <label>userType</label>
+          <input type="text" id="userTypeInput" class="userType"  placeholder="Patient">
+        </div>
+        <div class="profile-info">
           <label>Contact</label>
           <input type="number" id="contactInput" class="contact"  placeholder="Enter your Contact">
         </div>
@@ -53,36 +44,13 @@
       <br>
       <br>
       <div class="profile-container" >
+        <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
         <button type="button" class="btn btn-success">Save</button>
         <button type="submit" class="btn btn-secondary">Log out</button>
       </div>
     </div>
   </form>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-      <footer class="footer">
-        <div class="footer-content">
-          <ul>
-            <li><a href="#">facebook</a></li>
-            <li><a href="#">instagram</a></li>
-           <li><a href="#">twitter</a></li>
-            <li><a href="#">message</a></li>
-          </ul>
-        </div>
-        <div class="description">
-          <ul>
-            <li><a href="#">Contact us</a></li>
-            <li><a href="#">Privacy</a></li>
-            <li><a href="#">Terms of Services</a></li>
-          </ul>
-        </div>
-      </footer>
-    
+  
+    <script src="/server.js"></script>
   </div>
 </body>

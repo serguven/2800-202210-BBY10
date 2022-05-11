@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = require("./models/user");
 const session = require('express-session');
 
+
 const port = 8000;
 
 const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/COMP2800?retryWrites=true&w=majority";
@@ -43,7 +44,7 @@ app.post('/login', (req, res) => {
     User.findOne({
         email: req.body.email,
         password: req.body.password
-    }, function(err, user) {
+    }, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -59,18 +60,37 @@ app.post('/login', (req, res) => {
     });
 })
 
-app.get('/profile', (req, res) => {
+app.get('/profile', async(req, res) => {
+  //  try {
+    //    const profile = await profile.findOne({
+      //      user: req.user.id
+     //   }).populate(
+     //       'user',
+     //       ['firstName', 'lastName', 'email', 'description', 'contact']
+
+      //  );
+
+       // if (!profile) {
+       //     return res.status(400).json({
+       //         msg: 'No profile exists for this user.'
+       //     });
+       // }
+       // res.json(profile);
+    //} catch(err) {
+     //   console.error(err.message);
+     //   res.status(500).send('Server error');       
+    //}
     if (req.session.isLoggedIn) {
-        res.sendFile(path.resolve('public/profile.html'));
+    res.sendFile(path.resolve('public/profile.html'));
     } else {
-        res.redirect('/login');
+       res.redirect('/login');
     }
 })
 
 
 
 app.get('/admin', (req, res) => {
-    if(req.session.isLoggedIn && req.session.user.userType == "Doctor") {
+    if (req.session.isLoggedIn && req.session.user.userType == "Doctor") {
         res.sendFile(path.resolve('public/admin.html'));
     } else {
         res.sendFile(path.resolve('public/notAllowed.html'));
@@ -83,7 +103,7 @@ app.get('/signUp', (req, res) => {
 })
 
 
-app.post('/signUp', async(req, res) => {
+app.post('/signUp', async (req, res) => {
     const new_user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -93,17 +113,19 @@ app.post('/signUp', async(req, res) => {
     });
 
 
-    User.findOne({email: req.body.email}, function(err, user){
-        if(err) {
+    User.findOne({
+        email: req.body.email
+    }, function (err, user) {
+        if (err) {
             console.log(err);
         }
-        if(!user){
+        if (!user) {
             new_user.save()
                 .then((result) => {
                     console.log(result);
                 });
 
-             res.redirect('/login');
+            res.redirect('/login');
         } else {
             console.log('Account with this email adress exists.');
             res.redirect('/signUp');
