@@ -25,6 +25,7 @@
       </ul>
     </nav>
   </header>
+  
   <form action="/logout" method="POST">
     <div class="profile-form">
       <h1>Your Profile</h1>
@@ -43,20 +44,20 @@
             </div>
       <fieldset class="profile">
         <div class="profile-info">
-          <label>Name</label>
-          <input type="text" id="nameInput" class="name"  placeholder="Enter your name">
-        </div>
-        <div class="profile-info">
-          <label>Email</label>
-          <input type="email" id="emailInput" class="email"  placeholder="Enter your email">
-        </div>
-        <div class="profile-info">
           <label>Firstname</label>
           <input type="text" id="fnameInput" class="fname"  placeholder="Enter your Firstname">
         </div>
         <div class="profile-info">
           <label>Lastname</label>
           <input type="text" id="lnameInput" class="lname"  placeholder="Enter your Lastname">
+        </div>
+        <div class="profile-info">
+          <label>Email</label>
+          <input type="email" id="emailInput" class="email"  placeholder="Enter your email">
+        </div>
+        <div class="profile-info">
+          <label>userType</label>
+          <input type="text" id="userTypeInput" class="userType"  placeholder="Patient">
         </div>
         <div class="profile-info">
           <label>Contact</label>
@@ -66,6 +67,7 @@
       <br>
       <br>
       <div class="profile-container" >
+        <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
         <button type="button" class="btn btn-success">Save</button>
         <button type="submit" class="btn btn-secondary">Log out</button>
       </div>
@@ -124,5 +126,7 @@ file.addEventListener('change', function () {
     }
 });
     </script>
+  
+    <script src="/server.js"></script>
   </div>
 </body>
