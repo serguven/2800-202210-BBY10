@@ -100,9 +100,13 @@ body{
 }
 .footer{
     width: 100%;
-    background-color: rgb(85, 153, 125);
+    height: 50px;
+    margin: auto;
+    background-color: #BBDBD1;
+    align-content: center;
 }
 
-.footer glyphicon glyphicon-home{
-    size: 50%;
+.text-light{
+    align-content: center;
 }
+

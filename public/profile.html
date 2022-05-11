@@ -11,13 +11,13 @@
   <title>Icarus</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" rel="css/text" href="/css/profile.css">
+  <link rel="stylesheet" rel="css/text" href="./css/profile.css">
 </head>
 
 <body>
   <header class="header">
     <nav class="navbar">
-      <h2><img src="/images/logo.jpg" alt="logo" width="10%">ICARUS</h2>
+      <h2><img src="./images/logo.jpg" alt="logo" width="10%">ICARUS</h2>
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
@@ -28,6 +28,19 @@
   <form action="/logout" method="POST">
     <div class="profile-form">
       <h1>Your Profile</h1>
+      <br><br>
+      <div class="wrapper-profile">
+        <div class="top-main-profile">
+            <div class="profile-pic-div">
+                <div class="image-div">
+                    <img src="./images/ps.png" alt="" id="photo">
+                    <input type="file" id="file">
+                    <label for="file" id="uploadBtn">Choose a photo</label>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br>
+            </div>
+            </div>
       <fieldset class="profile">
         <div class="profile-info">
           <label>Name</label>
@@ -83,6 +96,33 @@
           </ul>
         </div>
       </footer>
-    
+    <script>
+      const imgDiv = document.querySelector('.profile-pic-div');
+const img = document.querySelector('#photo');
+const file = document.querySelector('#file');
+const uploadBtn = document.querySelector('#uploadBtn');
+
+//if user hover on img div 
+imgDiv.addEventListener('mouseenter', function () {
+    uploadBtn.style.display = "block";
+});
+
+//if we hover out from img div
+imgDiv.addEventListener('mouseleave', function () {
+    uploadBtn.style.display = "none";
+});
+
+//when we choose a photo to upload
+file.addEventListener('change', function () {
+    const chosen = this.files[0];
+    if (chosen) {
+        const reader = new FileReader();
+        reader.addEventListener('load', function () {
+            img.setAttribute('src', reader.result);
+        });
+        reader.readAsDataURL(chosen);
+    }
+});
+    </script>
   </div>
 </body>
