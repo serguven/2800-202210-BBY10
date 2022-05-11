@@ -33,9 +33,24 @@ app.get('/', (req, res) => {
     res.sendFile(path.resolve('public/index.html'));
 })
 
+//////login/logout browser back button cache problem solution (may need checking. revisit this part).///////////////////
+app.use(function(req, res, next) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    next();
+  });
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/login', (req, res) => {
-    res.sendFile(path.resolve('public/login.html'));
+    if(!req.session.isLoggedIn) {
+        res.sendFile(path.resolve('public/login.html'));
+    } else {
+        if(req.session.user.userType == "Doctor") {
+            res.redirect('/admin');
+        } else {
+            res.redirect('/profile');
+        }
+    }
 })
 
 
@@ -55,7 +70,11 @@ app.post('/login', (req, res) => {
         } else {
             req.session.user = user;
             req.session.isLoggedIn = true;
-            return res.redirect('/profile');
+            if(req.session.user.userType == "Doctor") {
+                res.redirect('/admin');
+            } else{
+                res.redirect('/profile');
+            }
         }
     });
 })
@@ -107,6 +126,7 @@ app.post('/signUp', async (req, res) => {
     const new_user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
         userType: req.body.userType
@@ -138,6 +158,22 @@ app.post('/logout', (req, res) => {
     req.session.destroy();
     res.redirect('/login');
 })
+
+////////////////////////////////////////
+app.post('/update', async (req, res) => {
+    if(req.session.isLoggedIn) {
+        User.updateOne({"_id": req.session.user._id},
+            {$set : {"firstName": req.body.firstName,
+                     "lastName": req.body.lastName,
+                     "userName": req.body.userName,
+                     "email": req.body.email}})
+                    //  .then((obj) => {
+                    //     res.json("updated"); (Work on this part)
+                    //  });
+    }
+})
+
+////////////////////////////////////////
 
 
 app.listen(port, () => {
