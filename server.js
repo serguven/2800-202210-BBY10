@@ -78,7 +78,7 @@ app.get('/profile', async(req, res) => {
        // res.json(profile);
     //} catch(err) {
      //   console.error(err.message);
-     //   res.status(500).send('Server error');       
+     //   res.status(500).send('Server error');
     //}
     if (req.session.isLoggedIn) {
     res.sendFile(path.resolve('public/profile.html'));
