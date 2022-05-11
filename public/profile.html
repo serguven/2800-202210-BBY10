@@ -25,25 +25,25 @@
       </ul>
     </nav>
   </header>
-  <form action="/logout" method="POST">
+  <form action="/update" method="POST">
     <div class="profile-form">
       <h1>Your Profile</h1>
       <fieldset class="profile">
         <div class="profile-info">
           <label>Name</label>
-          <input type="text" id="nameInput" class="name"  placeholder="Enter your name">
+          <input type="text" id="nameInput" class="name" name="userName"  placeholder="Enter your name">
         </div>
         <div class="profile-info">
           <label>Email</label>
-          <input type="email" id="emailInput" class="email"  placeholder="Enter your email">
+          <input type="email" id="emailInput" class="email" name="email"  placeholder="Enter your email">
         </div>
         <div class="profile-info">
           <label>Firstname</label>
-          <input type="text" id="fnameInput" class="fname"  placeholder="Enter your Firstname">
+          <input type="text" id="fnameInput" class="fname" name="firstName"  placeholder="Enter your Firstname">
         </div>
         <div class="profile-info">
           <label>Lastname</label>
-          <input type="text" id="lnameInput" class="lname"  placeholder="Enter your Lastname">
+          <input type="text" id="lnameInput" class="lname" name="lastName" placeholder="Enter your Lastname">
         </div>
         <div class="profile-info">
           <label>Contact</label>
@@ -53,7 +53,7 @@
       <br>
       <br>
       <div class="profile-container" >
-        <button type="button" class="btn btn-success">Save</button>
+        <button type="submit" class="btn btn-success">Save</button>
         <button type="submit" class="btn btn-secondary">Log out</button>
       </div>
     </div>
