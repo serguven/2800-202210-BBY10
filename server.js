@@ -192,6 +192,33 @@ app.post('/update', (req, res) => {
 })
 
 ////////////////////////////////////////
+app.post('/delete', (req, res) => {
+    //console.log("Hello world");
+    User.deleteOne({"_id": req.body._id}, function(err, result) {
+        if(err) {
+            console.log(err);
+        }
+        //console.log("Hello world");
+        res.send();
+
+    })
+})
+
+
+app.post('/adminUpdates', (req, res) => {
+    User.updateOne({"_id": req.body._id},
+                   {"firstName": req.body.firstName,
+                    "lastName": req.body.lastName,
+                    "email": req.body.email,
+                    "password": req.body.password,
+                    "userType": req.body.userType}, function(err, result) {
+                        if(err) {
+                            console.log(err);
+                        }
+                        res.send();
+                    })
+})
+
 
 
 

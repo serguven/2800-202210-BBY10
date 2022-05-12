@@ -136,6 +136,7 @@
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
     $('#saveInfo').click(function () {
+      console.log("Hello world");
       $.ajax({
         url: '/update',
         type: 'POST',
@@ -162,7 +163,7 @@
 
 
 
-    // not pedro
+    ///////////////////// profile picture js code ///////////////////////////////////////////
     const imgDiv = document.querySelector('.profile-pic-div');
     const img = document.querySelector('#photo');
     const file = document.querySelector('#file');
