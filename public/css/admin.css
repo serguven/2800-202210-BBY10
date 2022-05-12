@@ -26,3 +26,16 @@
 #action-button-2 {
     border-radius: .5rem;
 }
+
+#addCardButton {
+    border-radius: .5rem;
+}
+
+#separatorTitle {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+/* #populate2 {
+    display: none;
+} */

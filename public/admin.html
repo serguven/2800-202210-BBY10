@@ -20,7 +20,44 @@
     <form class="d-flex" id="search-bar">
         <input class="form-control me-2 br" type="search" placeholder="Search User" aria-label="Search">
         <button class="btn btn-outline-success br" type="submit">Search</button>
+        <button class="btn btn-outline-success br" type="submit" id="addCard" onclick="showCard()">Add</button>
     </form>
+    <div class="addUserCard" id="addUser">
+        <div class="card br">
+            <div class="card-body">
+                <div class="card-title d-flex">
+                    <h3>Add New User</h3>
+                </div>
+                <div class="card-text d-flex">
+                    <label class="me-3">First Name:</label>
+                    <div id="firstName" contenteditable="true">Enter User's First Name</div>
+                </div>
+                <div class="card-text d-flex">
+                    <label class="me-3">Last Name:</label>
+                    <div id="lastName" contenteditable="true">Enter User's Last Name</div>
+                </div>
+                <div class="card=text d-flex">
+                    <label class="me-3">Email:</label>
+                    <div id="email" contenteditable="true">Enter User's Email</div>
+                </div>
+                <div class="card=text d-flex">
+                    <label class="me-3">Password:</label>
+                    <div id="password" contenteditable="true">Enter User's Password</div>
+                </div>
+                <div class="card=text d-flex">
+                    <label class="me-3">User Type:</label>
+                    <div id="userType" contenteditable="true">Enter User's Role</div>
+                </div>
+                <div class="btn-group d-flex mt-3" role="group" aria-label="Basic mixed styles example">
+                    <button type="button" class="btn btn-success mx-2" id="addCardButton">Add</button>
+                    <!-- <button type="button" class="btn btn-danger mx-2" id="action-button-2">Delete</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="separatorTitle">
+        <h2>All Users</h2>
+    </div>
     <div id="populate">
 
     </div>
@@ -116,23 +153,23 @@
                         s += `</div>`
                         s += `<div class="card-text d-flex">`
                         s += `<label class="me-3">First Name:</label>`
-                        s += `<div id="firstName" contentEditable="true">${user.firstName}</div>`
+                        s += `<div id="firstName" contenteditable="true">${user.firstName}</div>`
                         s += `</div>`
                         s += `<div class="card-text d-flex">`
                         s += `<label class="me-3">Last Name:</label>`
-                        s += `<div id="lastName" contentEditable="true">${user.lastName}</div>`
+                        s += `<div id="lastName" contenteditable="true">${user.lastName}</div>`
                         s += `</div>`
                         s += `<div class="card=text d-flex">`
                         s += `<label class="me-3">Email:</label>`
-                        s += `<div id="email" contentEditable="true">${user.email}</div>`
+                        s += `<div id="email" contenteditable="true">${user.email}</div>`
                         s += `</div>`
                         s += `<div class="card=text d-flex">`
                         s += `<label class="me-3">Password:</label>`
-                        s += `<div id="password" contentEditable="true">${user.password}</div>`
+                        s += `<div id="password" contenteditable="true">${user.password}</div>`
                         s += `</div>`
                         s += `<div class="card=text d-flex">`
                         s += `<label class="me-3">User Type:</label>`
-                        s += `<div id="userType" contentEditable="true">${user.userType}</div>`
+                        s += `<div id="userType" contenteditable="true">${user.userType}</div>`
                         s += `</div>`
                         s += `<div class="btn-group d-flex mt-3" role="group" aria-label="Basic mixed styles example" id="${user._id}">`
                         s += `<button type="button" class="btn btn-success mx-2" id="action-button">Update</button>`
@@ -184,6 +221,27 @@
             })
         })
 
+
+        ///////////////////////////////////////////// create new dataset //////////////////////////////////////////////////////////////////
+        // function showCard() {
+        //     document.getElementById("populate2").style.display = "block";
+        // }
+        $("#addCardButton").click(function() {
+            $.ajax({
+                url: '/signUp',
+                type: 'POST',
+                data: {
+                    firstName: $(this).parent().prev().prev().prev().prev().prev().children("div").text(),
+                    lastName: $(this).parent().prev().prev().prev().prev().children("div").text(),
+                    email: $(this).parent().prev().prev().prev().children("div").text(),
+                    password: $(this).parent().prev().prev().children("div").text(),
+                    userType: $(this).parent().prev().children("div").text(),
+                },
+                success: function (data) {
+                    location.reload();
+                }
+            })
+        })
 
     </script>
 </body>
