@@ -4,6 +4,9 @@ const app = express();
 const mongoose = require('mongoose');
 const User = require("./models/user");
 const session = require('express-session');
+const multer = require('multer');
+const fs = require("fs");
+const Image = require("./models/image.js");
 
 
 const port = 8000;
@@ -80,25 +83,6 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/profile', async(req, res) => {
-  //  try {
-    //    const profile = await profile.findOne({
-      //      user: req.user.id
-     //   }).populate(
-     //       'user',
-     //       ['firstName', 'lastName', 'email', 'description', 'contact']
-
-      //  );
-
-       // if (!profile) {
-       //     return res.status(400).json({
-       //         msg: 'No profile exists for this user.'
-       //     });
-       // }
-       // res.json(profile);
-    //} catch(err) {
-     //   console.error(err.message);
-     //   res.status(500).send('Server error');
-    //}
     if (req.session.isLoggedIn) {
     res.sendFile(path.resolve('public/profile.html'));
     } else {
@@ -106,6 +90,38 @@ app.get('/profile', async(req, res) => {
     }
 })
 
+app.get('/getUserInfo', (req, res) => {
+    User.findOne({
+        _id: req.session.user._id
+    }, function (err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            res.json(user);
+        }
+    });
+})
+
+
+app.get('/getAllUsersInfo', (req, res) => {
+    User.find({}, function (err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            res.json(user);
+        }
+    });
+})
 
 
 app.get('/admin', (req, res) => {
@@ -160,21 +176,62 @@ app.post('/logout', (req, res) => {
 })
 
 ////////////////////////////////////////
-app.post('/update', async (req, res) => {
+app.post('/update', (req, res) => {
     if(req.session.isLoggedIn) {
         User.updateOne({"_id": req.session.user._id},
-            {$set : {"firstName": req.body.firstName,
+                    {"firstName": req.body.firstName,
                      "lastName": req.body.lastName,
-                     "userName": req.body.userName,
-                     "email": req.body.email}})
-                    //  .then((obj) => {
-                    //     res.json("updated"); (Work on this part)
-                    //  });
+                     "userName": req.body.userName}, function(err, result) {
+                         if(err) {
+                             console.log(err);
+                         }
+                         res.send();
+                         //console.log("Hello world");
+                     })
     }
 })
 
 ////////////////////////////////////////
 
+
+
+
+///////////////////store photo to mongoDB///////////////////////
+// var storage = multer.diskStorage({
+//     destination: function(req, file, cb) {
+//         cb(null, 'uploads')
+//     },
+//     filename: function(req, file, cb) {
+//         cb(null, file.fieldname + '-' + Date.now())
+//     }
+// })
+// var upload = multer({ storage: storage })
+// app.post('/uploadphoto', upload.single('myImage'), (req, res) => {
+//     console.log(req.file);
+//     var img = fs.readFileSync(req.file.path);
+//     var encode_img = img.toString('base64');
+//     var final_img = {
+//         contentType: req.file.mimetype,
+//         image: new Buffer(encode_img, 'base64')
+//     };
+
+//     Image.create(final_img, function(err, result) {
+//         if (err) {
+//             console.log(err);
+//         } else {
+//             console.log(result.img.Buffer);
+//             console.log("Saved To database");
+//             res.contentType(final_img.contentType);
+//             res.send(final_img.image);
+//         }
+//     })
+// })
+
+// app.get('/image', function(_, res) {
+//     const doc = fs.readFileSync("./public/profile.html", "utf8");
+//     res.send(doc);
+// });
+/////////////////////store photo to mongoDB//////////////////////
 
 app.listen(port, () => {
     console.log('App is listening');

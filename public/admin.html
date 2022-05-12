@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="./css/admin.css">
     <title>Document</title>
 </head>
+
 <body>
     <div id="admin-title">
         <h1>Admin Dashboard</h1>
@@ -18,7 +21,10 @@
         <input class="form-control me-2 br" type="search" placeholder="Search User" aria-label="Search">
         <button class="btn btn-outline-success br" type="submit">Search</button>
     </form>
-    <div class="card br">
+    <div id="populate">
+
+    </div>
+    <!-- <div class="card br">
         <div class="card-body">
             <div class="card-title d-flex">
                 <h3>User information</h3>
@@ -48,6 +54,53 @@
                 <button type="button" class="btn btn-danger mx-2" id="action-button-2">Delete</button>
             </div>
         </div>
-    </div>
+    </div> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/getAllUsersInfo",
+                type: "GET",
+                success: function (data) {
+                    data.forEach(user => {
+                        var s = `<div class="card br">`
+                        s += `<div class="card-body">`;
+                        s += `<div class="card-title d-flex">`;
+                        s += `<h3>User information</h3>`
+                        s += `</div>`
+                        s += `<div class="card-text d-flex">`
+                        s += `<label class="me-3">First Name:</label>`
+                        s += `<div id="firstName">${user.firstName}</div>`
+                        s += `</div>`
+                        s += `<div class="card-text d-flex">`
+                        s += `<label class="me-3">Last Name:</label>`
+                        s += `<div id="lastName">${user.lastName}</div>`
+                        s += `</div>`
+                        s += `<div class="card=text d-flex">`
+                        s += `<label class="me-3">Email:</label>`
+                        s += `<div id="email">${user.email}</div>`
+                        s += `</div>`
+                        s += `<div class="card=text d-flex">`
+                        s += `<label class="me-3">Password:</label>`
+                        s += `<div id="password">${user.password}</div>`
+                        s += `</div>`
+                        s += `<div class="card=text d-flex">`
+                        s += `<label class="me-3">User Type:</label>`
+                        s += `<div id="userType">${user.userType}</div>`
+                        s += `</div>`
+                        s += `<div class="btn-group d-flex mt-3" role="group" aria-label="Basic mixed styles example">`
+                        s += `<button type="button" class="btn btn-success mx-2" id="action-button">Edit</button>`
+                        s += `<button type="button" class="btn btn-danger mx-2" id="action-button-2">Delete</button>`
+                        s += `</div>`
+                        s += `</div>`
+                        s += `</div>`
+                        $('#populate').append(s);
+                    });
+
+                }
+            })
+        })
+    </script>
 </body>
+
 </html>
