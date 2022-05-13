@@ -40,15 +40,15 @@ app.get('/', (req, res) => {
 app.use(function(req, res, next) {
     res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     next();
-  });
+});
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/login', (req, res) => {
-    if(!req.session.isLoggedIn) {
+    if (!req.session.isLoggedIn) {
         res.sendFile(path.resolve('public/login.html'));
     } else {
-        if(req.session.user.userType == "Doctor") {
+        if (req.session.user.userType == "Doctor") {
             res.redirect('/admin');
         } else {
             res.redirect('/profile');
@@ -58,24 +58,25 @@ app.get('/login', (req, res) => {
 
 
 
-app.post('/login', (req, res) => {
+app.post('/login', async(req, res) => {
     User.findOne({
         email: req.body.email,
         password: req.body.password
-    }, function (err, user) {
+    }, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
         }
         if (!user) {
+            res.json("noUser");
             console.log('No user with such email.');
-            res.redirect('/login');
+
         } else {
             req.session.user = user;
             req.session.isLoggedIn = true;
-            if(req.session.user.userType == "Doctor") {
+            if (req.session.user.userType == "Doctor") {
                 res.redirect('/admin');
-            } else{
+            } else {
                 res.redirect('/profile');
             }
         }
@@ -84,16 +85,16 @@ app.post('/login', (req, res) => {
 
 app.get('/profile', async(req, res) => {
     if (req.session.isLoggedIn) {
-    res.sendFile(path.resolve('public/profile.html'));
+        res.sendFile(path.resolve('public/profile.html'));
     } else {
-       res.redirect('/login');
+        res.redirect('/login');
     }
 })
 
 app.get('/getUserInfo', (req, res) => {
     User.findOne({
         _id: req.session.user._id
-    }, function (err, user) {
+    }, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -109,7 +110,7 @@ app.get('/getUserInfo', (req, res) => {
 
 
 app.get('/getAllUsersInfo', (req, res) => {
-    User.find({}, function (err, user) {
+    User.find({}, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -138,7 +139,7 @@ app.get('/signUp', (req, res) => {
 })
 
 
-app.post('/signUp', async (req, res) => {
+app.post('/signUp', async(req, res) => {
     const new_user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -151,7 +152,7 @@ app.post('/signUp', async (req, res) => {
 
     User.findOne({
         email: req.body.email
-    }, function (err, user) {
+    }, function(err, user) {
         if (err) {
             console.log(err);
         }
@@ -177,25 +178,26 @@ app.post('/logout', (req, res) => {
 
 ////////////////////////////////////////
 app.post('/update', (req, res) => {
-    if(req.session.isLoggedIn) {
-        User.updateOne({"_id": req.session.user._id},
-                    {"firstName": req.body.firstName,
-                     "lastName": req.body.lastName,
-                     "userName": req.body.userName}, function(err, result) {
-                         if(err) {
-                             console.log(err);
-                         }
-                         res.send();
-                         //console.log("Hello world");
-                     })
+    if (req.session.isLoggedIn) {
+        User.updateOne({ "_id": req.session.user._id }, {
+            "firstName": req.body.firstName,
+            "lastName": req.body.lastName,
+            "userName": req.body.userName
+        }, function(err, result) {
+            if (err) {
+                console.log(err);
+            }
+            res.send();
+            //console.log("Hello world");
+        })
     }
 })
 
 ////////////////////////////////////////
 app.post('/delete', (req, res) => {
     //console.log("Hello world");
-    User.deleteOne({"_id": req.body._id}, function(err, result) {
-        if(err) {
+    User.deleteOne({ "_id": req.body._id }, function(err, result) {
+        if (err) {
             console.log(err);
         }
         //console.log("Hello world");
@@ -206,17 +208,18 @@ app.post('/delete', (req, res) => {
 
 
 app.post('/adminUpdates', (req, res) => {
-    User.updateOne({"_id": req.body._id},
-                   {"firstName": req.body.firstName,
-                    "lastName": req.body.lastName,
-                    "email": req.body.email,
-                    "password": req.body.password,
-                    "userType": req.body.userType}, function(err, result) {
-                        if(err) {
-                            console.log(err);
-                        }
-                        res.send();
-                    })
+    User.updateOne({ "_id": req.body._id }, {
+        "firstName": req.body.firstName,
+        "lastName": req.body.lastName,
+        "email": req.body.email,
+        "password": req.body.password,
+        "userType": req.body.userType
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.send();
+    })
 })
 
 

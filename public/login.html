@@ -33,23 +33,43 @@
                         <form class="login-info" action="/login" method="POST">
                             <label class="login-label" for="floatingInput">Enter email address</label>
                             <div class="form-floating mb-3">
-                                <input type="email" name="email" class="form-control" placeholder="name@example.com" required>
+                                <input id="email" type="email" name="email" class="form-control" placeholder="name@example.com" required>
                             </div>
                             <label class="login-label" for="floatingPassword">Enter password</label>
                             <div class="form-floating mb-5">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
+
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold mb-3" type="submit">Login</button>
+                                <button id="loginbutton" class="btn btn-primary btn-login text-uppercase fw-bold mb-3" type="submit">Login</button>
                                 <a href="./index.html" class="btn btn-danger text-uppercase fw-bold">Cancel</a>
                             </div>
+                            <p id="failed-login"></p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $('#loginbutton').click(() => {
+            $.ajax({
+                url: '/login',
+                type: 'POST',
+                data: {
+                    email: $("#email").val(),
+                    password: $("#password").val(),
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data == "noUser") {
+                        document.getElementById("failed-login").innerHTML = "Login failed: User does not exist"
+                    }
+                }
+            })
+        })
+    </script>
 </body>
 
 </html>

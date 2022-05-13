@@ -2,157 +2,127 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-  <title>Icarus</title>
+    <title>Icarus</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" rel="css/text" href="./css/profile.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" rel="css/text" href="./css/profile.css">
 </head>
 
 <body>
-  <header class="header">
-    <nav class="navbar">
-      <h2><img src="./images/logo.jpg" alt="logo" width="10%">ICARUS</h2>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <form action="/logout" method="POST">
-    <div class="profile-form">
-      <h1>Your Profile</h1>
-      <p id="updatedMessage">&nbsp;</p>
-      <br><br>
-      <div class="wrapper-profile">
-        <div class="top-main-profile">
-          <div class="profile-pic-div">
-            <div class="image-div">
-              <img src="./images/ps.png" alt="" id="photo">
-              <input type="file" id="file">
-              <label for="file" id="uploadBtn">Choose a photo</label>
-            </div>
-          </div>
-
-
-
-
-
-          <br><br><br><br><br><br><br>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">User Profile</a>
         </div>
-      </div>
+    </nav>
 
-      <!-- <form id="form2" action="/uploadphoto" enctype="multipart/form-data" method="POST">
+    <form action="/logout" method="POST">
+        <div class="profile-form">
+            <h1>Your Profile</h1>
+            <p id="updatedMessage">&nbsp;</p>
+            <br><br>
+            <div class="wrapper-profile">
+                <div class="top-main-profile">
+                    <div class="profile-pic-div">
+                        <div class="image-div">
+                            <img src="./images/ps.png" alt="" id="photo">
+                            <input type="file" id="file">
+                            <label for="file" id="uploadBtn">Choose a photo</label>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <br><br><br><br><br><br><br>
+                </div>
+            </div>
+
+            <!-- <form id="form2" action="/uploadphoto" enctype="multipart/form-data" method="POST">
         <label for="myImage" class="label">Upload Supporting Document</label>
         <input type="file" name="myImage" accept="image/*">
         <input type="submit" value="Click Me!" id="Submit" />
     </form> -->
-      <fieldset class="profile">
-        <div class="profile-info">
-          <label>User Name</label>
-          <input type="text" id="userNameInput" class="uname" name="userName" placeholder="Enter your User Name">
+            <fieldset class="profile">
+                <div class="profile-info">
+                    <label>User Name</label>
+                    <input type="text" id="userNameInput" class="uname" name="userName" placeholder="Enter your User Name">
+                </div>
+                <div class="profile-info">
+                    <label>First Name</label>
+                    <input type="text" id="fnameInput" class="fname" name="firstName" placeholder="Enter your Firstname">
+                </div>
+                <div class="profile-info">
+                    <label>Last Name</label>
+                    <input type="text" id="lnameInput" class="lname" name="lastName" placeholder="Enter your Lastname">
+                </div>
+                <div class="profile-info">
+                    <label>Email</label>
+                    <input type="email" id="emailInput" class="email" placeholder="Enter your email">
+                </div>
+                <div class="profile-info">
+                    <label>User Type</label>
+                    <input type="text" id="userTypeInput" class="userType" placeholder="Patient">
+                </div>
+                <div class="profile-info">
+                    <label>Contact</label>
+                    <input type="number" id="contactInput" class="contact" placeholder="Enter your Contact">
+                </div>
+            </fieldset>
+            <br>
+            <br>
+            <div class="profile-container">
+                <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
+                <button type="button" class="btn btn-success" id="saveInfo">Save</button>
+                <button type="submit" class="btn btn-secondary" id="logout">Log out</button>
+            </div>
         </div>
-        <div class="profile-info">
-          <label>First Name</label>
-          <input type="text" id="fnameInput" class="fname" name="firstName" placeholder="Enter your Firstname">
-        </div>
-        <div class="profile-info">
-          <label>Last Name</label>
-          <input type="text" id="lnameInput" class="lname" name="lastName" placeholder="Enter your Lastname">
-        </div>
-        <div class="profile-info">
-          <label>Email</label>
-          <input type="email" id="emailInput" class="email" placeholder="Enter your email">
-        </div>
-        <div class="profile-info">
-          <label>User Type</label>
-          <input type="text" id="userTypeInput" class="userType" placeholder="Patient">
-        </div>
-        <div class="profile-info">
-          <label>Contact</label>
-          <input type="number" id="contactInput" class="contact" placeholder="Enter your Contact">
-        </div>
-      </fieldset>
-      <br>
-      <br>
-      <div class="profile-container">
-        <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
-        <button type="button" class="btn btn-success" id="saveInfo">Save</button>
-        <button type="submit" class="btn btn-secondary" id="logout">Log out</button>
-      </div>
-    </div>
-  </form>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <footer class="footer">
-    <div class="footer-content">
-      <ul>
-        <li><a href="#">facebook</a></li>
-        <li><a href="#">instagram</a></li>
-        <li><a href="#">twitter</a></li>
-        <li><a href="#">message</a></li>
-      </ul>
-    </div>
-    <div class="description">
-      <ul>
-        <li><a href="#">Contact us</a></li>
-        <li><a href="#">Privacy</a></li>
-        <li><a href="#">Terms of Services</a></li>
-      </ul>
-    </div>
-  </footer>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
+    </form>
 
-///////////////////////populate user info/////////////////////////////////////////////////////////////////
-    $(document).ready(function () {
-      $.ajax({
-        url: "/getUserInfo",
-        type: "GET",
-        success: function (user) {
-          $("#userNameInput").attr('value', user.userName);
-          $("#fnameInput").attr('value', user.firstName);
-          $("#lnameInput").attr('value', user.lastName);
-          $("#emailInput").attr('value', user.email);
-          $("#userTypeInput").attr('value', user.userType);
-        }
-      })
-    })
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        ///////////////////////populate user info/////////////////////////////////////////////////////////////////
+        $(document).ready(function() {
+            $.ajax({
+                url: "/getUserInfo",
+                type: "GET",
+                success: function(user) {
+                    $("#userNameInput").attr('value', user.userName);
+                    $("#fnameInput").attr('value', user.firstName);
+                    $("#lnameInput").attr('value', user.lastName);
+                    $("#emailInput").attr('value', user.email);
+                    $("#userTypeInput").attr('value', user.userType);
+                }
+            })
+        })
 
 
 
-/////////////////////////////edit profile///////////////////////////////////////////////////////
-    $('#saveInfo').click(function () {
-      console.log("Hello world");
-      $.ajax({
-        url: '/update',
-        type: 'POST',
-        data: {
-          firstName: $("#fnameInput").val(),
-          lastName: $("#lnameInput").val(),
-          userName: $("#userNameInput").val(),
-          email: $("#emailInput").val(),
-          userType: $("#userTypeInput").val(),
-        },
-        success: function (data) {
-          location.reload();
-          document.getElementById("updatedMessage").innerHTML = "User profile updated";
-        }
-      })
-    })
+        /////////////////////////////edit profile///////////////////////////////////////////////////////
+        $('#saveInfo').click(function() {
+            console.log("Hello world");
+            $.ajax({
+                url: '/update',
+                type: 'POST',
+                data: {
+                    firstName: $("#fnameInput").val(),
+                    lastName: $("#lnameInput").val(),
+                    userName: $("#userNameInput").val(),
+                    email: $("#emailInput").val(),
+                    userType: $("#userTypeInput").val(),
+                },
+                success: function(data) {
+                    location.reload();
+                    document.getElementById("updatedMessage").innerHTML = "User profile updated";
+                }
+            })
+        })
 
 
 
@@ -163,36 +133,36 @@
 
 
 
-    ///////////////////// profile picture js code ///////////////////////////////////////////
-    const imgDiv = document.querySelector('.profile-pic-div');
-    const img = document.querySelector('#photo');
-    const file = document.querySelector('#file');
-    const uploadBtn = document.querySelector('#uploadBtn');
+        ///////////////////// profile picture js code ///////////////////////////////////////////
+        const imgDiv = document.querySelector('.profile-pic-div');
+        const img = document.querySelector('#photo');
+        const file = document.querySelector('#file');
+        const uploadBtn = document.querySelector('#uploadBtn');
 
-    //if user hover on img div
-    imgDiv.addEventListener('mouseenter', function () {
-      uploadBtn.style.display = "block";
-    });
-
-    //if we hover out from img div
-    imgDiv.addEventListener('mouseleave', function () {
-      uploadBtn.style.display = "none";
-    });
-
-    //when we choose a photo to upload
-    file.addEventListener('change', function () {
-      const chosen = this.files[0];
-      if (chosen) {
-        const reader = new FileReader();
-        reader.addEventListener('load', function () {
-          img.setAttribute('src', reader.result);
+        //if user hover on img div
+        imgDiv.addEventListener('mouseenter', function() {
+            uploadBtn.style.display = "block";
         });
-        reader.readAsDataURL(chosen);
-      }
-    });
-  </script>
 
-  <!--<script src="/server.js"></script>-->
+        //if we hover out from img div
+        imgDiv.addEventListener('mouseleave', function() {
+            uploadBtn.style.display = "none";
+        });
+
+        //when we choose a photo to upload
+        file.addEventListener('change', function() {
+            const chosen = this.files[0];
+            if (chosen) {
+                const reader = new FileReader();
+                reader.addEventListener('load', function() {
+                    img.setAttribute('src', reader.result);
+                });
+                reader.readAsDataURL(chosen);
+            }
+        });
+    </script>
+
+    <!--<script src="/server.js"></script>-->
 </body>
 
 </html>
