@@ -9,7 +9,7 @@ const fs = require("fs");
 const Image = require("./models/image.js");
 
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 const uri = "mongodb+srv://serguven:y74h9k231@cluster0.tjtky.mongodb.net/COMP2800?retryWrites=true&w=majority";
 mongoose.connect(uri, {
@@ -194,10 +194,10 @@ app.post('/update', (req, res) => {
 })
 
 app.post('/changePassword', (req, res) => {
-    if(req.session.isLoggedIn) {
+    if (req.session.isLoggedIn) {
         User.findOne({
             _id: req.session.user._id
-        }, function (err, user) {
+        }, function(err, user) {
             if (err) {
                 console.log(err);
                 res.redirect('/login');
@@ -206,17 +206,16 @@ app.post('/changePassword', (req, res) => {
                 console.log('User does not exist.');
                 res.redirect('/login');
             } else {
-                if(req.session.user.password === req.body.password) {
+                if (req.session.user.password === req.body.password) {
                     res.send("samePassword");
                 } else {
-                    User.updateOne({"_id": req.session.user._id},
-                                   {"password": req.body.password}, function(err, result) {
-                                       if(err) {
-                                           console.log(err);
-                                       }
-                                       res.send("passChangeSuccess");
-                                   })
-                    //res.send("passChangeSuccess");
+                    User.updateOne({ "_id": req.session.user._id }, { "password": req.body.password }, function(err, result) {
+                            if (err) {
+                                console.log(err);
+                            }
+                            res.send("passChangeSuccess");
+                        })
+                        //res.send("passChangeSuccess");
                 }
                 //res.json(user);
             }
@@ -226,11 +225,11 @@ app.post('/changePassword', (req, res) => {
 
 ////////////////////////////////////////
 app.post('/delete', (req, res) => {
-    User.count({userType: "Doctor"}, (err, result) => {
-        if(err) {
+    User.count({ userType: "Doctor" }, (err, result) => {
+        if (err) {
             console.log(err);
         }
-        if(result > 1) {
+        if (result > 1) {
             User.deleteOne({ "_id": req.body._id }, function(err, result) {
                 if (err) {
                     console.log(err);
