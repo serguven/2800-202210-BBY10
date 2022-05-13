@@ -40,11 +40,6 @@
               <label for="file" id="uploadBtn">Choose a photo</label>
             </div>
           </div>
-
-
-
-
-
           <br><br><br><br><br><br><br>
         </div>
       </div>
@@ -57,28 +52,46 @@
       <fieldset class="profile">
         <div class="profile-info">
           <label>User Name</label>
-          <input type="text" id="userNameInput" class="uname" name="userName" placeholder="Enter your User Name">
+          <input type="text" id="userNameInput" class="uname" name="userName" placeholder="Enter your User Name" disabled>
         </div>
         <div class="profile-info">
           <label>First Name</label>
-          <input type="text" id="fnameInput" class="fname" name="firstName" placeholder="Enter your Firstname">
+          <input type="text" id="fnameInput" class="fname" name="firstName" placeholder="Enter your Firstname" disabled>
         </div>
         <div class="profile-info">
           <label>Last Name</label>
-          <input type="text" id="lnameInput" class="lname" name="lastName" placeholder="Enter your Lastname">
+          <input type="text" id="lnameInput" class="lname" name="lastName" placeholder="Enter your Lastname" disabled>
         </div>
         <div class="profile-info">
           <label>Email</label>
-          <input type="email" id="emailInput" class="email" placeholder="Enter your email">
+          <input type="email" id="emailInput" class="email" placeholder="Enter your email" disabled>
         </div>
         <div class="profile-info">
           <label>User Type</label>
-          <input type="text" id="userTypeInput" class="userType" placeholder="Patient">
+          <input type="text" id="userTypeInput" class="userType" placeholder="Patient" disabled>
         </div>
-        <div class="profile-info">
+        <!-- <div class="profile-info">
           <label>Contact</label>
           <input type="number" id="contactInput" class="contact" placeholder="Enter your Contact">
+        </div> -->
+        <!-- <div class="profile-info">
+          <label>Password</label>
+          <input type="password" id="passwordInput" class="password" placeholder="Password" disabled>
+        </div> -->
+        <div id="passwordChange">
+          <br>
+          <button type="button" class="btn btn-primary" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
+          <div>
+            <br>
+            <p id="newPasswordMessage" hidden>Please Enter New Password!</p>
+            <label id="newPasswordLabel" hidden>New Password </label>
+            <input type="hidden" id="newPasswordInput" class="newPassword" placeholder="New Password"><br><br>
+            <button type="button" class="btn btn-primary" id="submitNewPassword" hidden>Submit New Password</button>
+            <p id="samePassword">&nbsp;</p>
+          </div>
+
         </div>
+        <!-- <div id="newPassword"></div> -->
       </fieldset>
       <br>
       <br>
@@ -128,10 +141,53 @@
           $("#lnameInput").attr('value', user.lastName);
           $("#emailInput").attr('value', user.email);
           $("#userTypeInput").attr('value', user.userType);
+          $("#passwordInput").attr('value', user.password);
         }
       })
     })
 
+
+////////////////////////////////// edit button enables form for editing //////////////////////////////////////
+function editProfile() {
+  document.getElementById("userNameInput").disabled = false;
+  document.getElementById("fnameInput").disabled = false;
+  document.getElementById("lnameInput").disabled = false;
+  document.getElementById("passwordInput").disabled = false;
+  //document.getElementById("passwordInput").setAttribute("type", "text");
+}
+
+
+//////////////////////////////////////////change password//////////////////////////////////////////////////////////
+function changePassword() {
+  document.getElementById("newPasswordMessage").removeAttribute("hidden");
+  document.getElementById("newPasswordLabel").removeAttribute("hidden");
+  document.getElementById("newPasswordInput").setAttribute("type", "text");
+  document.getElementById("submitNewPassword").removeAttribute("hidden");
+  document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
+}
+
+$('#submitNewPassword').click(function () {
+  $.ajax({
+    url: '/changePassword',
+    type: 'POST',
+    data: {
+      password: $("#newPasswordInput").val(),
+    },
+    success: function (data) {
+      if(data == "samePassword") {
+        document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
+      } else if ( data == "passChangeSuccess") {
+        document.getElementById("newPasswordMessage").setAttribute("hidden", "hidden");
+        document.getElementById("newPasswordLabel").setAttribute("hidden", "hidden");
+        document.getElementById("newPasswordInput").setAttribute("type", "hidden");
+        document.getElementById("submitNewPassword").setAttribute("hidden", "hidden");
+        document.getElementById("passwordChangeButton").removeAttribute("hidden");
+
+        document.getElementById("samePassword").innerHTML = "Your password changed successfully.";
+      }
+    }
+  })
+})
 
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////

@@ -145,7 +145,7 @@ app.post('/signUp', async (req, res) => {
         userName: req.body.userName,
         email: req.body.email,
         password: req.body.password,
-        userType: req.body.userType
+        userType: req.body.userType,
     });
 
 
@@ -188,6 +188,42 @@ app.post('/update', (req, res) => {
                          res.send();
                          //console.log("Hello world");
                      })
+    }
+})
+
+app.post('/changePassword', (req, res) => {
+    if(req.session.isLoggedIn) {
+        User.findOne({
+            _id: req.session.user._id
+        }, function (err, user) {
+            if (err) {
+                console.log(err);
+                res.redirect('/login');
+            }
+            if (!user) {
+                console.log('User does not exist.');
+                res.redirect('/login');
+            } else {
+                if(req.session.user.password === req.body.password) {
+                    res.send("samePassword");
+                } else {
+                    User.updateOne({"_id": req.session.user._id},
+                                   {"password": req.body.password}, function(err, result) {
+                                       if(err) {
+                                           console.log(err);
+                                       }
+                                       res.send("passChangeSuccess");
+                                   })
+                    //res.send("passChangeSuccess");
+                }
+                //res.json(user);
+            }
+        });
+
+
+
+
+
     }
 })
 
@@ -259,6 +295,34 @@ app.post('/adminUpdates', (req, res) => {
 //     res.send(doc);
 // });
 /////////////////////store photo to mongoDB//////////////////////
+
+// const profilePicStorage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         cb(null, 'public/uploads')
+//     },
+//     fileName: (req, file, cb) => {
+//         cb(null, Date.now() + '-' + file.originalname)
+//     },
+// });
+
+// const profilePicUpload = multer({storage: profilePicStorage});
+
+// app.post('/uploadProfilePic', profilePicUpload.single('avatar'), (req, res) => {
+//     if(req.file) {
+//         User.updateOne({"_id": req.session.user._id},
+//                         {"profilePic": "./uploads/" + req.file.filename}, function(err, result) {
+//                             if(err) {
+//                                 console.log(err);
+//                             }
+//                             res.send();
+//                         })
+//     }
+// })
+
+
+//////////////////////////////////////////////////////////////////
+
+
 
 app.listen(port, () => {
     console.log('App is listening');
