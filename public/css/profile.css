@@ -108,3 +108,9 @@ h1 {
     background-color: #BBDBD1 !important;
     border-color: #BBDBD1 !important;
 }
+
+#updatedMessage {
+    color: red;
+    text-align: right;
+    font-size: 1.5rem;
+}

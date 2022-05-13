@@ -221,30 +221,33 @@ app.post('/changePassword', (req, res) => {
                 //res.json(user);
             }
         });
-
-
-
-
-
     }
 })
 
 ////////////////////////////////////////
 app.post('/delete', (req, res) => {
-    //console.log("Hello world");
-    User.deleteOne({ "_id": req.body._id }, function(err, result) {
-        if (err) {
+    User.count({userType: "Doctor"}, (err, result) => {
+        if(err) {
             console.log(err);
         }
-        //console.log("Hello world");
-        res.send();
+        if(result > 1) {
+            User.deleteOne({ "_id": req.body._id }, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                res.send();
 
+            })
+        } else {
+            console.log("1 Admin");
+        }
     })
 })
 
 
 app.post('/adminUpdates', (req, res) => {
     User.updateOne({ "_id": req.body._id }, {
+        "userName": req.body.userName,
         "firstName": req.body.firstName,
         "lastName": req.body.lastName,
         "email": req.body.email,
@@ -255,6 +258,38 @@ app.post('/adminUpdates', (req, res) => {
             console.log(err);
         }
         res.send();
+    })
+})
+
+
+app.post('/adminCreatesUser', async(req, res) => {
+    const new_user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        userName: req.body.userName,
+        email: req.body.email,
+        password: req.body.password,
+        userType: req.body.userType,
+    });
+
+
+    User.findOne({
+        email: req.body.email
+    }, function(err, user) {
+        if (err) {
+            console.log(err);
+        }
+        if (!user) {
+            new_user.save()
+                .then((result) => {
+                    console.log(result);
+                });
+
+            res.redirect('/login');
+        } else {
+            console.log('Account with this email adress exists.');
+            res.redirect('/signUp');
+        }
     })
 })
 

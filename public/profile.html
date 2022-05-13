@@ -24,7 +24,7 @@
     <form action="/logout" method="POST">
         <div class="profile-form">
             <h1>Your Profile</h1>
-            <p id="updatedMessage">&nbsp;</p>
+
 
             <div class="wrapper-profile">
                 <div class="top-main-profile">
@@ -52,31 +52,45 @@
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
                         <div class="card border-1 shadow-lg rounded-5 my-5">
                             <div class="card-body p-4 p-sm-5">
-                                <form action="/login" method="POST">
+                                <form>
+                                    <p id="updatedMessage">&nbsp;</p>
+                                    <label class="profile-label">User Name</label>
+                                    <div class="profile-info">
+                                        <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Enter your User Name" disabled>
+                                    </div>
                                     <label class="profile-label">First Name</label>
                                     <div class="profile-info">
-                                        <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name">
+                                        <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name" disabled>
                                     </div>
                                     <label class="profile-label">Last Name</label>
                                     <div class="profile-info">
-                                        <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name">
+                                        <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
                                     </div>
                                     <label class="profile-label">Email</label>
                                     <div class="profile-info">
-                                        <input type="email" id="emailInput" class="form-control" placeholder="Your Email">
-                                    </div>
-                                    <label class="profile-label">Password</label>
-                                    <div class="profile-info">
-                                        <input type="password" id="passwordInput" class="form-control" placeholder="Your password">
+                                        <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
                                     </div>
                                     <label class="profile-label">User Type</label>
                                     <div class="profile-info">
-                                        <input type="text" id="userTypeInput" class="form-control" placeholder="Patient">
+                                        <input type="text" id="userTypeInput" class="form-control" placeholder="Patient" disabled>
                                     </div>
                                     <label class="profile-label form-label" for="formFileLg">Select Image</label>
                                     <div class="profile-info">
-                                        <input class="form-control" id="formFileLg" type="file">
+                                        <input class="form-control" id="formFileLg" type="file" disabled>
                                     </div>
+                                    <div class="profile-container" id="passwordChange">
+                                      <button type="button" class="btn btn-danger" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
+                                    </div>
+                                    <div class="profile-container">
+                                      <div>
+                                        <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
+                                        <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
+                                        <input type="hidden" id="newPasswordInput" class="form-control" placeholder="New Password"><br>
+                                        <button type="button" class="btn btn-danger" id="submitNewPassword" hidden>Submit New Password</button>
+                                        <p class="profile-label" id="samePassword">&nbsp;</p>
+                                      </div>
+                                    </div>
+                                    <br>
                                     <div class="profile-container">
                                         <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
                                         <button type="button" class="btn btn-success" id="saveInfo">Save</button>
@@ -109,6 +123,50 @@
         })
 
 
+        ////////////////////////////////// edit button enables form for editing //////////////////////////////////////
+        function editProfile() {
+          document.getElementById("userNameInput").disabled = false;
+          document.getElementById("fnameInput").disabled = false;
+          document.getElementById("lnameInput").disabled = false;
+          document.getElementById("formFileLg").disabled = false;
+        }
+
+
+
+        //////////////////////////////////////////change password//////////////////////////////////////////////////////////
+        function changePassword() {
+          document.getElementById("newPasswordMessage").removeAttribute("hidden");
+          document.getElementById("newPasswordLabel").removeAttribute("hidden");
+          document.getElementById("newPasswordInput").setAttribute("type", "text");
+          document.getElementById("submitNewPassword").removeAttribute("hidden");
+          document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
+        }
+
+        $('#submitNewPassword').click(function () {
+          $.ajax({
+            url: '/changePassword',
+            type: 'POST',
+            data: {
+              password: $("#newPasswordInput").val(),
+            },
+            success: function (data) {
+              if(data == "samePassword") {
+                document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
+              } else if ( data == "passChangeSuccess") {
+                document.getElementById("newPasswordMessage").setAttribute("hidden", "hidden");
+                document.getElementById("newPasswordLabel").setAttribute("hidden", "hidden");
+                document.getElementById("newPasswordInput").setAttribute("type", "hidden");
+                document.getElementById("submitNewPassword").setAttribute("hidden", "hidden");
+                document.getElementById("passwordChangeButton").removeAttribute("hidden");
+
+                document.getElementById("samePassword").innerHTML = "Your password changed successfully.";
+              }
+            }
+          })
+        })
+
+
+
 
         /////////////////////////////edit profile///////////////////////////////////////////////////////
         $('#saveInfo').click(function() {
@@ -124,8 +182,14 @@
                     userType: $("#userTypeInput").val(),
                 },
                 success: function(data) {
-                    location.reload();
+                    //location.reload();
                     document.getElementById("updatedMessage").innerHTML = "User profile updated";
+
+                    document.getElementById("userNameInput").disabled = true;
+                    document.getElementById("fnameInput").disabled = true;
+                    document.getElementById("lnameInput").disabled = true;
+                    document.getElementById("formFileLg").disabled = true;
+
                 }
             })
         })
