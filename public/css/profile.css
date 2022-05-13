@@ -1,5 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin-top: .5rem;
+}
+
 .bg-dark {
     background-color: #6F58C9 !important;
+}
+
+.card {
+    background-color: #6F58C9 !important;
+    border-radius: 1rem !important;
 }
 
 .profile-container {
@@ -46,24 +61,6 @@
     display: none;
 }
 
-.top-wraper {
-    display: flex;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-    gap: .7rem;
-}
-
-.edit {
-    max-width: 100px;
-    text-align: center;
-    margin: 0 auto;
-}
-
-.username {
-    margin-top: 20rem;
-}
-
 .top-main-profile {
     display: flex;
     /* flex-direction: column; */
@@ -78,6 +75,36 @@
     text-align: center;
 }
 
+.profile-label {
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1.5rem;
+}
+
 .profile-info {
-    padding: 12px 20px;
+    margin-bottom: 1rem;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #7E78D2!important;
+    border-color: #7E78D2;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #B6B8D6 !important;
+    border-color: #dcdefa !important;
+}
+
+.btn-success {
+    color: #000;
+    background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;
+}
+
+.btn-success:hover {
+    color: #000;
+    background-color: #BBDBD1 !important;
+    border-color: #BBDBD1 !important;
 }

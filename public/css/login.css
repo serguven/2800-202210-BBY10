@@ -14,16 +14,8 @@
 }
 
 .login-form p {
-    margin-top: 2rem;
+    margin-top: 1rem;
     font-size: 2rem;
-}
-
-.mt-8 {
-    margin-top: 4rem !important;
-}
-
-.mb-8 {
-    margin-bottom: 4rem !important;
 }
 
 .card {
@@ -51,4 +43,21 @@
     color: #000;
     background-color: #BBDBD1 !important;
     border-color: #BBDBD1 !important;
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: #7E78D2!important;
+    border-color: #7E78D2;
+}
+
+.btn-secondary:hover {
+    color: #fff;
+    background-color: #B6B8D6 !important;
+    border-color: #dcdefa !important;
+}
+
+#failed-login {
+    color: red;
+    margin-top: 1rem;
 }

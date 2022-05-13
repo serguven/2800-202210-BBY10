@@ -25,23 +25,24 @@
 
     <!-- Code derived from https://startbootstrap.com/snippets/login
     Some code was modified from the original to fit within needs of application -->
-    <div class="container mt-8 mb-8">
+    <div class="container mt-2 mb-2">
         <div class="row">
             <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
-                <div class="card border-1 shadow-lg rounded-5 my-5">
+                <div id="form" class="card border-1 shadow-lg rounded-5 my-5">
                     <div class="card-body p-4 p-sm-5">
                         <form class="login-info" action="/login" method="POST">
                             <label class="login-label" for="floatingInput">Enter email address</label>
-                            <div class="form-floating mb-3">
+                            <div class="mb-3">
                                 <input id="email" type="email" name="email" class="form-control" placeholder="name@example.com" required>
                             </div>
                             <label class="login-label" for="floatingPassword">Enter password</label>
-                            <div class="form-floating mb-5">
+                            <div class="mb-5">
                                 <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
 
                             <div class="d-grid">
                                 <button id="loginbutton" class="btn btn-primary btn-login text-uppercase fw-bold mb-3" type="submit">Login</button>
+                                <a href="/signUp" class="btn btn-secondary btn-login text-uppercase fw-bold mb-3">No account, Sign Up</a>
                                 <a href="./index.html" class="btn btn-danger text-uppercase fw-bold">Cancel</a>
                             </div>
                             <p id="failed-login"></p>
@@ -52,6 +53,7 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
     <script>
         $('#loginbutton').click(() => {
             $.ajax({
@@ -62,9 +64,10 @@
                     password: $("#password").val(),
                 },
                 success: function(data) {
+
                     console.log(data);
                     if (data == "noUser") {
-                        document.getElementById("failed-login").innerHTML = "Login failed: User does not exist"
+                        document.getElementById("failed-login").innerHTML = "Login failed"
                     }
                 }
             })

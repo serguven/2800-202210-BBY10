@@ -70,8 +70,8 @@ app.post('/login', async(req, res) => {
         if (!user) {
             res.json("noUser");
             console.log('No user with such email.');
-
         } else {
+
             req.session.user = user;
             req.session.isLoggedIn = true;
             if (req.session.user.userType == "Doctor") {
