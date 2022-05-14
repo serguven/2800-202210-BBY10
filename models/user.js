@@ -25,10 +25,6 @@ const userSchema = new mongoose.Schema({
     userType: {
         type: String,
         required: true
-    },
-    profilePic: {
-        type: String,
-        default: "./images/profile.jpg"
     }
 }, {timestamps: true});
 

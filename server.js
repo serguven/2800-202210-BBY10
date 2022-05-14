@@ -1,3 +1,4 @@
+"use strict";
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -6,7 +7,6 @@ const User = require("./models/user");
 const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
-const Image = require("./models/image.js");
 
 
 const port = process.env.PORT || 8000;
@@ -32,16 +32,14 @@ app.use(session({
 }));
 
 app.get('/', (req, res) => {
-    //res.send('This is the index page');
     res.sendFile(path.resolve('public/index.html'));
 })
 
-//////login/logout browser back button cache problem solution (may need checking. revisit this part).///////////////////
+//////login/logout browser back button cache problem solution ////////////////////
 app.use(function(req, res, next) {
     res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     next();
 });
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.get('/login', (req, res) => {
@@ -176,7 +174,7 @@ app.post('/logout', (req, res) => {
     res.redirect('/login');
 })
 
-////////////////////////////////////////
+/////////////////// user profile updating /////////////////////
 app.post('/update', (req, res) => {
     if (req.session.isLoggedIn) {
         User.updateOne({ "_id": req.session.user._id }, {
@@ -188,7 +186,6 @@ app.post('/update', (req, res) => {
                 console.log(err);
             }
             res.send();
-            //console.log("Hello world");
         })
     }
 })
@@ -215,15 +212,13 @@ app.post('/changePassword', (req, res) => {
                             }
                             res.send("passChangeSuccess");
                         })
-                        //res.send("passChangeSuccess");
                 }
-                //res.json(user);
             }
         });
     }
 })
 
-////////////////////////////////////////
+////////////////////admin dashboard CRUD features////////////////////
 app.post('/delete', (req, res) => {
     User.count({ userType: "Doctor" }, (err, result) => {
         if (err) {
@@ -292,72 +287,7 @@ app.post('/adminCreatesUser', async(req, res) => {
     })
 })
 
-
-
-
-
-///////////////////store photo to mongoDB///////////////////////
-// var storage = multer.diskStorage({
-//     destination: function(req, file, cb) {
-//         cb(null, 'uploads')
-//     },
-//     filename: function(req, file, cb) {
-//         cb(null, file.fieldname + '-' + Date.now())
-//     }
-// })
-// var upload = multer({ storage: storage })
-// app.post('/uploadphoto', upload.single('myImage'), (req, res) => {
-//     console.log(req.file);
-//     var img = fs.readFileSync(req.file.path);
-//     var encode_img = img.toString('base64');
-//     var final_img = {
-//         contentType: req.file.mimetype,
-//         image: new Buffer(encode_img, 'base64')
-//     };
-
-//     Image.create(final_img, function(err, result) {
-//         if (err) {
-//             console.log(err);
-//         } else {
-//             console.log(result.img.Buffer);
-//             console.log("Saved To database");
-//             res.contentType(final_img.contentType);
-//             res.send(final_img.image);
-//         }
-//     })
-// })
-
-// app.get('/image', function(_, res) {
-//     const doc = fs.readFileSync("./public/profile.html", "utf8");
-//     res.send(doc);
-// });
-/////////////////////store photo to mongoDB//////////////////////
-
-// const profilePicStorage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'public/uploads')
-//     },
-//     fileName: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname)
-//     },
-// });
-
-// const profilePicUpload = multer({storage: profilePicStorage});
-
-// app.post('/uploadProfilePic', profilePicUpload.single('avatar'), (req, res) => {
-//     if(req.file) {
-//         User.updateOne({"_id": req.session.user._id},
-//                         {"profilePic": "./uploads/" + req.file.filename}, function(err, result) {
-//                             if(err) {
-//                                 console.log(err);
-//                             }
-//                             res.send();
-//                         })
-//     }
-// })
-
-
-//////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
 
 
 

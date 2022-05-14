@@ -31,11 +31,11 @@
                 <div id="form" class="card border-1 shadow-lg rounded-5 my-5">
                     <div class="card-body p-4 p-sm-5">
                         <form class="login-info" action="/login" method="POST">
-                            <label class="login-label" for="floatingInput">Enter email address</label>
+                            <label class="login-label" for="email">Enter email address</label>
                             <div class="mb-3">
                                 <input id="email" type="email" name="email" class="form-control" placeholder="name@example.com" required>
                             </div>
-                            <label class="login-label" for="floatingPassword">Enter password</label>
+                            <label class="login-label" for="password">Enter password</label>
                             <div class="mb-5">
                                 <input id="password" type="password" name="password" class="form-control" placeholder="Password" required>
                             </div>
@@ -53,26 +53,8 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./js/login.js"></script>
 
-    <script>
-        $('#loginbutton').click(() => {
-            $.ajax({
-                url: '/login',
-                type: 'POST',
-                data: {
-                    email: $("#email").val(),
-                    password: $("#password").val(),
-                },
-                success: function(data) {
-
-                    console.log(data);
-                    if (data == "noUser") {
-                        document.getElementById("failed-login").innerHTML = "Login failed"
-                    }
-                }
-            })
-        })
-    </script>
 </body>
 
 </html>
