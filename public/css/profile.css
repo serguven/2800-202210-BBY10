@@ -12,6 +12,10 @@ h1 {
     background-color: #6F58C9 !important;
 }
 
+.mb-custom {
+    margin-bottom: 15rem;
+}
+
 .card {
     background-color: #6F58C9 !important;
     border-radius: 1rem !important;
