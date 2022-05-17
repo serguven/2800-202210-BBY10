@@ -1,21 +1,22 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-html{
+html {
     font-size: 10px;
     height: 100%;
     min-height: 100%;
 }
 
-body{
+body {
     font-family: "Cairo", sans-serif;
     height: 100%;
     width: 100%;
     font-size: 1.6rem;
 }
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -23,67 +24,70 @@ body{
     height: 10vh;
     padding: 0rem 1rem;
     color: rgb(251, 247, 247);
-    background-color: rgb(68, 20, 11);
-  }
-  
-  .navbar ul {
+    background-color: #B6B8D6;
+}
+
+.navbar ul {
     list-style: none;
-  }
-  
-  .navbar ul li {
+}
+
+.navbar ul li {
     display: inline-block;
     margin-left: 3rem;
     font-size: 1rem;
-  }
-  
-  .navbar h2 {
+}
+
+.navbar h2 {
     font-family: 'Passions Conflict', cursive;
     font-size: 2.25rem;
-  }
-  
-  .navbar ul li a {
+}
+
+.navbar ul li a {
     text-decoration: none;
     color: rgb(251, 250, 250);
     border: 2px solid transparent;
-  }
-  
-  .navbar ul li a:hover {
-    border-bottom: 2px solid rgb(252, 251, 251);
-  }
+}
 
-.container{
+.navbar ul li a:hover {
+    border-bottom: 2px solid rgb(252, 251, 251);
+}
+
+.container {
     width: 80%;
     margin: 2rem auto;
 }
 
-.card{
+.card {
     background-color: #fff;
     box-shadow: 0 0 2.5rem rgba(19, 17, 17, 0.28);
 }
-.card-image{
+
+.card-image {
     height: 35rem;
     overflow: hidden;
 }
-.card-image img{
+
+.card-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-.card-content{
+
+.card-content {
     padding: 2rem;
 }
-.blog-details{
+
+.checked {
+    color: orange;
+    align-items: right;
+}
+
+.blog-details {
     display: flex;
     align-items: center;
 }
-.blog-cta{
-    margin-top: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.button{
+.button {
     padding: 1.6rem 4rem;
     display: inline-block;
     background-color: var(--primary);
@@ -91,22 +95,24 @@ body{
     color: var(--off --white);
     text-decoration: none;
 }
-.share-button{
+
+.share-button {
     width: 5rem;
     height: 5rem;
     border: 0.1rem, solid var(--primary);
     border-radius: 50%;
- 
+
 }
-.footer{
+
+.footer {
     width: 100%;
     height: 50px;
     margin: auto;
     background-color: #BBDBD1;
     align-content: center;
+    display: flex;
 }
 
-.text-light{
+.text-light {
     align-content: center;
 }
-
