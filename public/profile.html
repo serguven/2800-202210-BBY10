@@ -21,26 +21,75 @@
         </div>
     </nav>
 
-    <form action="/logout" method="POST">
-        <div class="profile-form">
-            <h1>Your Profile</h1>
+    <div class="profile-form">
+        <h1 id="welcome-name">Welcome, </h1>
+    </div>
 
-            <div class="container-fluid mb-custom">
-                <div class="profile-pic-div">
-                    <div class="image-div">
-                        <img src="./images/ps.png" alt="" id="photo">
-                        <input type="file" id="file">
-                        <label for="file" id="uploadBtn">Choose a photo</label>
-                    </div>
+
+    <div class="container-fluid mb-custom">
+        <div class="profile-pic-div">
+            <div class="image-div">
+                <img src="./images/ps.png" alt="" id="photo">
+                <input type="file" id="file">
+                <label for="file" id="uploadBtn">Choose a photo</label>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Code derived from https://www.w3schools.com/howto/howto_js_full_page_tabs.asp -->
+    <button class="profile-menu" id="defaultOpen" onclick="openMenu('Blog', this, '#7E78D2')">Blog</button>
+    <button class="profile-menu" onclick="openMenu('Appointments', this, '#7E78D2')">Appointments</button>
+    <button class="profile-menu" onclick="openMenu('Chat', this, '#7E78D2')">Chat</button>
+    <button class="profile-menu" onclick="openMenu('Account', this, '#7E78D2')">Account</button>
+
+    <div id="Blog" class="profile-content">
+        <h1>My Personal Blog</h1>
+
+        <div class="btn-group  mt-3 mb-3" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-success mx-2" id="addPostButton">Add post</button>
+        </div>
+
+        <div class="card br">
+            <div class="card-body">
+                <div class="card-title d-flex">
+                    <h3 id="post-title">Post title</h3>
+                </div>
+                <div class="card-text d-flex mb-5">
+                    <!-- <label class="me-3">Post description</label> -->
+                    <div id="post-desc" contenteditable="true">post description</div>
+                </div>
+                <div class="card-text d-flex">
+                    <!-- <label class="me-3">Post time</label> -->
+                    <div id="time" contenteditable="true">time</div>
+                </div>
+                <div class="btn d-flex justify-content-center mt-3">
+                    <button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>
+                    <button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Code derived from https://startbootstrap.com/snippets/login
+    <div id="Appointments" class="profile-content">
+        <h1>My Appointments</h1>
+        <p>Feature coming soon</p>
+    </div>
+
+    <div id="Chat" class="profile-content">
+        <h1>Chat</h1>
+        <p>Feature coming soon</p>
+    </div>
+
+    <div id="Account" class="profile-content">
+        <h1>My Account</h1>
+        <!-- Code derived from https://startbootstrap.com/snippets/login
     Some code was modified from the original to fit within needs of application -->
+        <form action="/logout" method="POST">
             <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
-                        <div class="card border-1 shadow-lg rounded-5 my-5">
+                        <div class="card mb-5 border-1 rounded-5 my-5">
                             <div class="card-body p-4 p-sm-5">
                                 <fieldset>
                                     <p id="updatedMessage">&nbsp;</p>
@@ -68,17 +117,17 @@
                                     <div class="profile-info">
                                         <input class="form-control" id="formFileLg" type="file" disabled>
                                     </div>
-                                    <div class="profile-container" id="passwordChange">
-                                        <button type="button" class="btn btn-danger" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
+                                    <div class="profile-container mt-5" id="passwordChange">
+                                        <button type="button" class="btn btn-primary" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
                                     </div>
                                     <div class="profile-container">
-                                      <div>
-                                        <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
-                                        <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
-                                        <input type="hidden" id="newPasswordInput" class="form-control"><br>
-                                        <button type="button" class="btn btn-danger" id="submitNewPassword" hidden>Submit New Password</button>
-                                        <p class="profile-label" id="samePassword">&nbsp;</p>
-                                      </div>
+                                        <div>
+                                            <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
+                                            <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
+                                            <input type="hidden" id="newPasswordInput" class="form-control"><br>
+                                            <button type="button" class="btn btn-primary" id="submitNewPassword" hidden>Submit New Password</button>
+                                            <p class="profile-label" id="samePassword">&nbsp;</p>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="profile-container">
@@ -92,9 +141,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-
+        </form>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/profile.js"></script>
 

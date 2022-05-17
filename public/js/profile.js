@@ -1,10 +1,36 @@
 "use strict";
+
+//////////////// Full page tab /////////////
+//https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
+function openMenu(pageName, elmnt, color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("profile-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("profile-menu");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+
+
+
+
+
 ///////////////////////populate user info/////////////////////////////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserInfo",
         type: "GET",
-        success: function (user) {
+        success: function(user) {
+            $("#welcome-name").append(user.firstName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
             $("#lnameInput").attr('value', user.lastName);
@@ -34,14 +60,14 @@ function changePassword() {
     document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
 }
 
-$('#submitNewPassword').click(function () {
+$('#submitNewPassword').click(function() {
     $.ajax({
         url: '/changePassword',
         type: 'POST',
         data: {
             password: $("#newPasswordInput").val(),
         },
-        success: function (data) {
+        success: function(data) {
             if (data == "samePassword") {
                 document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
             } else if (data == "passChangeSuccess") {
@@ -61,7 +87,7 @@ $('#submitNewPassword').click(function () {
 
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
-$('#saveInfo').click(function () {
+$('#saveInfo').click(function() {
     console.log("Hello world");
     $.ajax({
         url: '/update',
@@ -73,7 +99,7 @@ $('#saveInfo').click(function () {
             email: $("#emailInput").val(),
             userType: $("#userTypeInput").val(),
         },
-        success: function (data) {
+        success: function(data) {
             //location.reload();
             document.getElementById("updatedMessage").innerHTML = "User profile updated";
 
@@ -102,21 +128,21 @@ const file = document.querySelector('#file');
 const uploadBtn = document.querySelector('#uploadBtn');
 
 //if user hover on img div
-imgDiv.addEventListener('mouseenter', function () {
+imgDiv.addEventListener('mouseenter', function() {
     uploadBtn.style.display = "block";
 });
 
 //if we hover out from img div
-imgDiv.addEventListener('mouseleave', function () {
+imgDiv.addEventListener('mouseleave', function() {
     uploadBtn.style.display = "none";
 });
 
 //when we choose a photo to upload
-file.addEventListener('change', function () {
+file.addEventListener('change', function() {
     const chosen = this.files[0];
     if (chosen) {
         const reader = new FileReader();
-        reader.addEventListener('load', function () {
+        reader.addEventListener('load', function() {
             img.setAttribute('src', reader.result);
         });
         reader.readAsDataURL(chosen);

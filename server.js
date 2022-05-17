@@ -207,11 +207,11 @@ app.post('/changePassword', (req, res) => {
                     res.send("samePassword");
                 } else {
                     User.updateOne({ "_id": req.session.user._id }, { "password": req.body.password }, function(err, result) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.send("passChangeSuccess");
-                        })
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.send("passChangeSuccess");
+                    })
                 }
             }
         });
