@@ -121,6 +121,7 @@ $('#saveInfo').click(function() {
 
 
 
+
 ///////////////////// profile picture js code ///////////////////////////////////////////
 const imgDiv = document.querySelector('.profile-pic-div');
 const img = document.querySelector('#photo');

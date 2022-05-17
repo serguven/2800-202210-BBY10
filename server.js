@@ -7,6 +7,9 @@ const User = require("./models/user");
 const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
+///////////////////////////////////////////
+const Post = require("./models/post");
+///////////////////////////////////////////
 
 
 const port = process.env.PORT || 8000;
