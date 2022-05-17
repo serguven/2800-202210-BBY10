@@ -52,6 +52,16 @@ body {
     border-bottom: 2px solid rgb(252, 251, 251);
 }
 
+#search-bar {
+    margin-top: 2rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+.br {
+    border-radius: .5rem;
+}
+
 .container {
     width: 80%;
     margin: 2rem auto;
