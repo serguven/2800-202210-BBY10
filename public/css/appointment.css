@@ -1,0 +1,26 @@
+.card {
+    background-color: #6F58C9 !important;
+    border-radius: 1rem !important;
+}
+
+.card-title {
+    color: white !important;
+}
+
+.booking-label {
+    margin-bottom: 1rem;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.btn-primary {
+    color: black;
+    background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;
+}
+
+.btn-primary:hover {
+    color: #000;
+    background-color: #BBDBD1 !important;
+    border-color: #BBDBD1 !important;
+}
