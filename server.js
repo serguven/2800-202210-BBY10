@@ -117,6 +117,7 @@ app.get('/getAllUsersInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
+            console.log(JSON.stringify(user))
             res.json(user);
         }
     });
