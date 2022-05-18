@@ -357,6 +357,19 @@ app.get('/getUserPosts', (req, res) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
+//////Delete the timeline post////////////////
+
+app.post('/deletePost', (req, res) => {
+    Post.deleteOne({
+        "_id": req.body._id
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.send();
+    }
+    )
+})
 
 app.listen(port, () => {
     console.log('App is listening');
