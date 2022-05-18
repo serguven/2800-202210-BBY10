@@ -1,5 +1,7 @@
 "use strict";
 
+// const { type } = require("express/lib/response");
+
 //////////////// Full page tab /////////////
 //https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
 function openMenu(pageName, elmnt, color) {
@@ -142,6 +144,42 @@ $('#postButton').click(function() {
     })
 })
 
+
+
+///////////////////////////////////// populate posts ////////////////////////////////////
+$(document).ready(function () {
+    $.ajax({
+        url: "/getUserPosts",
+        type: "GET",
+        success: function(data) {
+            if(data == "noPost") {
+                console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+            } else {
+                data.forEach(post => {
+                    var s = `<div class="card br">`
+                    s += `<div class="card-body">`
+                    s += `<div class="card-title d-flex">`
+                    s += `<h3 id="post-title">${post.title}</h3>`
+                    s += `</div>`
+                    s += `<div class="card-text d-flex mb-5">`
+                    s += `<div id="post-desc">${post.content}</div>`
+                    s += `</div>`
+                    s += `<div class="card-text d-flex">`
+                    s += `<div id="time">${post.updatedAt}</div>`
+                    s += `</div>`
+                    s += `<div class="btn d-flex justify-content-center mt-3">`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
+                    s += `<button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+                    $('#populatePosts').append(s);
+                })
+            }
+        }
+    })
+})
 
 
 

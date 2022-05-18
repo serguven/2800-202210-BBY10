@@ -335,7 +335,24 @@ app.post('/submitPost', async(req, res) => {
                 });
 
     res.send();
+})
 
+
+app.get('/getUserPosts', (req, res) => {
+    Post.find({
+        userId: req.session.user._id
+    }, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if(post.length == 0) {
+            console.log("nopost");
+            res.send("noPost");
+        } else {
+            res.json(post);
+        }
+    })
 })
 
 ////////////////////////////////////////////////////////////////////////////////////////
