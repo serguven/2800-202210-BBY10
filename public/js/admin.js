@@ -37,7 +37,7 @@ $(document).ready(function () {
                 s += `</div>`
                 s += `<div class="btn-group d-flex mt-3" role="group" aria-label="Basic mixed styles example" id="${user._id}">`
                 s += `<button type="button" class="btn btn-success mx-2" id="action-button">Update</button>`
-                s += `<button type="button" class="btn btn-danger mx-2" id="action-button-2">Delete</button>`
+                s += `<button type="button" class="btn btn-primary mx-2" id="action-button-2">Delete</button>`
                 s += `</div>`
                 s += `</div>`
                 s += `</div>`

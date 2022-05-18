@@ -161,8 +161,8 @@ h1 {
 
 .btn-success {
     color: #000;
-    background-color: #BDEDE0 !important;
-    border-color: #BBDBD1;
+    /*background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;*/
 }
 
 .btn-success:hover {
