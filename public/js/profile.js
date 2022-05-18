@@ -1,5 +1,7 @@
 "use strict";
 
+// const { type } = require("express/lib/response");
+
 //////////////// Full page tab /////////////
 //https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
 function openMenu(pageName, elmnt, color) {
@@ -43,6 +45,10 @@ $(document).ready(function() {
 
 ////////////////////////////////// edit button enables form for editing //////////////////////////////////////
 function editProfile() {
+    /////////////////////////////////////////
+    document.getElementById("emailInput").disabled = false;
+    /////////////////////////////////////////
+
     document.getElementById("userNameInput").disabled = false;
     document.getElementById("fnameInput").disabled = false;
     document.getElementById("lnameInput").disabled = false;
@@ -88,7 +94,7 @@ $('#submitNewPassword').click(function() {
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
 $('#saveInfo').click(function() {
-    console.log("Hello world");
+    //console.log("Hello world");
     $.ajax({
         url: '/update',
         type: 'POST',
@@ -100,19 +106,80 @@ $('#saveInfo').click(function() {
             userType: $("#userTypeInput").val(),
         },
         success: function(data) {
-            //location.reload();
-            document.getElementById("updatedMessage").innerHTML = "User profile updated";
+            if(data == "emailExist") {
+                document.getElementById("emailExist").innerHTML = "This email address already exists.";
+            } else {
+                //location.reload();
+                document.getElementById("updatedMessage").innerHTML = "User profile updated";
 
-            document.getElementById("userNameInput").disabled = true;
-            document.getElementById("fnameInput").disabled = true;
-            document.getElementById("lnameInput").disabled = true;
-            document.getElementById("formFileLg").disabled = true;
+                document.getElementById("userNameInput").disabled = true;
+                document.getElementById("fnameInput").disabled = true;
+                document.getElementById("lnameInput").disabled = true;
+                document.getElementById("formFileLg").disabled = true;
+
+                /////////////////////////////////////////////////////
+                document.getElementById("emailInput").disabled = false;
+                ///////////////////////////////////////////////////////
+            }
+
 
         }
     })
 })
 
 
+
+////////////////////////////////////// submit post /////////////////////////////////////////////
+$('#postButton').click(function() {
+    $.ajax({
+        url: '/submitPost',
+        type: 'POST',
+        data: {
+            title: $("#postTitleValue").val(),
+            content: tinymce.get("postContentValue").getContent(),
+        },
+        success: function(data) {
+            location.reload();
+        }
+    })
+})
+
+
+
+///////////////////////////////////// populate posts ////////////////////////////////////
+$(document).ready(function () {
+    $.ajax({
+        url: "/getUserPosts",
+        type: "GET",
+        success: function(data) {
+            if(data == "noPost") {
+                console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+            } else {
+                data.forEach(post => {
+                    var s = `<div class="card br">`
+                    s += `<div class="card-body">`
+                    s += `<div class="card-title d-flex">`
+                    s += `<h3 id="post-title">${post.title}</h3>`
+                    s += `</div>`
+                    s += `<div class="card-text d-flex mb-5">`
+                    s += `<div id="post-desc">${post.content}</div>`
+                    s += `</div>`
+                    s += `<div class="card-text d-flex">`
+                    s += `<div id="time">${post.updatedAt}</div>`
+                    s += `</div>`
+                    s += `<div class="btn d-flex justify-content-center mt-3">`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
+                    s += `<button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+                    $('#populatePosts').append(s);
+                })
+            }
+        }
+    })
+})
 
 
 
