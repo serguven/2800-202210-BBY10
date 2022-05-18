@@ -165,6 +165,7 @@ app.post('/signUp', async(req, res) => {
     }, function(err, user) {
         if (err) {
             console.log(err);
+            res.redirect('/signUp')
         }
         if (!user) {
             new_user.save()
@@ -172,10 +173,10 @@ app.post('/signUp', async(req, res) => {
                     console.log(result);
                 });
 
-            res.redirect('/login');
+            res.send("newAccount");
         } else {
             console.log('Account with this email adress exists.');
-            res.redirect('/signUp');
+            res.send("emailExist");
         }
     })
 })
@@ -190,29 +191,29 @@ app.post('/logout', (req, res) => {
 app.post('/update', (req, res) => {
     /////////////////////////////
     User.findOne({
-        email: req.body.email,
-    }, function(err, user) {
-        if(err) {
-            console.log(err);
-            res.redirect('/profile');
-        }
-        if(!user) {
-            User.updateOne({ "_id": req.session.user._id }, {
-                "firstName": req.body.firstName,
-                "lastName": req.body.lastName,
-                "userName": req.body.userName,
-                "email": req.body.email
-            }, function(err, result) {
-                if (err) {
-                    console.log(err);
-                }
-                res.send();
-            })
-        } else {
-            res.send("emailExist");
-        }
-    })
-    ///////////////////////////////////
+            email: req.body.email,
+        }, function(err, user) {
+            if (err) {
+                console.log(err);
+                res.redirect('/profile');
+            }
+            if (!user) {
+                User.updateOne({ "_id": req.session.user._id }, {
+                    "firstName": req.body.firstName,
+                    "lastName": req.body.lastName,
+                    "userName": req.body.userName,
+                    "email": req.body.email
+                }, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    res.send();
+                })
+            } else {
+                res.send("emailExist");
+            }
+        })
+        ///////////////////////////////////
 
     // if (req.session.isLoggedIn) {
     //     User.updateOne({ "_id": req.session.user._id }, {
@@ -338,9 +339,9 @@ app.post('/submitPost', async(req, res) => {
 
 
     new_post.save()
-                .then((result) => {
-                    console.log(result);
-                });
+        .then((result) => {
+            console.log(result);
+        });
 
     res.send();
 })
@@ -354,7 +355,7 @@ app.get('/getUserPosts', (req, res) => {
             console.log(err);
             res.redirect('/login');
         }
-        if(post.length == 0) {
+        if (post.length == 0) {
             console.log("nopost");
             res.send("noPost");
         } else {

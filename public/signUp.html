@@ -43,10 +43,13 @@
                             </div>
 
                             <label class="signup-label" for="emailValue">Enter email address</label>
-                            <div class="mb-3">
+
+                            <div class="mb-1">
                                 <input id="emailValue" type="email" name="email" class="form-control" required>
                             </div>
-                            <span id="same-email"></span>
+
+                            <p id="same-email">&nbsp;</p>
+
                             <label class="signup-label" for="passwordValue">Enter password</label>
                             <div class="mb-5">
                                 <input id="passwordValue" type="password" name="password" class="form-control" required>
@@ -60,15 +63,19 @@
                             </div>
 
                             <div class="d-grid">
-                                <button class="btn btn-primary btn-login text-uppercase fw-bold mb-3" type="submit">Sign up</button>
-                                <a href="./index.html" class="btn btn-danger text-uppercase fw-bold">Cancel</a>
+                                <button id="signUpbutton" class="btn btn-primary btn-login text-uppercase fw-bold mb-3" type="button">Sign up</button>
+                                <a href="./index.html" class="btn btn-danger text-uppercase fw-bold mb-2">Cancel</a>
                             </div>
+                            <span id="new-account">&nbsp;</span>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./js/signUp.js"></script>
+
 </body>
 
 </html>
