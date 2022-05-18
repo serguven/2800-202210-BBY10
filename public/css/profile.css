@@ -177,6 +177,13 @@ h1 {
     font-size: 1.5rem;
 }
 
+#emailExist {
+    color: red;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-left: 15rem;
+}
+
 #samePassword {
     color: red;
 }

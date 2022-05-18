@@ -10,7 +10,7 @@
     <script src="https://cdn.tiny.cloud/1/j3eqzvk8wdq8r7rzvvuban723dcn7x8ql4m5cc0s52vt8vg4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
-            selector: "#postContent"
+            selector: "#postContentValue"
         });
     </script>
 
@@ -58,7 +58,7 @@
         <!------------------------------------------------ adding post part (text editor etc) ------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------------------------------->
 
-        <form action="/logout" method="POST">
+        <form>
             <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
@@ -67,16 +67,16 @@
                                 <fieldset>
                                     <label class="profile-label">Title</label>
                                     <div class="profile-info">
-                                        <input type="text" id="postTitle" class="form-control" name="userName" placeholder="Post Title">
+                                        <input type="text" id="postTitleValue" class="form-control" name="postTitle" placeholder="Post Title">
                                     </div>
                                     <label class="profile-label">Content</label>
                                     <div class="profile-info">
-                                        <textarea id="postContent"></textarea>
+                                        <textarea id="postContentValue" name="postContent"></textarea>
                                     </div>
 
-                                    <label class="profile-label form-label" for="formFileLg">Select Image</label>
+                                    <label class="profile-label form-label" for="formFileLg2">Select Image</label>
                                     <div class="profile-info">
-                                        <input class="form-control" id="formFileLg" type="file">
+                                        <input class="form-control" id="formFileLg2" type="file">
                                     </div>
                                     <br>
                                     <div class="profile-container">
@@ -164,7 +164,7 @@
                                     <div class="profile-info">
                                         <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
                                     </div>
-                                    <label class="profile-label">Email</label>
+                                    <label class="profile-label">Email<span id="emailExist">&nbsp;</span></label>
                                     <div class="profile-info">
                                         <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
                                     </div>

@@ -120,7 +120,7 @@ app.get('/getAllUsersInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            console.log(JSON.stringify(user))
+            //console.log(JSON.stringify(user))
             res.json(user);
         }
     });
@@ -180,18 +180,44 @@ app.post('/logout', (req, res) => {
 
 /////////////////// user profile updating /////////////////////
 app.post('/update', (req, res) => {
-    if (req.session.isLoggedIn) {
-        User.updateOne({ "_id": req.session.user._id }, {
-            "firstName": req.body.firstName,
-            "lastName": req.body.lastName,
-            "userName": req.body.userName
-        }, function(err, result) {
-            if (err) {
-                console.log(err);
-            }
-            res.send();
-        })
-    }
+    /////////////////////////////
+    User.findOne({
+        email: req.body.email,
+    }, function(err, user) {
+        if(err) {
+            console.log(err);
+            res.redirect('/profile');
+        }
+        if(!user) {
+            User.updateOne({ "_id": req.session.user._id }, {
+                "firstName": req.body.firstName,
+                "lastName": req.body.lastName,
+                "userName": req.body.userName,
+                "email": req.body.email
+            }, function(err, result) {
+                if (err) {
+                    console.log(err);
+                }
+                res.send();
+            })
+        } else {
+            res.send("emailExist");
+        }
+    })
+    ///////////////////////////////////
+
+    // if (req.session.isLoggedIn) {
+    //     User.updateOne({ "_id": req.session.user._id }, {
+    //         "firstName": req.body.firstName,
+    //         "lastName": req.body.lastName,
+    //         "userName": req.body.userName
+    //     }, function(err, result) {
+    //         if (err) {
+    //             console.log(err);
+    //         }
+    //         res.send();
+    //     })
+    // }
 })
 
 app.post('/changePassword', (req, res) => {
@@ -293,6 +319,26 @@ app.post('/adminCreatesUser', async(req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////
 
+
+//////////////////////////// timeline part //////////////////////////////////////////
+app.post('/submitPost', async(req, res) => {
+    const new_post = new Post({
+        userId: req.session.user._id,
+        title: req.body.title,
+        content: req.body.content,
+    });
+
+
+    new_post.save()
+                .then((result) => {
+                    console.log(result);
+                });
+
+    res.send();
+
+})
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 
 app.listen(port, () => {

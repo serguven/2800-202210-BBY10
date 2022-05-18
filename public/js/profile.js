@@ -43,6 +43,10 @@ $(document).ready(function() {
 
 ////////////////////////////////// edit button enables form for editing //////////////////////////////////////
 function editProfile() {
+    /////////////////////////////////////////
+    document.getElementById("emailInput").disabled = false;
+    /////////////////////////////////////////
+
     document.getElementById("userNameInput").disabled = false;
     document.getElementById("fnameInput").disabled = false;
     document.getElementById("lnameInput").disabled = false;
@@ -88,7 +92,7 @@ $('#submitNewPassword').click(function() {
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
 $('#saveInfo').click(function() {
-    console.log("Hello world");
+    //console.log("Hello world");
     $.ajax({
         url: '/update',
         type: 'POST',
@@ -100,19 +104,43 @@ $('#saveInfo').click(function() {
             userType: $("#userTypeInput").val(),
         },
         success: function(data) {
-            //location.reload();
-            document.getElementById("updatedMessage").innerHTML = "User profile updated";
+            if(data == "emailExist") {
+                document.getElementById("emailExist").innerHTML = "This email address already exists.";
+            } else {
+                //location.reload();
+                document.getElementById("updatedMessage").innerHTML = "User profile updated";
 
-            document.getElementById("userNameInput").disabled = true;
-            document.getElementById("fnameInput").disabled = true;
-            document.getElementById("lnameInput").disabled = true;
-            document.getElementById("formFileLg").disabled = true;
+                document.getElementById("userNameInput").disabled = true;
+                document.getElementById("fnameInput").disabled = true;
+                document.getElementById("lnameInput").disabled = true;
+                document.getElementById("formFileLg").disabled = true;
+
+                /////////////////////////////////////////////////////
+                document.getElementById("emailInput").disabled = false;
+                ///////////////////////////////////////////////////////
+            }
+
 
         }
     })
 })
 
 
+
+////////////////////////////////////// submit post /////////////////////////////////////////////
+$('#postButton').click(function() {
+    $.ajax({
+        url: '/submitPost',
+        type: 'POST',
+        data: {
+            title: $("#postTitleValue").val(),
+            content: tinymce.get("postContentValue").getContent(),
+        },
+        success: function(data) {
+            location.reload();
+        }
+    })
+})
 
 
 
