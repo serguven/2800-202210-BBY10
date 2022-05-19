@@ -61,28 +61,36 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        email: req.body.email
     }, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
         }
         if (!user) {
-            res.json("noUser");
+            res.send("noUser");
             console.log('No user with such email.');
         } else {
-
-            req.session.user = user;
-            req.session.isLoggedIn = true;
-            if (req.session.user.userType == "Doctor") {
-                res.redirect('/admin');
-            } else {
-                res.redirect('/profile');
-            }
+            return authenticate(req, res, user); // checks password
         }
     });
 })
+
+////////checks for password///////
+function authenticate(req, res, user) {
+    if (req.body.password !== user.password) {
+        res.send("wrongPassword");
+        console.log("Incorrect password");
+    } else {
+        req.session.user = user;
+        req.session.isLoggedIn = true;
+        if (req.session.user.userType == "Doctor") {
+            res.send("isAdmin");
+        } else {
+            res.send("isUser");
+        }
+    }
+}
 
 app.get('/profile', async(req, res) => {
     if (req.session.isLoggedIn) {
@@ -400,6 +408,19 @@ app.post('/updatePost', async(req, res) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
+//////Delete the timeline post////////////////
+
+app.post('/deletePost', (req, res) => {
+    Post.deleteOne({
+        "_id": req.body._id
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.send();
+    }
+    )
+})
 
 app.listen(port, () => {
     console.log('App is listening');

@@ -216,6 +216,9 @@ $(document).ready(function () {
                     s += `<div class="btn d-flex justify-content-center mt-3">`
                     s += `<a href="profile?id=${post._id}" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</a>`
                     s += `<button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>`
+                    s += `<div class="btn d-flex justify-content-center mt-3" id="${post._id}">`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
+                    s += `<button type="button" class="btn btn-secondary mx-2 br" id="DeleteCardButton">Delete post</button>`
                     s += `</div>`
                     s += `</div>`
                     s += `</div>`
@@ -260,7 +263,19 @@ $(document).ready(function () {
 })
 
 
-
+////////////////////// Delete timeline post//////////////////
+$(document).on('click','#DeleteCardButton', function() {
+    $.ajax({
+        url: '/deletePost',
+        type: 'POST',
+        data: {
+            _id: $(this).parent().attr('id')
+        },
+        success: function (data) {
+            location.reload();
+        }
+    })
+})
 
 
 function checkedit(){
