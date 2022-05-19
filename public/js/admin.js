@@ -1,10 +1,10 @@
 "use strict";
 ///////////////////////////////////////populate all users to cards //////////////////////////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getAllUsersInfo",
         type: "GET",
-        success: function (data) {
+        success: function(data) {
             data.forEach(user => {
                 var s = `<div class="card br">`
                 s += `<div class="card-body">`;
@@ -43,7 +43,6 @@ $(document).ready(function () {
                 s += `</div>`
                 $('#populate').append(s);
             });
-
         }
     })
 })
@@ -51,14 +50,14 @@ $(document).ready(function () {
 
 
 //////////////////////////////////////////delete card data //////////////////////////////////////////////////////////
-$(document).on('click', '#action-button-2', function () {
+$(document).on('click', '#action-button-2', function() {
     $.ajax({
         url: '/delete',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function (data) {
+        success: function(data) {
             console.log($(this).parent().attr('id'));
             location.reload();
         }
@@ -67,7 +66,7 @@ $(document).on('click', '#action-button-2', function () {
 
 
 /////////////////////////////////////////////update card data //////////////////////////////////////////////////////////////////
-$(document).on('click', '#action-button', function () {
+$(document).on('click', '#action-button', function() {
     $.ajax({
         url: '/adminUpdates',
         type: 'POST',
@@ -80,7 +79,7 @@ $(document).on('click', '#action-button', function () {
             password: $(this).parent().prev().prev().children("div").text(),
             userType: $(this).parent().prev().children("div").text(),
         },
-        success: function (data) {
+        success: function(data) {
             location.reload();
         }
     })
@@ -88,7 +87,7 @@ $(document).on('click', '#action-button', function () {
 
 
 ///////////////////////////////////////////// create new dataset //////////////////////////////////////////////////////////////////
-$("#addCardButton").click(function () {
+$("#addCardButton").click(function() {
     $.ajax({
         url: '/adminCreatesUser',
         type: 'POST',
@@ -100,8 +99,17 @@ $("#addCardButton").click(function () {
             password: $(this).parent().prev().prev().children("div").text(),
             userType: $(this).parent().prev().children("div").text(),
         },
-        success: function (data) {
-            location.reload();
+        success: function(data) {
+            if (data == "newAccount") {
+                document.getElementById("message").innerHTML = "New account created";
+                setTimeout(() => {
+                    window.location = './admin';
+                }, 1000);
+            } else if (data == "invalidUser") {
+                document.getElementById("message").innerHTML = "Not a Doctor or Patient";
+            } else if (data == "emailExists") {
+                document.getElementById("message").innerHTML = "Email is already used";
+            }
         }
     })
 })

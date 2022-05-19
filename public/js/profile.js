@@ -32,7 +32,7 @@ $(document).ready(function() {
         url: "/getUserInfo",
         type: "GET",
         success: function(user) {
-            $("#welcome-name").append(user.firstName);
+            $("#welcome-name").append(user.userName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
             $("#lnameInput").attr('value', user.lastName);
@@ -106,7 +106,7 @@ $('#saveInfo').click(function() {
             userType: $("#userTypeInput").val(),
         },
         success: function(data) {
-            if(data == "emailExist") {
+            if (data == "emailExist") {
                 document.getElementById("emailExist").innerHTML = "This email address already exists.";
             } else {
                 //location.reload();
@@ -147,12 +147,12 @@ $('#postButton').click(function() {
 
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserPosts",
         type: "GET",
         success: function(data) {
-            if(data == "noPost") {
+            if (data == "noPost") {
                 console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {

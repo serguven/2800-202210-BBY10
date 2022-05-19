@@ -307,21 +307,30 @@ app.post('/adminCreatesUser', async(req, res) => {
 
 
     User.findOne({
-        email: req.body.email
+        email: req.body.email,
+        userType: req.body.userType
     }, function(err, user) {
         if (err) {
             console.log(err);
         }
         if (!user) {
+            // if (req.body.userType !== "Doctor" || req.body.userType !== "Patient") {
+            //     console.log("Only Patient and Doctor allowed");
+            //     res.send("invalidUser");
+            // } else {
             new_user.save()
                 .then((result) => {
                     console.log(result);
                 });
 
-            res.redirect('/login');
+            // res.redirect('/login');
+            res.send("newAccount");
+            // }
+
         } else {
             console.log('Account with this email adress exists.');
-            res.redirect('/signUp');
+            // res.redirect('/signUp');
+            res.send("emailExists");
         }
     })
 })
