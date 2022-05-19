@@ -8,6 +8,8 @@ const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
 ///////////////////////////////////////////
+const Doctor = require("./models/doctor")
+///////////////////////////////////////////
 const Post = require("./models/post");
 ///////////////////////////////////////////
 
@@ -420,6 +422,25 @@ app.post('/deletePost', (req, res) => {
         res.send();
     }
     )
+})
+
+/////////////////////////////////add doctor info////////////////
+
+app.post('/save', async(req, res) => {
+    const SaveUser = new Doctor({
+        doctorName: req.body.doctorName,
+        Address: req.body.Address,
+        Qualification: req.body.Qualification,
+        email: req.body.email,
+        contact: req.body.contact,
+        openingtime: req.body.openingtime,
+        closingtime: req.body.closingtime,
+    });
+    SaveUser.save((error, savedUser)=>{
+        if(error) throw error
+        res.json(savedUser)
+    })
+
 })
 
 app.listen(port, () => {
