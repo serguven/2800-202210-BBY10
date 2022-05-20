@@ -148,48 +148,64 @@ $('#postButton').click(function() {
 
 
 
-////////////////////////////////////// update post /////////////////////////////////////////////
-$('#updateButton').click(function() {
-    var searchparams = new URLSearchParams(window.location.search).get('id');
-    $.ajax({
-        url: '/updatePost',
-        type: 'POST',
-        data: {
-            pid:searchparams,
-            title: $("#postTitleValue2").val(),
-            content: tinymce.get("postContentValue2").getContent(),
-        },
-        success: function(data) {
-            // location.reload();
-            window.location.href = '/profile';
-        }
-    })
-})
+////////////////////////////////////// update post (arshnoor)/////////////////////////////////////////////
+// $('#updateButton').click(function() {
+//     var searchparams = new URLSearchParams(window.location.search).get('id');
+//     $.ajax({
+//         url: '/updatePost',
+//         type: 'POST',
+//         data: {
+//             pid:searchparams,
+//             title: $("#postTitleValue2").val(),
+//             content: tinymce.get("postContentValue2").getContent(),
+//         },
+//         success: function(data) {
+//             // location.reload();
+//             window.location.href = '/profile';
+//         }
+//     })
+// })
 
 
-$(document).ready(function () {
-    var searchparams = new URLSearchParams(window.location.search).get('id');
-    if(searchparams){
-    $.ajax({
-        url: "/getUserPostsOne",
-        type: "POST",
-        data: {url:searchparams},
-        success: function(data) {
-            console.log(data);
-            $('#postTitleValue2').val(data.title);
-            // $('#postContentValue22').html(data.content);
-            // tinymce.get("#postContentValue").setContent(data.content);
-            console.log(data.content);
-            tinyMCE.activeEditor.setContent(data.content);
-            // if(data == "noPost") {
-            //     console.log("nopost");
-            //     document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
-            // } else {
-            // }
-        }
-    })
-}
-})
+// $(document).ready(function () {
+//     var searchparams = new URLSearchParams(window.location.search).get('id');
+//     if(searchparams){
+//     $.ajax({
+//         url: "/getUserPostsOne",
+//         type: "POST",
+//         data: {url:searchparams},
+//         success: function(data) {
+//             console.log(data);
+//             $('#postTitleValue2').val(data.title);
+//             // $('#postContentValue22').html(data.content);
+//             // tinymce.get("#postContentValue").setContent(data.content);
+//             console.log(data.content);
+//             tinymce.activeEditor.setContent(data.content);
+//             // if(data == "noPost") {
+//             //     console.log("nopost");
+//             //     document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+//             // } else {
+//             // }
+//         }
+//     })
+// }
+// })
+
+// function checkedit(){
+//     var searchparams = new URLSearchParams(window.location.search).get('id');
+//     if(searchparams){
+//         $(document).ready(function(){
+//             $('#edited').show();
+//             $('#original').hide();
+//         })
+//     }else{
+//         $(document).ready(function(){
+//             $('#edited').hide();
+//             $('#original').show();
+//         })
+//     }
+// }
+// checkedit();
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
 $(document).ready(function () {
@@ -213,11 +229,19 @@ $(document).ready(function () {
                     s += `<div class="card-text d-flex">`
                     s += `<div id="time">${post.updatedAt}</div>`
                     s += `</div>`
-                    s += `<div class="btn d-flex justify-content-center mt-3">`
-                    s += `<a href="profile?id=${post._id}" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</a>`
-                    s += `<button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>`
+
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // s += `<div class="btn d-flex justify-content-center mt-3">`
+                    // s += `<a href="profile?id=${post._id}" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</a>`
+                    // /////not working//////////
+                    // s += `<button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>`
+                    // //////////////////////////
+                    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
                     s += `<div class="btn d-flex justify-content-center mt-3" id="${post._id}">`
+                    ////////not working/////////
                     s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
+                    ///////////////////////////
                     s += `<button type="button" class="btn btn-secondary mx-2 br" id="DeleteCardButton">Delete post</button>`
                     s += `</div>`
                     s += `</div>`
@@ -278,21 +302,7 @@ $(document).on('click','#DeleteCardButton', function() {
 })
 
 
-function checkedit(){
-    var searchparams = new URLSearchParams(window.location.search).get('id');
-    if(searchparams){
-        $(document).ready(function(){
-            $('#edited').show();
-            $('#original').hide();
-        })
-    }else{
-        $(document).ready(function(){
-            $('#edited').hide();
-            $('#original').show();
-        })
-    }
-}
-checkedit();
+
 
 
 
