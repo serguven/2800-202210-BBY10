@@ -1,11 +1,20 @@
+@font-face {
+    font-family: 'Kidstar-Regular';
+    src: url('../fonts/FontsFree-Net-Kidstar.ttf');
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
+.navbar-brand {
+    font-family: 'Kidstar-Regular';
+}
 
-/* Code derived from https://www.w3schools.com/howto/howto_js_full_page_tabs.asp, some code was modified*/
+
+/* Code derived from https://www.w3schools.com/howto/howto_js_full_page_tabs.asp, some code was modified */
 
 
 /* Set height of body and the document to 100% */
@@ -160,13 +169,13 @@ h1 {
 }
 
 .btn-success {
-    color: #000;
+    color: #fff;
     /*background-color: #BDEDE0 !important;
     border-color: #BBDBD1;*/
 }
 
 .btn-success:hover {
-    color: #000;
+    color: #fff;
     background-color: #BBDBD1 !important;
     border-color: #BBDBD1 !important;
 }
@@ -187,6 +196,71 @@ h1 {
 #samePassword {
     color: red;
 }
+
+
+/* Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout */
+
+.logout-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 1rem;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.logout-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.logout-header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+
+#logout-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.logout-body {
+    padding: 1rem;
+}
+
+#logout-message {
+    margin-bottom: 1rem;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(112, 112, 112, 0.315);
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.logoutbtn-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+/*  */
 
 
 /* derived from https://stackoverflow.com/questions/39710969/css-variable-font-size-depending-on-text-length */

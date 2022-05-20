@@ -32,7 +32,7 @@ $(document).ready(function() {
         url: "/getUserInfo",
         type: "GET",
         success: function(user) {
-            $("#welcome-name").append(user.firstName);
+            $("#welcome-name").append(user.userName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
             $("#lnameInput").attr('value', user.lastName);
@@ -106,7 +106,7 @@ $('#saveInfo').click(function() {
             userType: $("#userTypeInput").val(),
         },
         success: function(data) {
-            if(data == "emailExist") {
+            if (data == "emailExist") {
                 document.getElementById("emailExist").innerHTML = "This email address already exists.";
             } else {
                 //location.reload();
@@ -118,7 +118,7 @@ $('#saveInfo').click(function() {
                 document.getElementById("formFileLg").disabled = true;
 
                 /////////////////////////////////////////////////////
-                document.getElementById("emailInput").disabled = false;
+                document.getElementById("emailInput").disabled = true;
                 ///////////////////////////////////////////////////////
             }
 
@@ -132,12 +132,12 @@ $('#saveInfo').click(function() {
 
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserPosts",
         type: "GET",
         success: function(data) {
-            if(data == "noPost") {
+            if (data == "noPost") {
                 console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
@@ -152,9 +152,9 @@ $(document).ready(function () {
                     s += `<div id="post-desc">${post.content}</div>`
                     s += `</div>`
 
-                    if(post.postImage.length > 0) {
+                    if (post.postImage.length > 0) {
                         s += `<div class="card-text d-flex mb-5">`
-                        for(let i = 0; i < post.postImage.length; i++) {
+                        for (let i = 0; i < post.postImage.length; i++) {
                             s += `<img src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
                         }
                         s += `</div>`
@@ -179,13 +179,14 @@ $(document).ready(function () {
 
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
-$(document).on('click', '#EditCardButton', function () {
+$(document).on('click', '#EditCardButton', function() {
     $.ajax({
         url: '/getPostInfo',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
-        }, success: function (data) {
+        },
+        success: function(data) {
             window.scrollTo({ top: 0, behavior: 'smooth' })
             console.log(data);
             //document.getElementById("postButton").setAttribute("hidden", "hidden");
@@ -195,9 +196,9 @@ $(document).on('click', '#EditCardButton', function () {
             tinymce.activeEditor.setContent(data.content);
             //$('#formFileLg2').val(data.postImage[0]);
 
-        //     for(let i = 0; i < data.postImage.length; i++){
-        //         console.log(data.postImage[i]);
-        //   }
+            //     for(let i = 0; i < data.postImage.length; i++){
+            //         console.log(data.postImage[i]);
+            //   }
         }
     })
 })
@@ -223,14 +224,14 @@ $(document).on('click', '#EditCardButton', function () {
 
 
 ////////////////////// Delete timeline post//////////////////
-$(document).on('click','#DeleteCardButton', function() {
+$(document).on('click', '#DeleteCardButton', function() {
     $.ajax({
         url: '/deletePost',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function (data) {
+        success: function(data) {
             location.reload();
         }
     })
@@ -268,3 +269,45 @@ file.addEventListener('change', function() {
         reader.readAsDataURL(chosen);
     }
 });
+
+
+
+/////logout modal, code could possibly be reused in other sections/////
+// code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.logout-modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.logout-modal')
+        closeModal(modal)
+    })
+})
+
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}

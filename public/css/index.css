@@ -1,7 +1,16 @@
+@font-face {
+    font-family: 'Kidstar-Regular';
+    src: url('../fonts/FontsFree-Net-Kidstar.ttf');
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-family: 'Kidstar-Regular';
 }
 
 .bg-dark {
@@ -54,4 +63,28 @@
 #signupbutton {
     text-decoration: none;
     text-align: center;
+}
+
+
+/* secret */
+
+#secret {
+    /* source: https://www.w3docs.com/snippets/css/how-to-align-the-content-of-a-div-to-the-bottom.html */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /*  */
+    /* source: https://stackoverflow.com/questions/13990629/html-css-invisible-button */
+    background: transparent;
+    border: none !important;
+    /*  */
+    font-size: 0;
+    width: 5rem;
+    height: 4rem;
+}
+
+@media screen and (max-width: 700px) {
+    #secret {
+        position: relative;
+    }
 }
