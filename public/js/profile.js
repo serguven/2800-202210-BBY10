@@ -155,7 +155,7 @@ $('#updateButton').click(function() {
         url: '/updatePost',
         type: 'POST',
         data: {
-            pid:searchparams,
+            pid: searchparams,
             title: $("#postTitleValue2").val(),
             content: tinymce.get("postContentValue2").getContent(),
         },
@@ -167,28 +167,28 @@ $('#updateButton').click(function() {
 })
 
 
-$(document).ready(function () {
+$(document).ready(function() {
     var searchparams = new URLSearchParams(window.location.search).get('id');
-    if(searchparams){
-    $.ajax({
-        url: "/getUserPostsOne",
-        type: "POST",
-        data: {url:searchparams},
-        success: function(data) {
-            console.log(data);
-            $('#postTitleValue2').val(data.title);
-            // $('#postContentValue22').html(data.content);
-            // tinymce.get("#postContentValue").setContent(data.content);
-            console.log(data.content);
-            tinyMCE.activeEditor.setContent(data.content);
-            // if(data == "noPost") {
-            //     console.log("nopost");
-            //     document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
-            // } else {
-            // }
-        }
-    })
-}
+    if (searchparams) {
+        $.ajax({
+            url: "/getUserPostsOne",
+            type: "POST",
+            data: { url: searchparams },
+            success: function(data) {
+                console.log(data);
+                $('#postTitleValue2').val(data.title);
+                // $('#postContentValue22').html(data.content);
+                // tinymce.get("#postContentValue").setContent(data.content);
+                console.log(data.content);
+                tinyMCE.activeEditor.setContent(data.content);
+                // if(data == "noPost") {
+                //     console.log("nopost");
+                //     document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+                // } else {
+                // }
+            }
+        })
+    }
 })
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
@@ -222,10 +222,10 @@ $(document).ready(function() {
                     s += `</div>`
                     s += `</div>`
                     s += `</div>`
-                    // s += `<div class="modal" id='myModal${post._id}'>`
-                    // s += `<div class="modal-dialog">`
-                    // s += `<div class="modal-content">`
-                    //     s += `<div class="modal-body">`
+                        // s += `<div class="modal" id='myModal${post._id}'>`
+                        // s += `<div class="modal-dialog">`
+                        // s += `<div class="modal-content">`
+                        //     s += `<div class="modal-body">`
 
                     //     s += `<fieldset>`
                     //     s += `<label class="profile-label">Title</label>`
@@ -264,29 +264,29 @@ $(document).ready(function() {
 
 
 ////////////////////// Delete timeline post//////////////////
-$(document).on('click','#DeleteCardButton', function() {
+$(document).on('click', '#DeleteCardButton', function() {
     $.ajax({
         url: '/deletePost',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function (data) {
+        success: function(data) {
             location.reload();
         }
     })
 })
 
 
-function checkedit(){
+function checkedit() {
     var searchparams = new URLSearchParams(window.location.search).get('id');
-    if(searchparams){
-        $(document).ready(function(){
+    if (searchparams) {
+        $(document).ready(function() {
             $('#edited').show();
             $('#original').hide();
         })
-    }else{
-        $(document).ready(function(){
+    } else {
+        $(document).ready(function() {
             $('#edited').hide();
             $('#original').show();
         })
