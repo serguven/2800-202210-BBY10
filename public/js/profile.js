@@ -118,7 +118,7 @@ $('#saveInfo').click(function() {
                 document.getElementById("formFileLg").disabled = true;
 
                 /////////////////////////////////////////////////////
-                document.getElementById("emailInput").disabled = false;
+                document.getElementById("emailInput").disabled = true;
                 ///////////////////////////////////////////////////////
             }
 
@@ -324,3 +324,45 @@ file.addEventListener('change', function() {
         reader.readAsDataURL(chosen);
     }
 });
+
+
+
+/////logout modal, code could possibly be reused in other sections/////
+// code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.logout-modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.logout-modal')
+        closeModal(modal)
+    })
+})
+
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}

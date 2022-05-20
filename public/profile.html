@@ -13,13 +13,13 @@
         // console.log(a);
         // console.log(a.length);
         // for (let i = 0; i < a.length; i++) {
-            // alert('hi');
-            // console.log(a[i]);
-            // const element = a[i];
-            // tinymce.init({
-                // selector: element
-            // });
-    
+        // alert('hi');
+        // console.log(a[i]);
+        // const element = a[i];
+        // tinymce.init({
+        // selector: element
+        // });
+
         // }
         tinymce.init({
             selector: "#postContentValue"
@@ -41,7 +41,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ICARUS</a>
+            <a class="navbar-brand" href="#">icarus</a>
         </div>
     </nav>
 
@@ -110,11 +110,11 @@
                 </div>
             </div>
         </form>
-<style>
-    #edited{
-        display: none;
-    }
-</style>
+        <style>
+            #edited {
+                display: none;
+            }
+        </style>
 
         <form id="edited">
             <div class="container mt-3 mb-3">
@@ -180,12 +180,12 @@
                     <h3 id="post-title">Post title</h3>
                 </div>
                 <div class="card-text d-flex mb-5"> -->
-                    <!-- <label class="me-3">Post description</label> -->
-                    <!-- <div id="post-desc" contenteditable="true">post description</div>
+        <!-- <label class="me-3">Post description</label> -->
+        <!-- <div id="post-desc" contenteditable="true">post description</div>
                 </div>
                 <div class="card-text d-flex"> -->
-                    <!-- <label class="me-3">Post time</label> -->
-                    <!-- <div id="time" contenteditable="true">time</div>
+        <!-- <label class="me-3">Post time</label> -->
+        <!-- <div id="time" contenteditable="true">time</div>
                 </div>
                 <div class="btn d-flex justify-content-center mt-3">
                     <button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>
@@ -209,63 +209,79 @@
         <h1>My Account</h1>
         <!-- Code derived from https://startbootstrap.com/snippets/login
     Some code was modified from the original to fit within needs of application -->
-        <form action="/logout" method="POST">
-            <div class="container mt-3 mb-3">
-                <div class="row">
-                    <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
-                        <div class="card mb-5 border-1 rounded-5 my-5">
-                            <div class="card-body p-4 p-sm-5">
-                                <fieldset>
-                                    <p id="updatedMessage">&nbsp;</p>
-                                    <label class="profile-label">User Name</label>
-                                    <div class="profile-info">
-                                        <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Enter your User Name" disabled>
+        <div class="container mt-3 mb-3">
+            <div class="row">
+                <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
+                    <div class="card mb-5 border-1 rounded-5 my-5">
+                        <div class="card-body p-4 p-sm-5">
+                            <fieldset>
+                                <p id="updatedMessage">&nbsp;</p>
+                                <label class="profile-label">User Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Enter your User Name" disabled>
+                                </div>
+                                <label class="profile-label">First Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name" disabled>
+                                </div>
+                                <label class="profile-label">Last Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
+                                </div>
+                                <label class="profile-label">Email<span id="emailExist">&nbsp;</span></label>
+                                <div class="profile-info">
+                                    <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
+                                </div>
+                                <label class="profile-label">User Type</label>
+                                <div class="profile-info">
+                                    <input type="text" id="userTypeInput" class="form-control" placeholder="Patient" disabled>
+                                </div>
+                                <label class="profile-label form-label" for="formFileLg">Select Image</label>
+                                <div class="profile-info">
+                                    <input class="form-control" id="formFileLg" type="file" disabled>
+                                </div>
+                                <div class="profile-container mt-5" id="passwordChange">
+                                    <button type="button" class="btn btn-primary" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
+                                </div>
+                                <div class="profile-container">
+                                    <div>
+                                        <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
+                                        <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
+                                        <input type="hidden" id="newPasswordInput" class="form-control"><br>
+                                        <button type="button" class="btn btn-primary" id="submitNewPassword" hidden>Submit New Password</button>
+                                        <p class="profile-label" id="samePassword">&nbsp;</p>
                                     </div>
-                                    <label class="profile-label">First Name</label>
-                                    <div class="profile-info">
-                                        <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name" disabled>
-                                    </div>
-                                    <label class="profile-label">Last Name</label>
-                                    <div class="profile-info">
-                                        <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
-                                    </div>
-                                    <label class="profile-label">Email<span id="emailExist">&nbsp;</span></label>
-                                    <div class="profile-info">
-                                        <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
-                                    </div>
-                                    <label class="profile-label">User Type</label>
-                                    <div class="profile-info">
-                                        <input type="text" id="userTypeInput" class="form-control" placeholder="Patient" disabled>
-                                    </div>
-                                    <label class="profile-label form-label" for="formFileLg">Select Image</label>
-                                    <div class="profile-info">
-                                        <input class="form-control" id="formFileLg" type="file" disabled>
-                                    </div>
-                                    <div class="profile-container mt-5" id="passwordChange">
-                                        <button type="button" class="btn btn-primary" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
-                                    </div>
-                                    <div class="profile-container">
-                                        <div>
-                                            <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
-                                            <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
-                                            <input type="hidden" id="newPasswordInput" class="form-control"><br>
-                                            <button type="button" class="btn btn-primary" id="submitNewPassword" hidden>Submit New Password</button>
-                                            <p class="profile-label" id="samePassword">&nbsp;</p>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="profile-container">
-                                        <button type="button" class="btn btn-success" onclick="editProfile()">Edit</button>
-                                        <button type="button" class="btn btn-primary" id="saveInfo">Save</button>
-                                        <button type="submit" class="btn btn-secondary" id="logout">Log out</button>
-                                    </div>
-                                </fieldset>
-                            </div>
+                                </div>
+                                <br>
+                                <div class="profile-container">
+                                    <button type="button" class="btn btn-success" onclick="editProfile()">Edit</button>
+                                    <button type="button" class="btn btn-primary" id="saveInfo">Save</button>
+                                    <!-- <button type="submit" class="btn btn-secondary" id="logout">Log out</button> -->
+                                    <button class="btn btn-secondary" data-modal-target="#logout-modal">Log out</button>
+                                </div>
+                            </fieldset>
+
                         </div>
                     </div>
                 </div>
             </div>
-        </form>
+        </div>
+        <!-- Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout -->
+        <div class="logout-modal" id="logout-modal">
+            <div class="logout-header">
+                <div id="logout-title">Log Out</div>
+            </div>
+            <div class="logout-body">
+                <div id="logout-message">Do you want to log out?</div>
+                <div class="logoutbtn-group">
+                    <button class="btn btn-primary" data-close-button id="close-button">Cancel</button>
+                    <form action="/logout" method="POST">
+                        <button type="submit" class="btn btn-secondary" id="logout">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="overlay"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/profile.js"></script>

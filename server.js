@@ -61,7 +61,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email
+        email: req.body.email.toLowerCase()
     }, function(err, user) {
         if (err) {
             console.log(err);
@@ -314,10 +314,6 @@ app.post('/adminCreatesUser', async(req, res) => {
             console.log(err);
         }
         if (!user) {
-            // if (req.body.userType !== "Doctor" || req.body.userType !== "Patient") {
-            //     console.log("Only Patient and Doctor allowed");
-            //     res.send("invalidUser");
-            // } else {
             new_user.save()
                 .then((result) => {
                     console.log(result);
@@ -325,7 +321,6 @@ app.post('/adminCreatesUser', async(req, res) => {
 
             // res.redirect('/login');
             res.send("newAccount");
-            // }
 
         } else {
             console.log('Account with this email adress exists.');

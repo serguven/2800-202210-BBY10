@@ -105,8 +105,6 @@ $("#addCardButton").click(function() {
                 setTimeout(() => {
                     window.location = './admin';
                 }, 1000);
-            } else if (data == "invalidUser") {
-                document.getElementById("message").innerHTML = "Not a Doctor or Patient";
             } else if (data == "emailExists") {
                 document.getElementById("message").innerHTML = "Email is already used";
             }
