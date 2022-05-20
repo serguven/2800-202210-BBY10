@@ -328,22 +328,74 @@ app.post('/adminCreatesUser', async(req, res) => {
 ///////////////////////////////////////////////////////////////////////////////
 
 
+////////////////////////////// post Image ///////////////////////////////////////////////
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./public/uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+})
+
+const upload = multer({storage: storage});
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 //////////////////////////// timeline part //////////////////////////////////////////
-app.post('/submitPost', async(req, res) => {
+app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
+
     const new_post = new Post({
         userId: req.session.user._id,
-        title: req.body.title,
-        content: req.body.content,
+        title: req.body.postTitle,
+        content: req.body.postContent,
+        postImage: [req.files[0].filename, req.files[1].filename, req.files[2].filename]
+
     });
 
+    //console.log(req.files);
 
     new_post.save()
                 .then((result) => {
                     console.log(result);
                 });
 
-    res.send();
+    //res.send();
+    res.redirect("/profile");
 })
+
+
+
+
+// app.post('/submitPost', upload.single("postImages"), async(req, res) => {
+//     const new_post = new Post({
+//         userId: req.session.user._id,
+//         title: req.body.postTitle,
+//         content: req.body.postContent,
+//         postImage: req.file.filename,
+//     });
+
+
+//     new_post.save()
+//                 .then((result) => {
+//                     console.log(result);
+//                 });
+
+//     //res.send();
+//     res.redirect("/profile");
+// })
+
+
+
+
+
+
+
+
 
 
 app.get('/getUserPosts', (req, res) => {
@@ -358,52 +410,55 @@ app.get('/getUserPosts', (req, res) => {
             console.log("nopost");
             res.send("noPost");
         } else {
+            //console.log(post);
             res.json(post);
         }
     })
 })
 
 
-app.post('/getUserPostsOne', (req, res) => {
-    Post.findOne({
-        _id: req.body.url
-    }, function(err, post) {
-        if (err) {
-            console.log(err);
-            res.redirect('/login');
-        }
-        if(post.length == 0) {
-            console.log("nopost");
-            res.send("noPost");
-        } else {
-            res.json(post);
-        }
-    })
-})
+/////////////////////////////// Arshnoor added ////////////////////////////////////////
+// app.post('/getUserPostsOne', (req, res) => {
+//     Post.findOne({
+//         _id: req.body.url
+//     }, function(err, post) {
+//         if (err) {
+//             console.log(err);
+//             res.redirect('/login');
+//         }
+//         if(post.length == 0) {
+//             console.log("nopost");
+//             res.send("noPost");
+//         } else {
+//             res.json(post);
+//         }
+//     })
+// })
 
 
-app.post('/updatePost', async(req, res) => {
-    // console.log(req.body);
-    // const new_post = new Post({
-    //     userId: req.session.user._id,
-    //     title: req.body.title,
-    //     content: req.body.content,
-    // });
-    // new_post.save()
-    //             .then((result) => {
-    //                 console.log(result);
-    //             });
+// app.post('/updatePost', async(req, res) => {
+//     // console.log(req.body);
+//     // const new_post = new Post({
+//     //     userId: req.session.user._id,
+//     //     title: req.body.title,
+//     //     content: req.body.content,
+//     // });
+//     // new_post.save()
+//     //             .then((result) => {
+//     //                 console.log(result);
+//     //             });
 
-    Post.updateOne({ "_id": req.body.pid }, {
-        "title": req.body.title,
-        "content": req.body.content
-    }).then((succ) => {
-        res.send('OK');
-    })
+//     Post.updateOne({ "_id": req.body.pid }, {
+//         "title": req.body.title,
+//         "content": req.body.content
+//     }).then((succ) => {
+//         res.send('OK');
+//     })
 
 
-    // res.send();
-})
+//     // res.send();
+// })
+/////////////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -422,6 +477,7 @@ app.post('/deletePost', (req, res) => {
     )
 })
 
+//////////////////////////////////////////////
 app.listen(port, () => {
     console.log('App is listening');
 })
