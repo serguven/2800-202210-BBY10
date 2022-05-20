@@ -348,54 +348,60 @@ const upload = multer({storage: storage});
 
 //////////////////////////// timeline part //////////////////////////////////////////
 app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
+    let filenames = [];
+    for (let i =0; i<req.files.length; i++) {
+        if(req.files[i].filename) {
+            filenames.push(req.files[i].filename);
+        }
 
-    const new_post = new Post({
-        userId: req.session.user._id,
-        title: req.body.postTitle,
-        content: req.body.postContent,
-        postImage: [req.files[0].filename, req.files[1].filename, req.files[2].filename]
+    }
 
-    });
 
-    //console.log(req.files);
+    console.log(req.body);
 
-    new_post.save()
-                .then((result) => {
-                    console.log(result);
-                });
+    if(req.body.postId) {
+        Post.findOne({
+            _id: req.body.postId
+        }, function(err, post) {
+            if (err) {
+                console.log(err);
+                res.redirect('/login');
+            }
+            if(post) {
+                Post.updateOne({ "_id": req.body.postId }, {
+                    //"userId": req.session.user._id,
+                    "title": req.body.postTitle,
+                    "content": req.body.postContent,
+                    //"postImage": [req.files[0].filename, req.files[1].filename, req.files[2].filename]
+                }, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    //res.send();
+                    res.redirect("/profile");
+                })
+            }
+        })
+    } else {
+        const new_post = new Post({
+            userId: req.session.user._id,
+            title: req.body.postTitle,
+            content: req.body.postContent,
+            postImage: filenames
 
-    //res.send();
-    res.redirect("/profile");
+        });
+
+        //console.log(req.files);
+
+        new_post.save()
+                    .then((result) => {
+                        console.log(result);
+                    });
+
+        //res.send();
+        res.redirect("/profile");
+    }
 })
-
-
-
-
-// app.post('/submitPost', upload.single("postImages"), async(req, res) => {
-//     const new_post = new Post({
-//         userId: req.session.user._id,
-//         title: req.body.postTitle,
-//         content: req.body.postContent,
-//         postImage: req.file.filename,
-//     });
-
-
-//     new_post.save()
-//                 .then((result) => {
-//                     console.log(result);
-//                 });
-
-//     //res.send();
-//     res.redirect("/profile");
-// })
-
-
-
-
-
-
-
-
 
 
 app.get('/getUserPosts', (req, res) => {
@@ -416,52 +422,27 @@ app.get('/getUserPosts', (req, res) => {
     })
 })
 
-
-/////////////////////////////// Arshnoor added ////////////////////////////////////////
-// app.post('/getUserPostsOne', (req, res) => {
-//     Post.findOne({
-//         _id: req.body.url
-//     }, function(err, post) {
-//         if (err) {
-//             console.log(err);
-//             res.redirect('/login');
-//         }
-//         if(post.length == 0) {
-//             console.log("nopost");
-//             res.send("noPost");
-//         } else {
-//             res.json(post);
-//         }
-//     })
-// })
-
-
-// app.post('/updatePost', async(req, res) => {
-//     // console.log(req.body);
-//     // const new_post = new Post({
-//     //     userId: req.session.user._id,
-//     //     title: req.body.title,
-//     //     content: req.body.content,
-//     // });
-//     // new_post.save()
-//     //             .then((result) => {
-//     //                 console.log(result);
-//     //             });
-
-//     Post.updateOne({ "_id": req.body.pid }, {
-//         "title": req.body.title,
-//         "content": req.body.content
-//     }).then((succ) => {
-//         res.send('OK');
-//     })
+//////////////////////////////// semih update version timeline //////////////////////////////////
+app.post('/getPostInfo', (req, res) => {
+    Post.findOne({
+        _id: req.body._id
+    }, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if(post.length == 0) {
+            console.log("nopost");
+            res.send("noPost");
+        } else {
+            res.json(post);
+        }
+    })
+})
 
 
-//     // res.send();
-// })
-/////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-////////////////////////////////////////////////////////////////////////////////////////
 
 //////Delete the timeline post////////////////
 
