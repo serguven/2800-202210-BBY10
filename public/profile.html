@@ -42,6 +42,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">icarus</a>
+            <!-- lowercase-->
         </div>
     </nav>
 
@@ -256,11 +257,10 @@
                                 <div class="profile-container">
                                     <button type="button" class="btn btn-success" onclick="editProfile()">Edit</button>
                                     <button type="button" class="btn btn-primary" id="saveInfo">Save</button>
-                                    <!-- <button type="submit" class="btn btn-secondary" id="logout">Log out</button> -->
                                     <button class="btn btn-secondary" data-modal-target="#logout-modal">Log out</button>
+                                    <!--leads to pop-up-->
                                 </div>
                             </fieldset>
-
                         </div>
                     </div>
                 </div>
@@ -276,6 +276,7 @@
                 <div class="logoutbtn-group">
                     <button class="btn btn-primary" data-close-button id="close-button">Cancel</button>
                     <form action="/logout" method="POST">
+                        <!-- form is moved to here, functions for editing user info still work regardless-->
                         <button type="submit" class="btn btn-secondary" id="logout">Log out</button>
                     </form>
                 </div>

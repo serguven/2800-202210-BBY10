@@ -61,7 +61,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email.toLowerCase()
+        email: req.body.email.toLowerCase() // make emails go all lowercase
     }, function(err, user) {
         if (err) {
             console.log(err);
