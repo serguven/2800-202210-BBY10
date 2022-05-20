@@ -382,7 +382,7 @@ app.post('/getUserPostsOne', (req, res) => {
             console.log(err);
             res.redirect('/login');
         }
-        if(post.length == 0) {
+        if (post.length == 0) {
             console.log("nopost");
             res.send("noPost");
         } else {
@@ -428,8 +428,7 @@ app.post('/deletePost', (req, res) => {
             console.log(err);
         }
         res.send();
-    }
-    )
+    })
 })
 
 app.listen(port, () => {
