@@ -1,6 +1,6 @@
 "use strict";
 
-// const { type } = require("express/lib/response");
+// const { format } = require("path");
 
 //////////////// Full page tab /////////////
 //https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
@@ -130,19 +130,31 @@ $('#saveInfo').click(function() {
 
 
 ////////////////////////////////////// submit post /////////////////////////////////////////////
-$('#postButton').click(function() {
-    $.ajax({
-        url: '/submitPost',
-        type: 'POST',
-        data: {
-            title: $("#postTitleValue").val(),
-            content: tinymce.get("postContentValue").getContent(),
-        },
-        success: function(data) {
-            location.reload();
-        }
-    })
-})
+// $('#postButton').click(function() {
+//     $.ajax({
+//         url: '/submitPost',
+//         type: 'POST',
+//         data: {
+//             title: $("#postTitleValue").val(),
+//             content: tinymce.get("postContentValue").getContent(),
+//         },
+//         success: function(data) {
+//             location.reload();
+//         }
+//     })
+// })
+
+// $('form#addPostForm').submit(function() {
+//     var formData = new FormData(this);
+//     $.ajax({
+//         url: '/submitPost',
+//         type: 'POST',
+//         data: formData,
+//         success: function(data) {
+//             location.reload();
+//         }
+//     })
+// })
 
 
 
@@ -218,6 +230,7 @@ $(document).ready(function () {
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
                 data.forEach(post => {
+                    var date = new Date(post.updatedAt);
                     var s = `<div class="card br">`
                     s += `<div class="card-body">`
                     s += `<div class="card-title d-flex">`
@@ -226,8 +239,17 @@ $(document).ready(function () {
                     s += `<div class="card-text d-flex mb-5">`
                     s += `<div id="post-desc">${post.content}</div>`
                     s += `</div>`
+
+                    if(post.postImage.length > 0) {
+                        s += `<div class="card-text d-flex mb-5">`
+                        for(let i = 0; i < post.postImage.length; i++) {
+                            s += `<img src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                        }
+                        s += `</div>`
+                    }
+
                     s += `<div class="card-text d-flex">`
-                    s += `<div id="time">${post.updatedAt}</div>`
+                    s += `<div id="time">${date.toLocaleString("en-us", {weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"})}</div>`
                     s += `</div>`
 
                     /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -300,7 +322,6 @@ $(document).on('click','#DeleteCardButton', function() {
         }
     })
 })
-
 
 
 

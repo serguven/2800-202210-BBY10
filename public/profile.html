@@ -76,7 +76,7 @@
         <!------------------------------------------------ adding post part (text editor etc) ------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------------------------------->
 
-        <form id="original">
+        <form action="/submitPost" method="POST" enctype="multipart/form-data" id="addPostForm">
             <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
@@ -95,15 +95,15 @@
 
                                     <label class="profile-label form-label" for="formFileLg2">Select Image</label>
                                     <div class="profile-info">
-                                        <input class="form-control" id="formFileLg2" type="file">
+                                        <input class="form-control" id="formFileLg2" type="file" name="postImages" multiple>
                                     </div>
                                     <br>
                                     <div class="profile-container">
                                         <!-- <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button> -->
                                         <!-- <button type="button" class="btn btn-success" id="saveInfo">Save</button> -->
                                         <!-- <button type="submit" class="btn btn-danger" id="logout">Log out</button> -->
-                                        <button type="button" class="btn btn-primary" id="postButton">Save</button>
-                                        <button type="button" class="btn btn-success" id="cancelPostButton">Cancel</button>
+                                        <button type="submit" class="btn btn-success" id="postButton">Save</button>
+                                        <button type="button" class="btn btn-danger" id="cancelPostButton">Cancel</button>
                                     </div>
                                 </fieldset>
                             </div>
