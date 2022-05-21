@@ -196,6 +196,12 @@ $(document).on('click', '#EditCardButton', function() {
             tinymce.activeEditor.setContent(data.content);
             //$('#formFileLg2').val(data.postImage[0]);
 
+            document.getElementById("imageSelector").removeAttribute("hidden");
+            for(let i = 0; i < data.postImage.length; i++) {
+                document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
+            }
+
             //     for(let i = 0; i < data.postImage.length; i++){
             //         console.log(data.postImage[i]);
             //   }
