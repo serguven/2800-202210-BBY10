@@ -190,12 +190,9 @@ $(document).on('click', '#EditCardButton', function() {
         success: function(data) {
             window.scrollTo({ top: 0, behavior: 'smooth' })
             console.log(data);
-            //document.getElementById("postButton").setAttribute("hidden", "hidden");
-            //document.getElementById("updatePostButton").removeAttribute("hidden");
             $('#postIdValue').val(data._id);
             $('#postTitleValue').val(data.title);
             tinymce.activeEditor.setContent(data.content);
-            //$('#formFileLg2').val(data.postImage[0]);
 
             document.getElementById("imageSelector").removeAttribute("hidden");
             for(let i = 0; i < data.postImage.length; i++) {
@@ -203,28 +200,9 @@ $(document).on('click', '#EditCardButton', function() {
                 document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
             }
 
-            //     for(let i = 0; i < data.postImage.length; i++){
-            //         console.log(data.postImage[i]);
-            //   }
         }
     })
 })
-
-// $(document).on('click', '#updatePostButton', function () {
-//     $.ajax ({
-//         url: '/editPost',
-//         type: 'POST',
-//         data: {
-//             _id: $(this).parent().attr('id'),
-//             title: $("#postTitleValue").val(),
-//             content: tinymce.get("postContentValue").getContent(),
-//         }, success: function (data) {
-//             console.log(data);
-//             document.getElementById("postButton").removeAttribute("hidden");
-//             document.getElementById("updatePostButton").setAttribute("hidden", "hidden");
-//         }
-//     })
-// })
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

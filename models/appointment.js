@@ -29,6 +29,6 @@ const appSchema = new mongoose.Schema({
 })
 
 
-const Appointment = mongoose.model('bby-10-appointments', appSchema);
+const Appointment = mongoose.model('bby_10_appointments', appSchema);
 
 module.exports = Appointment;

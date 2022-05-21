@@ -527,7 +527,7 @@ app.get('/getAllDoctorsInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            console.log(JSON.stringify(user))
+            //console.log(JSON.stringify(user))
             res.json(user);
         }
     });
