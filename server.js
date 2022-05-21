@@ -4,6 +4,8 @@ const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const User = require("./models/user");
+const Doctor = require("./models/doctor");
+const Appointment = require("./models/appointment");
 const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
@@ -486,7 +488,52 @@ app.post('/deletePost', (req, res) => {
     })
 })
 
-//////////////////////////////////////////////
+//////////////////////////Adding doctor/////////////////////////////////////////////////////
+app.post('/addNewDoctor', (req,res) => {
+
+    const new_doctor = new Doctor(req.body);
+    // console.log(req.body);
+    new_doctor.save().then((succ) => {
+        // res.send('Ok');
+        res.redirect('/admin');
+    })
+
+
+})
+
+///////////////////////////////Appointment booking/////////////////////////////////////////////
+app.post('/bookappointment', (req,res) => {
+
+    console.log(req.body);
+ //   const new_appointment = new appointment(req.body);
+ //    console.log(req.body);
+ //    new_appointment.save().then((succ) => {
+ //        res.send('Ok');
+  //     res.redirect('/profile');
+  //   })
+
+
+})
+
+////////////////////////////getting all doctors info/////////////////////////////////////////////////
+app.get('/getAllDoctorsInfo', (req, res) => {
+    Doctor.find({}, function(err, user) {
+        console.log(user);
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            console.log(JSON.stringify(user))
+            res.json(user);
+        }
+    });
+})
+
+
 app.listen(port, () => {
     console.log('App is listening');
 })

@@ -5,7 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
 
 
     <!-- Local CSS -->
@@ -28,11 +31,27 @@
             </form>
         </div>
     </nav>
+    <br>
+
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#home">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#menu1">Doctors</a>
+        </li>
+      </ul>
+      
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane container active" id="home">
+
+            <div id="admin-title">
+                <h1>Admin Dashboard</h1>
+            </div>
+    
 
 
-    <div id="admin-title">
-        <h1>Admin Dashboard</h1>
-    </div>
     <form class="d-flex" id="search-bar">
         <input class="form-control me-2 br" type="search" placeholder="Search User" aria-label="Search">
         <button class="btn btn-outline-success br" type="submit">Search</button>
@@ -80,6 +99,131 @@
     <div id="populate">
 
     </div>
+    </div>
+<div class="tab-pane container fade" id="menu1">
+  
+    <section class="p-4">
+        <div class="container">
+            <div class="text-center">
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reg-modal22">Add Doctor
+                    Information</button>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <div class="modal" id="reg-modal22">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">Doctors Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="">
+                        <div class="row">
+                            <div class="">
+                                <div class="card-body">
+                                    <fieldset>
+                                        <form action="/addNewDoctor" method="POST">
+                                        <p id="Doctorinfo">&nbsp;</p>
+                                        <label class="profile-label">Doctor Name</label>
+                                        <div class="profile-info">
+                                            <input type="text" id="doctorNameInput" class="form-control"
+                                                name="Name" placeholder="Enter Doctor Name">
+                                        </div>
+                                        <label class="profile-label">Address</label>
+                                        <div class="profile-info">
+                                            <input type="text" id="addressInput" class="form-control" name="Address"
+                                                placeholder="Your Address">
+                                        </div>
+                                        <label class="profile-label">Qualification</label>
+                                        <div class="profile-info">
+                                            <input type="text" id="Qualification" class="form-control"
+                                                name="Qualification" placeholder="Your Qualification">
+                                        </div>
+                                        <label class="profile-label">Email</label>
+                                        <div class="profile-info">
+                                            <input type="email" id="email" name="Email" class="form-control"
+                                                placeholder="Your Email">
+                                        </div>
+                                        <label class="profile-label">Contact</label>
+                                        <div class="profile-info">
+                                            <input type="text" id="contactInput" name="Contact" class="form-control"
+                                                placeholder="+1 604-875-9652" pattern="[0-9]{10}"
+                                                required>
+                                        </div>
+                                        <label class="profile-label">OpenAt</label>
+                                        <div class="profile-info">
+                                            <input type="time" id="openInput" name="openAt" class="form-control"
+                                                placeholder="8:00 AM" required>
+                                        </div>
+                                        <label class="profile-label">CloseAt</label>
+                                        <div class="profile-info">
+                                            <input type="time" id="closeInput" name="closeAt" class="form-control"
+                                                placeholder="5:00 PM" required>
+                                        </div>
+                                        <br>
+                                        <div class="profile-container">
+                                            <button type="submit" class="btn btn-success"
+                                                id="saveInfo">Save</button>
+                                        </div>
+                                        </form>
+                                    </fieldset>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>    
+
+
+
+    <div class="col-lg-12">
+
+        <table class="table">
+            <thead>
+                <tr class="info">
+                    <th>Doctors Name</th>
+                    <th>Address</th>
+                    <th>Qualification</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>OpenAt</th>
+                    <th>CloseAt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>jhjdnj</td>
+                    <td>hdg</td>
+                    <td>kjhdng</td>
+                    <td>jd</td>
+                    <td>jhgfbh</td>
+                    <td>hjdfgb</td>
+                    <td>kjhdkb</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/admin.js"></script>

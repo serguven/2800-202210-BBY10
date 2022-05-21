@@ -1,3 +1,18 @@
+@font-face {
+    font-family: 'Kidstar-Regular';
+    src: url('../fonts/FontsFree-Net-Kidstar.ttf');
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-family: 'Kidstar-Regular';
+}
+
 .bg-dark {
     background-color: #6F58C9 !important;
 }
@@ -47,6 +62,7 @@
     text-align: center;
     margin-top: 1rem;
 }
+
 
 /* #populate2 {
     display: none;

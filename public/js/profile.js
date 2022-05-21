@@ -143,7 +143,7 @@ $(document).ready(function() {
             } else {
                 data.forEach(post => {
                     var date = new Date(post.updatedAt);
-                    var s = `<div class="card br">`
+                    var s = `<div class="card br post-card">`
                     s += `<div class="card-body">`
                     s += `<div class="card-title d-flex">`
                     s += `<h3 id="post-title">${post.title}</h3>`
@@ -153,11 +153,12 @@ $(document).ready(function() {
                     s += `</div>`
 
                     if (post.postImage.length > 0) {
-                        s += `<div class="card-text d-flex mb-5">`
+
                         for (let i = 0; i < post.postImage.length; i++) {
-                            s += `<img src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                            s += `<div class="card-text post-images mb-5">`
+                            s += `<img id="responsive" src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                            s += `</div>`
                         }
-                        s += `</div>`
                     }
 
                     s += `<div class="card-text d-flex">`
@@ -165,7 +166,7 @@ $(document).ready(function() {
                     s += `</div>`
 
                     s += `<div class="btn d-flex justify-content-center mt-3" id="${post._id}">`
-                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton" >Edit post</button>`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
                     s += `<button type="button" class="btn btn-secondary mx-2 br" id="DeleteCardButton">Delete post</button>`
                     s += `</div>`
                     s += `</div>`
@@ -245,6 +246,96 @@ $(document).on('click', '#DeleteCardButton', function() {
 
 
 
+/////////////////////////////////////// Doctor info form ////////////////////////////////////////////////////////////////
+
+$(document).ready(function() {
+    $.ajax({
+        url: "/getAllDoctorsInfo",
+        type: "GET",
+        success: function(data) {
+            if (data == "noPost") {
+                console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+            } else {
+                data.forEach(post => {
+                    console.log(post);
+
+                    var s = `<table class='table'>`
+                    s += `<td>${post.Name}</td>`
+                    s += `<br><br>`
+                    s += `<td>${post.Address}</td>`
+                    s += `<td>${post.Qualification}</td>`
+                    s += `<td>${post.Email}</td>`
+                    s += `<td>${post.Contact}</td>`
+                    s += `<td>${post.openAt}</td>`
+                    s += `<td>${post.closeAt}</td>`
+                    s += `<td><button type="button" data-bs-toggle="modal" data-bs-target="#myModal${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</button></td>`
+
+
+                    s += `<div class="modal" id="myModal${post._id}">`
+                    s += `<div class="modal-dialog">`
+                    s += `<div class="modal-content">`
+                    s += `<div class="modal-header">`
+                    s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
+                    s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
+                    s += `</div>`
+                    s += `<div class="modal-body">`
+
+                    s += `<form class="booking-info" action="/bookappointment" method="POST">`
+                    s += `<input type='hidden' name='uid' value="${post.Name}" >`
+                    s += `<label class="booking-label" for="name">Name</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="date">Date</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="day">Day</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="time">Time</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="time" type="time" name="time" class="form-control" placeholder="time"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="Contact">Contact</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652"`
+                    s += `pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>`
+                    s += `</div>`
+                    s += `<div class="d-grid">`
+                    s += `<button id="confirmbutton" class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3"`
+                    s += `type="submit">Book an Appointment</button>`
+                    s += `</div>`
+                    s += `</form>`
+
+
+
+
+                    s += `</div>`
+                    s += `<div class="modal-footer">`
+                    s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+
+
+
+                    s += `</table>`
+                    $('#allDoctors').append(s);
+
+                })
+            }
+        }
+    })
+})
+
 
 
 
@@ -292,7 +383,7 @@ openModalButtons.forEach(button => {
 })
 
 overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.logout-modal.active')
+    const modals = document.querySelectorAll('.popup-modal.active')
     modals.forEach(modal => {
         closeModal(modal)
     })
@@ -300,7 +391,7 @@ overlay.addEventListener('click', () => {
 
 closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
-        const modal = button.closest('.logout-modal')
+        const modal = button.closest('.popup-modal')
         closeModal(modal)
     })
 })
