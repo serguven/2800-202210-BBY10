@@ -1,34 +1,38 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-    firstName: {
+const docSchema = new mongoose.Schema({
+    Name: {
         type: String,
         required: true,
     },
-    lastName: {
+    Address: {
         type: String,
         required: true,
     },
-    userName: {
+    Qualification: {
         type: String,
         required: true,
     },
-    email: {
+    Email: {
         type: String,
         required: true,
         unique: true
     },
-    password: {
+    Contact: {
         type: String,
         required: true
     },
-    userType: {
+    openAt: {
         type: String,
-        required: true
+        required: true,
+    },
+    closeAt: {
+        type: String,
+        required: true,
     }
-}, {timestamps: true});
+})
 
 
-const User = mongoose.model('bby_10_user', userSchema);
+const Doctor = mongoose.model('bby_10_psychiatrists', docSchema);
 
-module.exports = User;
+module.exports = Doctor;

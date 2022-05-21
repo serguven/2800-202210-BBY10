@@ -1,34 +1,34 @@
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
-    firstName: {
+const appSchema = new mongoose.Schema({
+    uid: {
         type: String,
         required: true,
     },
-    lastName: {
+    name: {
         type: String,
         required: true,
     },
-    userName: {
+    dateInput: {
         type: String,
         required: true,
     },
-    email: {
+    date: {
         type: String,
         required: true,
         unique: true
     },
-    password: {
+    time: {
         type: String,
         required: true
     },
-    userType: {
+    Contact: {
         type: String,
-        required: true
+        required: true,
     }
-}, {timestamps: true});
+})
 
 
-const User = mongoose.model('bby_10_user', userSchema);
+const Appointment = mongoose.model('bby_10_appointments', appSchema);
 
-module.exports = User;
+module.exports = Appointment;

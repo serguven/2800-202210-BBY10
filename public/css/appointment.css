@@ -1,21 +1,29 @@
-.signup-form {
-    margin-top: 5rem;
-    text-align: center;
-    font-size: 3rem;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.mt-8 {
+    margin-top: 4rem !important;
+}
+
+.mb-8 {
+    margin-bottom: 4rem !important;
 }
 
 .card {
     background-color: #B6B8D6 !important;
     border-radius: 1rem !important;
-    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.315) !important;
 }
 
 .card-title {
     color: white !important;
 }
 
-.signup-label {
+.booking-label {
     margin-bottom: 1rem;
+    color: white;
     font-size: 1.5rem;
 }
 
@@ -29,17 +37,4 @@
     color: #000;
     background-color: #BBDBD1 !important;
     border-color: #BBDBD1 !important;
-}
-
-#userType {
-    margin-left: 1rem;
-}
-
-#same-email {
-    color: red;
-    margin-bottom: 0;
-}
-
-#new-account {
-    font-size: 1.5rem;
 }

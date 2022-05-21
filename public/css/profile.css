@@ -1,7 +1,70 @@
+@font-face {
+    font-family: 'Kidstar-Regular';
+    src: url('../fonts/FontsFree-Net-Kidstar.ttf');
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+.navbar-brand {
+    font-family: 'Kidstar-Regular';
+}
+
+
+/* Code derived from https://www.w3schools.com/howto/howto_js_full_page_tabs.asp, some code was modified */
+
+
+/* Set height of body and the document to 100% */
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    /* font-family: Arial; */
+}
+
+
+/* Style tab links */
+
+.profile-menu {
+    margin-top: 1rem;
+    text-align: center;
+    background-color: #999;
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 20%;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.profile-menu:hover {
+    background-color: #777;
+}
+
+
+/* Style the tab content (and add height:100% for full page content) */
+
+.profile-content {
+    display: none;
+    padding: 100px 20px;
+    height: 100%;
+}
+
+
+/* END */
+
+
+/* Our own CSS */
+
+.br {
+    border-radius: .5rem;
 }
 
 h1 {
@@ -17,8 +80,9 @@ h1 {
 }
 
 .card {
-    background-color: #6F58C9 !important;
+    background-color: #B6B8D6 !important;
     border-radius: 1rem !important;
+    box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.315) !important;
 }
 
 .profile-container {
@@ -81,8 +145,11 @@ h1 {
 
 .profile-label {
     margin-bottom: 1rem;
-    color: white;
     font-size: 1.5rem;
+}
+
+.form-control {
+    background-color: #dffff5;
 }
 
 .profile-info {
@@ -102,19 +169,166 @@ h1 {
 }
 
 .btn-success {
-    color: #000;
-    background-color: #BDEDE0 !important;
-    border-color: #BBDBD1;
+    color: #fff;
+    /*background-color: #BDEDE0 !important;
+    border-color: #BBDBD1;*/
 }
 
 .btn-success:hover {
-    color: #000;
+    color: #fff;
     background-color: #BBDBD1 !important;
     border-color: #BBDBD1 !important;
 }
 
 #updatedMessage {
     color: red;
-    text-align: right;
+    text-align: center;
     font-size: 1.5rem;
+}
+
+#emailExist {
+    color: red;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-left: 15rem;
+}
+
+#samePassword {
+    color: red;
+}
+
+
+/* Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout */
+
+.popup-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 1rem;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.popup-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.modal-message {
+    margin-bottom: 1rem;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(112, 112, 112, 0.315);
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modalbtn-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+/*  */
+
+
+/* posts */
+
+.post-card {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
+/* images */
+
+#responsive {
+    width: 100%;
+    height: auto;
+    max-width: 30%;
+    padding: 1rem;
+}
+
+.post-images {
+    display: inline;
+    text-align: center;
+}
+
+
+/* derived from https://stackoverflow.com/questions/39710969/css-variable-font-size-depending-on-text-length */
+
+@media (max-width: 300px) {
+    .profile-menu {
+        font-size: 7.5px;
+    }
+    .post-images {
+        display: flex;
+        justify-content: center;
+    }
+    #responsive {
+        max-width: 90%;
+    }
+}
+
+@media (min-width: 301px) and (max-width: 575px) {
+    .profile-menu {
+        font-size: 10px;
+    }
+    .post-images {
+        display: flex;
+        justify-content: center;
+    }
+    #responsive {
+        max-width: 80%;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+    .profile-menu {
+        font-size: 15px;
+    }
+    .post-images {
+        display: flex;
+        justify-content: center;
+    }
+    #responsive {
+        max-width: 70%;
+    }
+}
+
+@media (min-width: 992px) {
+    .myContainer {
+        font-size: 20px;
+    }
 }

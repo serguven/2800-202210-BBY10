@@ -4,9 +4,14 @@ const path = require('path');
 const app = express();
 const mongoose = require('mongoose');
 const User = require("./models/user");
+const Doctor = require("./models/doctor");
+const Appointment = require("./models/appointment");
 const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
+///////////////////////////////////////////
+const Post = require("./models/post");
+///////////////////////////////////////////
 
 
 const port = process.env.PORT || 8000;
@@ -58,28 +63,36 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email,
-        password: req.body.password
+        email: req.body.email
     }, function(err, user) {
         if (err) {
             console.log(err);
             res.redirect('/login');
         }
         if (!user) {
-            res.json("noUser");
+            res.send("noUser");
             console.log('No user with such email.');
         } else {
-
-            req.session.user = user;
-            req.session.isLoggedIn = true;
-            if (req.session.user.userType == "Doctor") {
-                res.redirect('/admin');
-            } else {
-                res.redirect('/profile');
-            }
+            return authenticate(req, res, user); // checks password
         }
     });
 })
+
+////////checks for password///////
+function authenticate(req, res, user) {
+    if (req.body.password !== user.password) {
+        res.send("wrongPassword");
+        console.log("Incorrect password");
+    } else {
+        req.session.user = user;
+        req.session.isLoggedIn = true;
+        if (req.session.user.userType == "Doctor") {
+            res.send("isAdmin");
+        } else {
+            res.send("isUser");
+        }
+    }
+}
 
 app.get('/profile', async(req, res) => {
     if (req.session.isLoggedIn) {
@@ -117,7 +130,7 @@ app.get('/getAllUsersInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            console.log(JSON.stringify(user))
+            //console.log(JSON.stringify(user))
             res.json(user);
         }
     });
@@ -154,6 +167,7 @@ app.post('/signUp', async(req, res) => {
     }, function(err, user) {
         if (err) {
             console.log(err);
+            res.redirect('/signUp')
         }
         if (!user) {
             new_user.save()
@@ -161,10 +175,10 @@ app.post('/signUp', async(req, res) => {
                     console.log(result);
                 });
 
-            res.redirect('/login');
+            res.send("newAccount");
         } else {
             console.log('Account with this email adress exists.');
-            res.redirect('/signUp');
+            res.send("emailExist");
         }
     })
 })
@@ -177,18 +191,44 @@ app.post('/logout', (req, res) => {
 
 /////////////////// user profile updating /////////////////////
 app.post('/update', (req, res) => {
-    if (req.session.isLoggedIn) {
-        User.updateOne({ "_id": req.session.user._id }, {
-            "firstName": req.body.firstName,
-            "lastName": req.body.lastName,
-            "userName": req.body.userName
-        }, function(err, result) {
+    /////////////////////////////
+    User.findOne({
+            email: req.body.email,
+        }, function(err, user) {
             if (err) {
                 console.log(err);
+                res.redirect('/profile');
             }
-            res.send();
+            if (!user) {
+                User.updateOne({ "_id": req.session.user._id }, {
+                    "firstName": req.body.firstName,
+                    "lastName": req.body.lastName,
+                    "userName": req.body.userName,
+                    "email": req.body.email
+                }, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    res.send();
+                })
+            } else {
+                res.send("emailExist");
+            }
         })
-    }
+        ///////////////////////////////////
+
+    // if (req.session.isLoggedIn) {
+    //     User.updateOne({ "_id": req.session.user._id }, {
+    //         "firstName": req.body.firstName,
+    //         "lastName": req.body.lastName,
+    //         "userName": req.body.userName
+    //     }, function(err, result) {
+    //         if (err) {
+    //             console.log(err);
+    //         }
+    //         res.send();
+    //     })
+    // }
 })
 
 app.post('/changePassword', (req, res) => {
@@ -208,11 +248,11 @@ app.post('/changePassword', (req, res) => {
                     res.send("samePassword");
                 } else {
                     User.updateOne({ "_id": req.session.user._id }, { "password": req.body.password }, function(err, result) {
-                            if (err) {
-                                console.log(err);
-                            }
-                            res.send("passChangeSuccess");
-                        })
+                        if (err) {
+                            console.log(err);
+                        }
+                        res.send("passChangeSuccess");
+                    })
                 }
             }
         });
@@ -269,7 +309,8 @@ app.post('/adminCreatesUser', async(req, res) => {
 
 
     User.findOne({
-        email: req.body.email
+        email: req.body.email,
+        userType: req.body.userType
     }, function(err, user) {
         if (err) {
             console.log(err);
@@ -280,16 +321,217 @@ app.post('/adminCreatesUser', async(req, res) => {
                     console.log(result);
                 });
 
-            res.redirect('/login');
+            // res.redirect('/login');
+            res.send("newAccount");
+
         } else {
             console.log('Account with this email adress exists.');
-            res.redirect('/signUp');
+            // res.redirect('/signUp');
+            res.send("emailExists");
         }
     })
 })
 
 ///////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////// post Image ///////////////////////////////////////////////
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./public/uploads");
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    }
+})
+
+const upload = multer({ storage: storage });
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//////////////////////////// timeline part //////////////////////////////////////////
+app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
+    let filenames = [];
+    for (let i = 0; i < req.files.length; i++) {
+        if (req.files[i].filename) {
+            filenames.push(req.files[i].filename);
+        }
+    }
+
+
+    let changingImages = [];
+    if (req.body.postImage1) {
+        changingImages.push(req.body.postImage1);
+    }
+    if (req.body.postImage2) {
+        changingImages.push(req.body.postImage2);
+    }
+    if (req.body.postImage3) {
+        changingImages.push(req.body.postImage3);
+    }
+
+
+
+    if (req.body.postId) {
+        Post.findOne({
+            _id: req.body.postId
+        }, function(err, post) {
+            if (err) {
+                console.log(err);
+                res.redirect('/login');
+            }
+            if (post) {
+                let index = 0;
+                let changedImages = post.postImage;
+                for (let i = 0; i < changingImages.length; i++) {
+                    for (let j = 0; j < changedImages.length; j++) {
+                        if (changingImages[i] === changedImages[j]) {
+                            if (filenames[index]) {
+                                changedImages[j] = filenames[index];
+                                index++;
+                            }
+                        }
+                    }
+                }
+
+
+                Post.updateOne({ "_id": req.body.postId }, {
+                    //"userId": req.session.user._id,
+                    "title": req.body.postTitle,
+                    "content": req.body.postContent,
+                    "postImage": changedImages
+                }, function(err, result) {
+                    if (err) {
+                        console.log(err);
+                    }
+                    //res.send();
+                    res.redirect("/profile");
+                })
+            }
+        })
+    } else {
+        const new_post = new Post({
+            userId: req.session.user._id,
+            title: req.body.postTitle,
+            content: req.body.postContent,
+            postImage: filenames
+
+        });
+
+        //console.log(req.files);
+
+        new_post.save()
+            .then((result) => {
+                console.log(result);
+            });
+
+        //res.send();
+        res.redirect("/profile");
+    }
+})
+
+
+app.get('/getUserPosts', (req, res) => {
+    Post.find({
+        userId: req.session.user._id
+    }, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (post.length == 0) {
+            console.log("nopost");
+            res.send("noPost");
+        } else {
+            //console.log(post);
+            res.json(post);
+        }
+    })
+})
+
+//////////////////////////////// semih update version timeline //////////////////////////////////
+app.post('/getPostInfo', (req, res) => {
+    Post.findOne({
+        _id: req.body._id
+    }, function(err, post) {
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (post.length == 0) {
+            console.log("nopost");
+            res.send("noPost");
+        } else {
+            res.json(post);
+        }
+    })
+})
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//////Delete the timeline post////////////////
+
+app.post('/deletePost', (req, res) => {
+    Post.deleteOne({
+        "_id": req.body._id
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.send();
+    })
+})
+
+//////////////////////////Adding doctor/////////////////////////////////////////////////////
+app.post('/addNewDoctor', (req, res) => {
+
+    const new_doctor = new Doctor(req.body);
+    // console.log(req.body);
+    new_doctor.save().then((succ) => {
+        // res.send('Ok');
+        res.redirect('/admin');
+    })
+
+
+})
+
+///////////////////////////////Appointment booking/////////////////////////////////////////////
+app.post('/bookappointment', (req, res) => {
+
+    console.log(req.body);
+    //   const new_appointment = new appointment(req.body);
+    //    console.log(req.body);
+    //    new_appointment.save().then((succ) => {
+    //        res.send('Ok');
+    //     res.redirect('/profile');
+    //   })
+
+
+})
+
+////////////////////////////getting all doctors info/////////////////////////////////////////////////
+app.get('/getAllDoctorsInfo', (req, res) => {
+    Doctor.find({}, function(err, user) {
+        console.log(user);
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            //console.log(JSON.stringify(user))
+            res.json(user);
+        }
+    });
+})
 
 
 app.listen(port, () => {

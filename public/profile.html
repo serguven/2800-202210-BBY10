@@ -4,10 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <title>Your Profile</title>
+
+    <!-- For Text Editor -->
+    <script src="https://cdn.tiny.cloud/1/j3eqzvk8wdq8r7rzvvuban723dcn7x8ql4m5cc0s52vt8vg4/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+            selector: "#postContentValue"
+        });
+    </script>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Local CSS -->
     <link rel="stylesheet" href="./css/profile.css">
@@ -17,74 +28,80 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">ICARUS</a>
+            <a class="navbar-brand" href="#">icarus</a>
+            <!-- lowercase-->
         </div>
     </nav>
 
-    <form action="/logout" method="POST">
-        <div class="profile-form">
-            <h1>Your Profile</h1>
+    <div class="profile-form">
+        <h1 id="welcome-name">Welcome, </h1>
+    </div>
 
-            <div class="container-fluid mb-custom">
-                <div class="profile-pic-div">
-                    <div class="image-div">
-                        <img src="./images/ps.png" alt="" id="photo">
-                        <input type="file" id="file">
-                        <label for="file" id="uploadBtn">Choose a photo</label>
-                    </div>
-                </div>
+
+    <div class="container-fluid mb-custom">
+        <div class="profile-pic-div">
+            <div class="image-div">
+                <img src="./images/ps.png" alt="" id="photo">
+                <input type="file" id="file">
+                <label for="file" id="uploadBtn">Choose a photo</label>
             </div>
+        </div>
+    </div>
 
-            <!-- Code derived from https://startbootstrap.com/snippets/login
-    Some code was modified from the original to fit within needs of application -->
+
+    <!-- Code derived from https://www.w3schools.com/howto/howto_js_full_page_tabs.asp -->
+    <button class="profile-menu" id="defaultOpen" onclick="openMenu('Blog', this, '#7E78D2')">Blog</button>
+    <button class="profile-menu" onclick="openMenu('Doctors', this, '#7E78D2')">Doctors</button>
+    <button class="profile-menu" onclick="openMenu('Appointments', this, '#7E78D2')">Appointments</button>
+    <button class="profile-menu" onclick="openMenu('Chat', this, '#7E78D2')">Chat</button>
+    <button class="profile-menu" onclick="openMenu('Account', this, '#7E78D2')">Account</button>
+
+    <div id="Blog" class="profile-content">
+        <h1>My Personal Blog</h1>
+
+        <!------------------------------------------------------------------------------------------------------------------------------------->
+        <!------------------------------------------------ adding post part (text editor etc) ------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------------------------------->
+
+        <form action="/submitPost" method="POST" enctype="multipart/form-data" id="addPostForm">
             <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
-                        <div class="card border-1 shadow-lg rounded-5 my-5">
+                        <div class="card mb-5 border-1 rounded-5 my-5">
                             <div class="card-body p-4 p-sm-5">
+                                <h4>Add Blog</h4>
                                 <fieldset>
-                                    <p id="updatedMessage">&nbsp;</p>
-                                    <label class="profile-label">User Name</label>
+                                    <input type="text" id="postIdValue" class="form-control" name="postId" hidden>
+                                    <label class="profile-label">Title</label>
                                     <div class="profile-info">
-                                        <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Enter your User Name" disabled>
+                                        <input type="text" id="postTitleValue" class="form-control" name="postTitle" placeholder="Post Title">
                                     </div>
-                                    <label class="profile-label">First Name</label>
+                                    <label class="profile-label">Content</label>
                                     <div class="profile-info">
-                                        <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name" disabled>
+                                        <textarea id="postContentValue" name="postContent"></textarea>
                                     </div>
-                                    <label class="profile-label">Last Name</label>
+
+                                    <label class="profile-label form-label" for="formFileLg2">Select Image</label>
                                     <div class="profile-info">
-                                        <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
+                                        <input class="form-control" id="formFileLg2" type="file" name="postImages" multiple>
                                     </div>
-                                    <label class="profile-label">Email</label>
-                                    <div class="profile-info">
-                                        <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
-                                    </div>
-                                    <label class="profile-label">User Type</label>
-                                    <div class="profile-info">
-                                        <input type="text" id="userTypeInput" class="form-control" placeholder="Patient" disabled>
-                                    </div>
-                                    <label class="profile-label form-label" for="formFileLg">Select Image</label>
-                                    <div class="profile-info">
-                                        <input class="form-control" id="formFileLg" type="file" disabled>
-                                    </div>
-                                    <div class="profile-container" id="passwordChange">
-                                        <button type="button" class="btn btn-danger" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
-                                    </div>
-                                    <div class="profile-container">
-                                      <div>
-                                        <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
-                                        <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
-                                        <input type="hidden" id="newPasswordInput" class="form-control"><br>
-                                        <button type="button" class="btn btn-danger" id="submitNewPassword" hidden>Submit New Password</button>
-                                        <p class="profile-label" id="samePassword">&nbsp;</p>
-                                      </div>
+                                    <br>
+                                    <div class="profile-container" id="imageSelector" hidden>
+                                        <input type="radio" id="image1" name="postImage1">
+                                        <label for="image1" id="image1Label"></label><br>
+                                        <input type="radio" id="image2" name="postImage2">
+                                        <label for="image2" id="image2Label"></label><br>
+                                        <input type="radio" id="image3" name="postImage3">
+                                        <label for="image3" id="image3Label"></label>
                                     </div>
                                     <br>
                                     <div class="profile-container">
-                                        <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button>
-                                        <button type="button" class="btn btn-success" id="saveInfo">Save</button>
-                                        <button type="submit" class="btn btn-danger" id="logout">Log out</button>
+                                        <!-- <button type="button" class="btn btn-primary" onclick="editProfile()">Edit</button> -->
+                                        <!-- <button type="button" class="btn btn-success" id="saveInfo">Save</button> -->
+                                        <!-- <button type="submit" class="btn btn-danger" id="logout">Log out</button> -->
+                                        <button type="submit" class="btn btn-primary" id="postButton">Save</button>
+                                        <!-- <button type="button" class="btn btn-secondary" id="updatePostButton" hidden>Update</button> -->
+                                        <button type="button" class="btn btn-success" id="cancelPostButton">Cancel</button>
                                     </div>
                                 </fieldset>
                             </div>
@@ -92,9 +109,182 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
 
+        <!------------------------------------------------------------------------------------------------------------------------------------->
+        <!--------------------------------------------- end of adding post part --------------------------------------------------------------->
+        <!------------------------------------------------------------------------------------------------------------------------------------->
+
+
+
+
+
+        <div class="btn-group  mt-3 mb-3" role="group" aria-label="Basic mixed styles example">
+            <button type="button" class="btn btn-primary mx-2" id="addPostButton">Add post</button>
+        </div>
+
+        <p id="noPostExist">&nbsp;</p>
+
+
+
+        <div id="populatePosts">
+
+        </div>
+
+        <!-- <div class="card br">
+            <div class="card-body">
+                <div class="card-title d-flex">
+                    <h3 id="post-title">Post title</h3>
+                </div>
+                <div class="card-text d-flex mb-5"> -->
+        <!-- <label class="me-3">Post description</label> -->
+        <!-- <div id="post-desc" contenteditable="true">post description</div>
+                </div>
+                <div class="card-text d-flex"> -->
+        <!-- <label class="me-3">Post time</label> -->
+        <!-- <div id="time" contenteditable="true">time</div>
+                </div>
+                <div class="btn d-flex justify-content-center mt-3">
+                    <button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>
+                    <button type="button" class="btn btn-danger mx-2 br" id="DeleteCardButton">Delete post</button>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <!--Doctor Information part-->
+    <div id="Doctors" class="profile-content">
+        <h1>Our Doctors</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody id="allDoctors">
+            </tbody>
+        </table>
+
+        <br><br><br>
+
+
+    </div>
+
+    <!--Appointment booking section-->
+
+    <div id="Appointments" class="profile-content">
+        <h1>My Appointments</h1>
+
+        <div class="col-lg-6 col-lg-offset-3">
+            <table class="table table-hover table-striped table-responsive">
+                <thead>
+                    <tr class="warning">
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Contact</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>jhjdnj</td>
+                        <td>hdg</td>
+                        <td>kjhdng</td>
+                        <td>jd</td>
+                        <td>kjhdkb</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!--Chat feature-->
+    <div id="Chat" class="profile-content">
+        <h1>Chat</h1>
+        <p>Feature coming soon</p>
+    </div>
+
+    <div id="Account" class="profile-content">
+        <h1>My Account</h1>
+        <!-- Code derived from https://startbootstrap.com/snippets/login
+    Some code was modified from the original to fit within needs of application -->
+        <div class="container mt-3 mb-3">
+            <div class="row">
+                <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
+                    <div class="card mb-5 border-1 rounded-5 my-5">
+                        <div class="card-body p-4 p-sm-5">
+                            <fieldset>
+                                <p id="updatedMessage">&nbsp;</p>
+                                <label class="profile-label">User Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="userNameInput" class="form-control" name="userName" placeholder="Enter your User Name" disabled>
+                                </div>
+                                <label class="profile-label">First Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="fnameInput" class="form-control" name="firstName" placeholder="Your First Name" disabled>
+                                </div>
+                                <label class="profile-label">Last Name</label>
+                                <div class="profile-info">
+                                    <input type="text" id="lnameInput" class="form-control" name="lastName" placeholder="Your Last Name" disabled>
+                                </div>
+                                <label class="profile-label">Email<span id="emailExist">&nbsp;</span></label>
+                                <div class="profile-info">
+                                    <input type="email" id="emailInput" class="form-control" placeholder="Your Email" disabled>
+                                </div>
+                                <label class="profile-label">User Type</label>
+                                <div class="profile-info">
+                                    <input type="text" id="userTypeInput" class="form-control" placeholder="Patient" disabled>
+                                </div>
+                                <label class="profile-label form-label" for="formFileLg">Select Image</label>
+                                <div class="profile-info">
+                                    <input class="form-control" id="formFileLg" type="file" disabled>
+                                </div>
+                                <div class="profile-container mt-5" id="passwordChange">
+                                    <button type="button" class="btn btn-primary" id="passwordChangeButton" onclick="changePassword()">Change Password</button>
+                                </div>
+                                <div class="profile-container">
+                                    <div>
+                                        <p class="profile-label" id="newPasswordMessage" hidden>Please Enter New Password!</p>
+                                        <label class="profile-label" id="newPasswordLabel" hidden>New Password </label>
+                                        <input type="hidden" id="newPasswordInput" class="form-control"><br>
+                                        <button type="button" class="btn btn-primary" id="submitNewPassword" hidden>Submit New Password</button>
+                                        <p class="profile-label" id="samePassword">&nbsp;</p>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="profile-container">
+                                    <button type="button" class="btn btn-success" onclick="editProfile()">Edit</button>
+                                    <button type="button" class="btn btn-primary" id="saveInfo">Save</button>
+                                    <button class="btn btn-secondary" data-modal-target="#modal-id">Log out</button>
+                                    <!--leads to pop-up-->
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout -->
+        <div class="popup-modal" id="modal-id">
+            <div class="modal-header">
+                <div class="modal-title">Log Out</div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-message">Do you want to log out?</div>
+                <div class="modalbtn-group">
+                    <button class="btn btn-primary" data-close-button>Cancel</button>
+                    <form action="/logout" method="POST">
+                        <!-- form is moved to here, functions for editing user info still work regardless-->
+                        <button type="submit" class="btn btn-secondary">Log out</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="overlay"></div>
+    </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="./js/profile.js"></script>
 

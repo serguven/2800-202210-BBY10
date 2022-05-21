@@ -1,10 +1,38 @@
 "use strict";
+
+// const { format } = require("path");
+
+//////////////// Full page tab /////////////
+//https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
+function openMenu(pageName, elmnt, color) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("profile-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("profile-menu");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].style.backgroundColor = "";
+    }
+    document.getElementById(pageName).style.display = "block";
+    elmnt.style.backgroundColor = color;
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+
+
+
+
+
+
 ///////////////////////populate user info/////////////////////////////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserInfo",
         type: "GET",
-        success: function (user) {
+        success: function(user) {
+            $("#welcome-name").append(user.userName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
             $("#lnameInput").attr('value', user.lastName);
@@ -17,6 +45,10 @@ $(document).ready(function () {
 
 ////////////////////////////////// edit button enables form for editing //////////////////////////////////////
 function editProfile() {
+    /////////////////////////////////////////
+    document.getElementById("emailInput").disabled = false;
+    /////////////////////////////////////////
+
     document.getElementById("userNameInput").disabled = false;
     document.getElementById("fnameInput").disabled = false;
     document.getElementById("lnameInput").disabled = false;
@@ -34,14 +66,14 @@ function changePassword() {
     document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
 }
 
-$('#submitNewPassword').click(function () {
+$('#submitNewPassword').click(function() {
     $.ajax({
         url: '/changePassword',
         type: 'POST',
         data: {
             password: $("#newPasswordInput").val(),
         },
-        success: function (data) {
+        success: function(data) {
             if (data == "samePassword") {
                 document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
             } else if (data == "passChangeSuccess") {
@@ -61,8 +93,8 @@ $('#submitNewPassword').click(function () {
 
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
-$('#saveInfo').click(function () {
-    console.log("Hello world");
+$('#saveInfo').click(function() {
+    //console.log("Hello world");
     $.ajax({
         url: '/update',
         type: 'POST',
@@ -73,14 +105,23 @@ $('#saveInfo').click(function () {
             email: $("#emailInput").val(),
             userType: $("#userTypeInput").val(),
         },
-        success: function (data) {
-            //location.reload();
-            document.getElementById("updatedMessage").innerHTML = "User profile updated";
+        success: function(data) {
+            if (data == "emailExist") {
+                document.getElementById("emailExist").innerHTML = "This email address already exists.";
+            } else {
+                //location.reload();
+                document.getElementById("updatedMessage").innerHTML = "User profile updated";
 
-            document.getElementById("userNameInput").disabled = true;
-            document.getElementById("fnameInput").disabled = true;
-            document.getElementById("lnameInput").disabled = true;
-            document.getElementById("formFileLg").disabled = true;
+                document.getElementById("userNameInput").disabled = true;
+                document.getElementById("fnameInput").disabled = true;
+                document.getElementById("lnameInput").disabled = true;
+                document.getElementById("formFileLg").disabled = true;
+
+                /////////////////////////////////////////////////////
+                document.getElementById("emailInput").disabled = true;
+                ///////////////////////////////////////////////////////
+            }
+
 
         }
     })
@@ -90,7 +131,188 @@ $('#saveInfo').click(function () {
 
 
 
+///////////////////////////////////// populate posts ////////////////////////////////////
+$(document).ready(function() {
+    $.ajax({
+        url: "/getUserPosts",
+        type: "GET",
+        success: function(data) {
+            if (data == "noPost") {
+                console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+            } else {
+                data.forEach(post => {
+                    var date = new Date(post.updatedAt);
+                    var s = `<div class="card br post-card">`
+                    s += `<div class="card-body">`
+                    s += `<div class="card-title d-flex">`
+                    s += `<h3 id="post-title">${post.title}</h3>`
+                    s += `</div>`
+                    s += `<div class="card-text d-flex mb-5">`
+                    s += `<div id="post-desc">${post.content}</div>`
+                    s += `</div>`
 
+                    if (post.postImage.length > 0) {
+
+                        for (let i = 0; i < post.postImage.length; i++) {
+                            s += `<div class="card-text post-images mb-5">`
+                            s += `<img id="responsive" src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                            s += `</div>`
+                        }
+                    }
+
+                    s += `<div class="card-text d-flex">`
+                    s += `<div id="time">${date.toLocaleString("en-us", {weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "numeric", minute: "numeric"})}</div>`
+                    s += `</div>`
+
+                    s += `<div class="btn d-flex justify-content-center mt-3" id="${post._id}">`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
+                    s += `<button type="button" class="btn btn-secondary mx-2 br" id="DeleteCardButton">Delete post</button>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+                    $('#populatePosts').append(s);
+                })
+            }
+        }
+    })
+})
+
+
+//////////////////////////////////// update post ////////////////////////////////////////////////
+$(document).on('click', '#EditCardButton', function() {
+    $.ajax({
+        url: '/getPostInfo',
+        type: 'POST',
+        data: {
+            _id: $(this).parent().attr('id')
+        },
+        success: function(data) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            console.log(data);
+            $('#postIdValue').val(data._id);
+            $('#postTitleValue').val(data.title);
+            tinymce.activeEditor.setContent(data.content);
+
+            document.getElementById("imageSelector").removeAttribute("hidden");
+            for(let i = 0; i < data.postImage.length; i++) {
+                document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
+            }
+
+        }
+    })
+})
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////// Delete timeline post//////////////////
+$(document).on('click', '#DeleteCardButton', function() {
+    $.ajax({
+        url: '/deletePost',
+        type: 'POST',
+        data: {
+            _id: $(this).parent().attr('id')
+        },
+        success: function(data) {
+            location.reload();
+        }
+    })
+})
+
+
+
+/////////////////////////////////////// Doctor info form ////////////////////////////////////////////////////////////////
+
+$(document).ready(function() {
+    $.ajax({
+        url: "/getAllDoctorsInfo",
+        type: "GET",
+        success: function(data) {
+            if (data == "noPost") {
+                console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+            } else {
+                data.forEach(post => {
+                    console.log(post);
+
+                    var s = `<table class='table'>`
+                    s += `<td>${post.Name}</td>`
+                    s += `<br><br>`
+                    s += `<td>${post.Address}</td>`
+                    s += `<td>${post.Qualification}</td>`
+                    s += `<td>${post.Email}</td>`
+                    s += `<td>${post.Contact}</td>`
+                    s += `<td>${post.openAt}</td>`
+                    s += `<td>${post.closeAt}</td>`
+                    s += `<td><button type="button" data-bs-toggle="modal" data-bs-target="#myModal${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</button></td>`
+
+
+                    s += `<div class="modal" id="myModal${post._id}">`
+                    s += `<div class="modal-dialog">`
+                    s += `<div class="modal-content">`
+                    s += `<div class="modal-header">`
+                    s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
+                    s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
+                    s += `</div>`
+                    s += `<div class="modal-body">`
+
+                    s += `<form class="booking-info" action="/bookappointment" method="POST">`
+                    s += `<input type='hidden' name='uid' value="${post.Name}" >`
+                    s += `<label class="booking-label" for="name">Name</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="date">Date</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="day">Day</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="time">Time</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="time" type="time" name="time" class="form-control" placeholder="time"`
+                    s += `required>`
+                    s += `</div>`
+                    s += `<label class="booking-label" for="Contact">Contact</label>`
+                    s += `<div class="mb-3">`
+                    s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652"`
+                    s += `pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>`
+                    s += `</div>`
+                    s += `<div class="d-grid">`
+                    s += `<button id="confirmbutton" class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3"`
+                    s += `type="submit">Book an Appointment</button>`
+                    s += `</div>`
+                    s += `</form>`
+
+
+
+
+                    s += `</div>`
+                    s += `<div class="modal-footer">`
+                    s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+                    s += `</div>`
+
+
+
+                    s += `</table>`
+                    $('#allDoctors').append(s);
+
+                })
+            }
+        }
+    })
+})
 
 
 
@@ -102,23 +324,65 @@ const file = document.querySelector('#file');
 const uploadBtn = document.querySelector('#uploadBtn');
 
 //if user hover on img div
-imgDiv.addEventListener('mouseenter', function () {
+imgDiv.addEventListener('mouseenter', function() {
     uploadBtn.style.display = "block";
 });
 
 //if we hover out from img div
-imgDiv.addEventListener('mouseleave', function () {
+imgDiv.addEventListener('mouseleave', function() {
     uploadBtn.style.display = "none";
 });
 
 //when we choose a photo to upload
-file.addEventListener('change', function () {
+file.addEventListener('change', function() {
     const chosen = this.files[0];
     if (chosen) {
         const reader = new FileReader();
-        reader.addEventListener('load', function () {
+        reader.addEventListener('load', function() {
             img.setAttribute('src', reader.result);
         });
         reader.readAsDataURL(chosen);
     }
 });
+
+
+
+/////logout modal, code could possibly be reused in other sections/////
+// code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.popup-modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.popup-modal')
+        closeModal(modal)
+    })
+})
+
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}
