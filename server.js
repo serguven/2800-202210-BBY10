@@ -352,13 +352,13 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
 
 
     let changingImages = [];
-    if(req.body.postImage1) {
+    if (req.body.postImage1) {
         changingImages.push(req.body.postImage1);
     }
-    if(req.body.postImage2) {
+    if (req.body.postImage2) {
         changingImages.push(req.body.postImage2);
     }
-    if(req.body.postImage3) {
+    if (req.body.postImage3) {
         changingImages.push(req.body.postImage3);
     }
 
@@ -375,10 +375,10 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
             if (post) {
                 let index = 0;
                 let changedImages = post.postImage;
-                for(let i = 0; i < changingImages.length; i++) {
-                    for(let j = 0; j < changedImages.length; j++) {
-                        if(changingImages[i] === changedImages[j]) {
-                            if(filenames[index]) {
+                for (let i = 0; i < changingImages.length; i++) {
+                    for (let j = 0; j < changedImages.length; j++) {
+                        if (changingImages[i] === changedImages[j]) {
+                            if (filenames[index]) {
                                 changedImages[j] = filenames[index];
                                 index++;
                             }
@@ -478,7 +478,7 @@ app.post('/deletePost', (req, res) => {
 })
 
 //////////////////////////Adding doctor/////////////////////////////////////////////////////
-app.post('/addNewDoctor', (req,res) => {
+app.post('/addNewDoctor', (req, res) => {
 
     const new_doctor = new Doctor(req.body);
     // console.log(req.body);
@@ -491,15 +491,15 @@ app.post('/addNewDoctor', (req,res) => {
 })
 
 ///////////////////////////////Appointment booking/////////////////////////////////////////////
-app.post('/bookappointment', (req,res) => {
+app.post('/bookappointment', (req, res) => {
 
     console.log(req.body);
- //   const new_appointment = new appointment(req.body);
- //    console.log(req.body);
- //    new_appointment.save().then((succ) => {
- //        res.send('Ok');
-  //     res.redirect('/profile');
-  //   })
+    //   const new_appointment = new appointment(req.body);
+    //    console.log(req.body);
+    //    new_appointment.save().then((succ) => {
+    //        res.send('Ok');
+    //     res.redirect('/profile');
+    //   })
 
 
 })
