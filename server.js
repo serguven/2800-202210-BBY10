@@ -63,7 +63,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email.toLowerCase() // make emails go all lowercase
+        email: req.body.email
     }, function(err, user) {
         if (err) {
             console.log(err);
@@ -217,18 +217,6 @@ app.post('/update', (req, res) => {
         })
         ///////////////////////////////////
 
-    // if (req.session.isLoggedIn) {
-    //     User.updateOne({ "_id": req.session.user._id }, {
-    //         "firstName": req.body.firstName,
-    //         "lastName": req.body.lastName,
-    //         "userName": req.body.userName
-    //     }, function(err, result) {
-    //         if (err) {
-    //             console.log(err);
-    //         }
-    //         res.send();
-    //     })
-    // }
 })
 
 app.post('/changePassword', (req, res) => {
@@ -448,6 +436,7 @@ app.get('/getUserPosts', (req, res) => {
             res.send("noPost");
         } else {
             //console.log(post);
+            //console.log(JSON.stringify(post));
             res.json(post);
         }
     })

@@ -1,0 +1,28 @@
+[{
+    "_id": "628830d94e44573765e56906",
+    "userId": "628830164e44573765e568f6",
+    "title": "My new Car",
+    "content": "<p>Just bought a brand new car</p>",
+    "postImage": ["1653092569134-car.jpg"],
+    "createdAt": "2022-05-21T00:22:49.146Z",
+    "updatedAt": "2022-05-21T00:22:49.146Z",
+    "__v": 0
+}, {
+    "_id": "6288312f4e44573765e5690b",
+    "userId": "628830164e44573765e568f6",
+    "title": "Beautiful day",
+    "content": "<p>Today was very sunny, I love it. I'm so glad that I live in Vancouver just so I can see this lovely weather!</p>",
+    "postImage": ["1653092655709-th-152431388.jpg", "1653092655709-th-3444604826.jpg", "1653092655709-th-4094030124.jpg"],
+    "createdAt": "2022-05-21T00:24:15.718Z",
+    "updatedAt": "2022-05-21T00:24:15.718Z",
+    "__v": 0
+}, {
+    "_id": "628835784e44573765e56942",
+    "userId": "628830164e44573765e568f6",
+    "title": "Walk",
+    "content": "<p>I did a nice walk, I got a pic of a park</p>",
+    "postImage": ["1653093752375-park.jpg"],
+    "createdAt": "2022-05-21T00:42:32.380Z",
+    "updatedAt": "2022-05-21T00:42:32.380Z",
+    "__v": 0
+}]
