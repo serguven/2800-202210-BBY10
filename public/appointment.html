@@ -18,15 +18,18 @@
   <div class="container mt-2 mb-2">
     <div class="row">
       <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
+        <h4 id="drname"></h4>
         <div id="form" class="card border-1 shadow-lg rounded-5 my-5">
           <div class="card-body p-4 p-sm-5">
-            <form class="booking-info" action="/bookappointment" method="POST">
+            <form class="booking-info" action="/booknewappointment" method="POST">
               <label class="booking-label" for="name">Name</label>
               <div class="mb-3">
+                 <!-- <input type="hidden" name="did" id="did" />  -->
+                 <input type="hidden" name="dname" id="dname" /> 
                 <input id="name" type="text" name="name" class="form-control" placeholder="Enter your name"
                   required>
               </div>
-              <label class="booking-label" for="date">Date</label>
+               <label class="booking-label" for="date">Date</label>
               <div class="mb-3">
                 <input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date"
                   required>
@@ -40,7 +43,7 @@
               <div class="mb-3">
                 <input id="time" type="time" name="time" class="form-control" placeholder="time"
                   required>
-              </div>
+              </div> 
               <label class="booking-label" for="Contact">Contact</label>
               <div class="mb-3">
                 <input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652"
@@ -49,7 +52,7 @@
               <div class="d-grid">
                 <button id="confirmbutton" class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3"
                   type="submit">Book an Appointment</button>
-                <a href="./browse.html" class="btn btn-secondary text-uppercase fw-bold">Cancel</a>
+                <a href="profile.html" class="btn btn-secondary text-uppercase fw-bold">Cancel</a>
               </div>
             </form>
           </div>
@@ -57,6 +60,8 @@
       </div>
     </div>
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="./js/appoint.js"></script>
 
 </body>
 

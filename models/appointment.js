@@ -1,34 +1,30 @@
 const mongoose = require('mongoose');
 
 const appSchema = new mongoose.Schema({
-    uid: {
+    did: {
         type: String,
-        required: true,
+    },
+    dname: {
+        type: String,
     },
     name: {
         type: String,
-        required: true,
     },
     dateInput: {
-        type: String,
-        required: true,
+        type: Date,
     },
-    date: {
+    text: {
         type: String,
-        required: true,
-        unique: true
     },
     time: {
         type: String,
-        required: true
     },
     Contact: {
         type: String,
-        required: true,
     }
 })
 
 
-const Appointment = mongoose.model('bby-10-appointments', appSchema);
+const Appointment = mongoose.model('bby-10-aapointments', appSchema);
 
 module.exports = Appointment;

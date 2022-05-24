@@ -478,15 +478,38 @@ app.post('/addNewDoctor', (req,res) => {
 })
 
 ///////////////////////////////Appointment booking/////////////////////////////////////////////
-app.post('/bookappointment', (req,res) => {
+app.post('/booknewappointment', (req,res) => {
 
     console.log(req.body);
- //   const new_appointment = new appointment(req.body);
- //    console.log(req.body);
- //    new_appointment.save().then((succ) => {
- //        res.send('Ok');
-  //     res.redirect('/profile');
-  //   })
+    const newappointment = new Appointment(req.body);
+    // console.log(req.body);
+
+    // new_user.save()
+    // .then((result) => {
+    //     console.log(result);
+    // });
+
+    newappointment.save().then((succ) => {
+    //     // res.send('Ok');
+       res.redirect('profile.html');
+    })
+
+})
+
+
+app.get('/viewappointment', (req,res) => {
+
+    // console.log(req.body);
+    // const new_appointment = new Appointment(req.body);
+    // console.log(req.body);
+    // new_appointment.save().then((succ) => {
+        // res.send('Ok');
+    //    res.redirect('/profile.html');
+    // })
+    Appointment.find({}, function(err, succ){
+        // console.log(succ);
+        res.send(succ);
+    })
 
 
 })
@@ -494,7 +517,7 @@ app.post('/bookappointment', (req,res) => {
 ////////////////////////////getting all doctors info/////////////////////////////////////////////////
 app.get('/getAllDoctorsInfo', (req, res) => {
     Doctor.find({}, function(err, user) {
-        console.log(user);
+        // console.log(user);
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -503,11 +526,32 @@ app.get('/getAllDoctorsInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            console.log(JSON.stringify(user))
+            // console.log(JSON.stringify(user))
             res.json(user);
         }
     });
 })
+
+
+app.post('/getOneDoctorsInfo', (req, res) => {
+    var id = req.body.id;
+    // console.log(id);
+    Doctor.findOne({_id : id}, function(err, user) {
+        // console.log(user);
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            // console.log(user);
+            res.json(user);
+        }
+    });
+})
+
 
 
 app.listen(port, () => {

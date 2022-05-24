@@ -27,11 +27,11 @@ document.getElementById("defaultOpen").click();
 
 
 ///////////////////////populate user info/////////////////////////////////////////////////////////////////
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         url: "/getUserInfo",
         type: "GET",
-        success: function(user) {
+        success: function (user) {
             $("#welcome-name").append(user.userName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
@@ -66,14 +66,14 @@ function changePassword() {
     document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
 }
 
-$('#submitNewPassword').click(function() {
+$('#submitNewPassword').click(function () {
     $.ajax({
         url: '/changePassword',
         type: 'POST',
         data: {
             password: $("#newPasswordInput").val(),
         },
-        success: function(data) {
+        success: function (data) {
             if (data == "samePassword") {
                 document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
             } else if (data == "passChangeSuccess") {
@@ -93,7 +93,7 @@ $('#submitNewPassword').click(function() {
 
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
-$('#saveInfo').click(function() {
+$('#saveInfo').click(function () {
     //console.log("Hello world");
     $.ajax({
         url: '/update',
@@ -105,7 +105,7 @@ $('#saveInfo').click(function() {
             email: $("#emailInput").val(),
             userType: $("#userTypeInput").val(),
         },
-        success: function(data) {
+        success: function (data) {
             if (data == "emailExist") {
                 document.getElementById("emailExist").innerHTML = "This email address already exists.";
             } else {
@@ -132,13 +132,13 @@ $('#saveInfo').click(function() {
 
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
-$(document).ready(function() {
+$(document).ready(function () {
     $.ajax({
         url: "/getUserPosts",
         type: "GET",
-        success: function(data) {
+        success: function (data) {
             if (data == "noPost") {
-                console.log("nopost");
+                // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
                 data.forEach(post => {
@@ -179,16 +179,19 @@ $(document).ready(function() {
 
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
-$(document).on('click', '#EditCardButton', function() {
+$(document).on('click', '#EditCardButton', function () {
     $.ajax({
         url: '/getPostInfo',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function(data) {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-            console.log(data);
+        success: function (data) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            })
+            // console.log(data);
             //document.getElementById("postButton").setAttribute("hidden", "hidden");
             //document.getElementById("updatePostButton").removeAttribute("hidden");
             $('#postIdValue').val(data._id);
@@ -224,14 +227,14 @@ $(document).on('click', '#EditCardButton', function() {
 
 
 ////////////////////// Delete timeline post//////////////////
-$(document).on('click', '#DeleteCardButton', function() {
+$(document).on('click', '#DeleteCardButton', function () {
     $.ajax({
         url: '/deletePost',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function(data) {
+        success: function (data) {
             location.reload();
         }
     })
@@ -242,93 +245,125 @@ $(document).on('click', '#DeleteCardButton', function() {
 /////////////////////////////////////// Doctor info form ////////////////////////////////////////////////////////////////
 
 $(document).ready(function () {
-   $.ajax({
-       url: "/getAllDoctorsInfo",
-       type: "GET",
-        success: function(data) {
-           if(data == "noPost") {
-               console.log("nopost");
+    $.ajax({
+        url: "/getAllDoctorsInfo",
+        type: "GET",
+        success: function (data) {
+            if (data == "noPost") {
+                // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
-               data.forEach(post => {
-                    console.log(post);
+                // var a = 1;
+                data.forEach(post => {
+                    // if(a == 1){
+                    // console.log(post);
 
-                       var s = `<table class='table'>`
-                        s += `<td>${post.Name}</td>`
-                        s += `<br><br>`
-                        s += `<td>${post.Address}</td>`
-                        s += `<td>${post.Qualification}</td>`
-                         s += `<td>${post.Email}</td>`
-                         s += `<td>${post.Contact}</td>`
-                         s += `<td>${post.openAt}</td>`
-                         s += `<td>${post.closeAt}</td>`
-                         s += `<td><button type="button" data-bs-toggle="modal" data-bs-target="#myModal${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</button></td>`
-
-
-                         s += `<div class="modal" id="myModal${post._id}">`
-                         s += `<div class="modal-dialog">`
-                         s += `<div class="modal-content">`
-                         s += `<div class="modal-header">`
-                         s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
-                         s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
-                         s += `</div>`
-                         s += `<div class="modal-body">`
-
-                         s += `<form class="booking-info" action="/bookappointment" method="POST">`
-                         s += `<input type='hidden' name='uid' value="${post.Name}" >`
-                         s += `<label class="booking-label" for="name">Name</label>`
-                         s += `<div class="mb-3">`
-                         s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name"`
-                         s += `required>`
-                         s += `</div>`
-                         s += `<label class="booking-label" for="date">Date</label>`
-                         s += `<div class="mb-3">`
-                         s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date"`
-                         s += `required>`
-                         s += `</div>`
-                         s += `<label class="booking-label" for="day">Day</label>`
-                         s += `<div class="mb-3">`
-                         s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day"`
-                         s += `required>`
-                         s += `</div>`
-                         s += `<label class="booking-label" for="time">Time</label>`
-                         s += `<div class="mb-3">`
-                         s += `<input id="time" type="time" name="time" class="form-control" placeholder="time"`
-                         s += `required>`
-                         s += `</div>`
-                         s += `<label class="booking-label" for="Contact">Contact</label>`
-                         s += `<div class="mb-3">`
-                         s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652"`
-                         s += `pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>`
-                         s += `</div>`
-                         s += `<div class="d-grid">`
-                         s += `<button id="confirmbutton" class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3"`
-                         s += `type="submit">Book an Appointment</button>`
-                         s += `</div>`
-                         s += `</form>`
+                    var s = `<table class='table'>`
+                    s += `<td>${post.Name}</td>`
+                    s += `<br><br>`
+                    s += `<td>${post.Address}</td>`
+                    s += `<td>${post.Qualification}</td>`
+                    s += `<td>${post.Email}</td>`
+                    s += `<td>${post.Contact}</td>`
+                    s += `<td>${post.openAt}</td>`
+                    s += `<td>${post.closeAt}</td>`
+                    s += `<td><a href="appointment.html?id=${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</a></td>`
 
 
+                    // s += `<div class="modal" id="myModal${post._id}">`
+                    // s += `<div class="modal-dialog">`
+                    // s += `<div class="modal-content">`
+                    // s += `<div class="modal-header">`
+                    // s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
+                    // s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
+                    // s += `</div>`
+                    // s += `<div class="modal-body">`
 
+                    // s += `<form id="myform${post._id}" action="/booknewappointment" method="get">`
+                    // s += `<input type='text' name='uid' value="${post.Name}" >`
+                    // s += `<label class="booking-label" for="name">Name</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="date">Date</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="day">Day</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="time">Time</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="time" type="time" name="time" class="form-control" placeholder="time" required>`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="Contact">Contact</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652" required>`
+                    // s += `</div>`
+                    // s += `<div class="d-grid">`
+                   
+                    // s += `<button class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3" type="submit">Book an Appointment</button>`
 
-                         s += `</div>`
-                         s += `<div class="modal-footer">`
-                         s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
-                         s += `</div>`
-                         s += `</div>`
-                         s += `</div>`
-                         s += `</div>`
+                    // s += `</div>`
+                    // s += `</form>`
 
+                    // s += `</div>`
+                    // s += `<div class="modal-footer">`
+                    // s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
+                    // s += `</div>`
+                    // s += `</div>`
+                    // s += `</div>`
+                    // s += `</div>`
 
+                    s += `</table>`
+                    $('#allDoctors').append(s);
 
-                         s += `</table>`
-                        $('#allDoctors').append(s);
+                        
 
+                    // }
+                    // a++;
                 })
             }
         }
     })
 })
 
+
+////////////////////////////////////Appointment Booking/////////////////////////////////////////
+$(document).ready(function () {
+    var a;
+    $.ajax({
+        url: "/viewappointment",
+        type: "GET",
+        success: function (user) {
+            // console.log(user);
+            user.forEach((succ) => {
+                a += `<tr>`;
+                a += `<td>`;
+                a += `${succ.dname}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.name}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.dateInput}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.text}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.time}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.Contact}`;
+                a += `</td>`;
+                a += `</tr>`;
+            })
+            $('#myapoin').html(a);
+        }
+    })
+})
 
 
 
@@ -339,21 +374,21 @@ const file = document.querySelector('#file');
 const uploadBtn = document.querySelector('#uploadBtn');
 
 //if user hover on img div
-imgDiv.addEventListener('mouseenter', function() {
+imgDiv.addEventListener('mouseenter', function () {
     uploadBtn.style.display = "block";
 });
 
 //if we hover out from img div
-imgDiv.addEventListener('mouseleave', function() {
+imgDiv.addEventListener('mouseleave', function () {
     uploadBtn.style.display = "none";
 });
 
 //when we choose a photo to upload
-file.addEventListener('change', function() {
+file.addEventListener('change', function () {
     const chosen = this.files[0];
     if (chosen) {
         const reader = new FileReader();
-        reader.addEventListener('load', function() {
+        reader.addEventListener('load', function () {
             img.setAttribute('src', reader.result);
         });
         reader.readAsDataURL(chosen);
