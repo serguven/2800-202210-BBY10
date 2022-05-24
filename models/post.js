@@ -19,6 +19,6 @@ const postSchema = new mongoose.Schema({
     }
 }, {timestamps: true});
 
-const Post = mongoose.model('bby-10-post', postSchema);
+const Post = mongoose.model('bby_10_post', postSchema);
 
 module.exports = Post;

@@ -33,6 +33,6 @@ const docSchema = new mongoose.Schema({
 })
 
 
-const Doctor = mongoose.model('psychiatrists', docSchema);
+const Doctor = mongoose.model('bby_10_psychiatrists', docSchema);
 
 module.exports = Doctor;

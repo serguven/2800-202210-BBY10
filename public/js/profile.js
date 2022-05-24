@@ -143,7 +143,7 @@ $(document).ready(function () {
             } else {
                 data.forEach(post => {
                     var date = new Date(post.updatedAt);
-                    var s = `<div class="card br">`
+                    var s = `<div class="card br post-card">`
                     s += `<div class="card-body">`
                     s += `<div class="card-title d-flex">`
                     s += `<h3 id="post-title">${post.title}</h3>`
@@ -153,11 +153,12 @@ $(document).ready(function () {
                     s += `</div>`
 
                     if (post.postImage.length > 0) {
-                        s += `<div class="card-text d-flex mb-5">`
+
                         for (let i = 0; i < post.postImage.length; i++) {
-                            s += `<img src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                            s += `<div class="card-text post-images mb-5">`
+                            s += `<img id="responsive" src="/uploads/${post.postImage[i]}" alt = "unsuccessful" />`
+                            s += `</div>`
                         }
-                        s += `</div>`
                     }
 
                     s += `<div class="card-text d-flex">`
@@ -165,7 +166,7 @@ $(document).ready(function () {
                     s += `</div>`
 
                     s += `<div class="btn d-flex justify-content-center mt-3" id="${post._id}">`
-                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton" >Edit post</button>`
+                    s += `<button type="button" class="btn btn-primary mx-2 br" id="EditCardButton">Edit post</button>`
                     s += `<button type="button" class="btn btn-secondary mx-2 br" id="DeleteCardButton">Delete post</button>`
                     s += `</div>`
                     s += `</div>`
@@ -186,41 +187,22 @@ $(document).on('click', '#EditCardButton', function () {
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function (data) {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            })
-            // console.log(data);
-            //document.getElementById("postButton").setAttribute("hidden", "hidden");
-            //document.getElementById("updatePostButton").removeAttribute("hidden");
+        success: function(data) {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            console.log(data);
             $('#postIdValue').val(data._id);
             $('#postTitleValue').val(data.title);
             tinymce.activeEditor.setContent(data.content);
-            //$('#formFileLg2').val(data.postImage[0]);
 
-            //     for(let i = 0; i < data.postImage.length; i++){
-            //         console.log(data.postImage[i]);
-            //   }
+            document.getElementById("imageSelector").removeAttribute("hidden");
+            for(let i = 0; i < data.postImage.length; i++) {
+                document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
+            }
+
         }
     })
 })
-
-// $(document).on('click', '#updatePostButton', function () {
-//     $.ajax ({
-//         url: '/editPost',
-//         type: 'POST',
-//         data: {
-//             _id: $(this).parent().attr('id'),
-//             title: $("#postTitleValue").val(),
-//             content: tinymce.get("postContentValue").getContent(),
-//         }, success: function (data) {
-//             console.log(data);
-//             document.getElementById("postButton").removeAttribute("hidden");
-//             document.getElementById("updatePostButton").setAttribute("hidden", "hidden");
-//         }
-//     })
-// })
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -411,7 +393,7 @@ openModalButtons.forEach(button => {
 })
 
 overlay.addEventListener('click', () => {
-    const modals = document.querySelectorAll('.logout-modal.active')
+    const modals = document.querySelectorAll('.popup-modal.active')
     modals.forEach(modal => {
         closeModal(modal)
     })
@@ -419,7 +401,7 @@ overlay.addEventListener('click', () => {
 
 closeModalButtons.forEach(button => {
     button.addEventListener('click', () => {
-        const modal = button.closest('.logout-modal')
+        const modal = button.closest('.popup-modal')
         closeModal(modal)
     })
 })

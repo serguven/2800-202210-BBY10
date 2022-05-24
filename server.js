@@ -63,7 +63,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', async(req, res) => {
     User.findOne({
-        email: req.body.email.toLowerCase() // make emails go all lowercase
+        email: req.body.email
     }, function(err, user) {
         if (err) {
             console.log(err);
@@ -217,18 +217,6 @@ app.post('/update', (req, res) => {
         })
         ///////////////////////////////////
 
-    // if (req.session.isLoggedIn) {
-    //     User.updateOne({ "_id": req.session.user._id }, {
-    //         "firstName": req.body.firstName,
-    //         "lastName": req.body.lastName,
-    //         "userName": req.body.userName
-    //     }, function(err, result) {
-    //         if (err) {
-    //             console.log(err);
-    //         }
-    //         res.send();
-    //     })
-    // }
 })
 
 app.post('/changePassword', (req, res) => {
@@ -360,11 +348,21 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
         if (req.files[i].filename) {
             filenames.push(req.files[i].filename);
         }
-
     }
 
 
-    console.log(req.body);
+    let changingImages = [];
+    if (req.body.postImage1) {
+        changingImages.push(req.body.postImage1);
+    }
+    if (req.body.postImage2) {
+        changingImages.push(req.body.postImage2);
+    }
+    if (req.body.postImage3) {
+        changingImages.push(req.body.postImage3);
+    }
+
+
 
     if (req.body.postId) {
         Post.findOne({
@@ -375,11 +373,25 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
                 res.redirect('/login');
             }
             if (post) {
+                let index = 0;
+                let changedImages = post.postImage;
+                for (let i = 0; i < changingImages.length; i++) {
+                    for (let j = 0; j < changedImages.length; j++) {
+                        if (changingImages[i] === changedImages[j]) {
+                            if (filenames[index]) {
+                                changedImages[j] = filenames[index];
+                                index++;
+                            }
+                        }
+                    }
+                }
+
+
                 Post.updateOne({ "_id": req.body.postId }, {
                     //"userId": req.session.user._id,
                     "title": req.body.postTitle,
                     "content": req.body.postContent,
-                    //"postImage": [req.files[0].filename, req.files[1].filename, req.files[2].filename]
+                    "postImage": changedImages
                 }, function(err, result) {
                     if (err) {
                         console.log(err);
@@ -424,6 +436,7 @@ app.get('/getUserPosts', (req, res) => {
             res.send("noPost");
         } else {
             //console.log(post);
+            //console.log(JSON.stringify(post));
             res.json(post);
         }
     })
@@ -465,7 +478,7 @@ app.post('/deletePost', (req, res) => {
 })
 
 //////////////////////////Adding doctor/////////////////////////////////////////////////////
-app.post('/addNewDoctor', (req,res) => {
+app.post('/addNewDoctor', (req, res) => {
 
     const new_doctor = new Doctor(req.body);
     // console.log(req.body);
