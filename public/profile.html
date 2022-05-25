@@ -133,17 +133,22 @@
     <div id="Doctors" class="profile-content">
         <h1>Our Doctors</h1>
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody id="allDoctors">
-            </tbody>
-        </table>
-
-        <br><br><br>
+        <div class="col-lg-offset-3 restable">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="warning">
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Qualification</th>
+                        <th>Email</th>
+                        <th>Opens</th>
+                        <th>Closes</th>
+                    </tr>
+                </thead>
+                <tbody id="allDoctors">
+                </tbody>
+            </table>
+        </div>
 
 
     </div>
@@ -153,24 +158,23 @@
     <div id="Appointments" class="profile-content">
         <h1>My Appointments</h1>
 
-                <div class="col-lg-6 col-lg-offset-3">
-                        <table class="table table-hover table-striped table-responsive">
-                            <thead>
-                                <tr class="warning">
-                                    <th>DocName</th>
-                                    <th>PatientName</th>
-                                    <th>Date</th>
-                                    <th>Day</th>
-                                    <th>Time</th>
-                                    <th>Contact</th>
-
-                                </tr>
-                            </thead>
-                            <tbody id="myapoin">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="col-lg-offset-3 restable">
+            <table class="table table-striped">
+                <thead>
+                    <tr class="warning">
+                        <th>DocName</th>
+                        <th>PatientName</th>
+                        <th>Date</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody id="myapoin">
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <!--Chat feature-->
     <div id="Chat" class="profile-content">

@@ -9,6 +9,10 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #BBDBD1;
+}
+
 .navbar-brand {
     font-family: 'Kidstar-Regular';
 }
@@ -62,6 +66,10 @@ html {
 
 
 /* Our own CSS */
+
+.restable {
+    overflow-x: auto;
+}
 
 .br {
     border-radius: .5rem;
@@ -166,18 +174,6 @@ h1 {
     color: #fff;
     background-color: #B6B8D6 !important;
     border-color: #dcdefa !important;
-}
-
-.btn-success {
-    color: #fff;
-    /*background-color: #BDEDE0 !important;
-    border-color: #BBDBD1;*/
-}
-
-.btn-success:hover {
-    color: #fff;
-    background-color: #BBDBD1 !important;
-    border-color: #BBDBD1 !important;
 }
 
 #updatedMessage {

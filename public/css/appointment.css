@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #BBDBD1;
+}
+
+#drtext {
+    font-size: 2rem;
+}
+
 .mt-8 {
     margin-top: 4rem !important;
 }

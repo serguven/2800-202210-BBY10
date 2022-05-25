@@ -27,11 +27,11 @@ document.getElementById("defaultOpen").click();
 
 
 ///////////////////////populate user info/////////////////////////////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserInfo",
         type: "GET",
-        success: function (user) {
+        success: function(user) {
             $("#welcome-name").append(user.userName);
             $("#userNameInput").attr('value', user.userName);
             $("#fnameInput").attr('value', user.firstName);
@@ -66,14 +66,14 @@ function changePassword() {
     document.getElementById("passwordChangeButton").setAttribute("hidden", "hidden");
 }
 
-$('#submitNewPassword').click(function () {
+$('#submitNewPassword').click(function() {
     $.ajax({
         url: '/changePassword',
         type: 'POST',
         data: {
             password: $("#newPasswordInput").val(),
         },
-        success: function (data) {
+        success: function(data) {
             if (data == "samePassword") {
                 document.getElementById("samePassword").innerHTML = "New password cannot be the same as old password!";
             } else if (data == "passChangeSuccess") {
@@ -93,7 +93,7 @@ $('#submitNewPassword').click(function () {
 
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
-$('#saveInfo').click(function () {
+$('#saveInfo').click(function() {
     //console.log("Hello world");
     $.ajax({
         url: '/update',
@@ -105,7 +105,7 @@ $('#saveInfo').click(function () {
             email: $("#emailInput").val(),
             userType: $("#userTypeInput").val(),
         },
-        success: function (data) {
+        success: function(data) {
             if (data == "emailExist") {
                 document.getElementById("emailExist").innerHTML = "This email address already exists.";
             } else {
@@ -132,11 +132,11 @@ $('#saveInfo').click(function () {
 
 
 ///////////////////////////////////// populate posts ////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getUserPosts",
         type: "GET",
-        success: function (data) {
+        success: function(data) {
             if (data == "noPost") {
                 // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
@@ -180,7 +180,7 @@ $(document).ready(function () {
 
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
-$(document).on('click', '#EditCardButton', function () {
+$(document).on('click', '#EditCardButton', function() {
     $.ajax({
         url: '/getPostInfo',
         type: 'POST',
@@ -195,9 +195,9 @@ $(document).on('click', '#EditCardButton', function () {
             tinymce.activeEditor.setContent(data.content);
 
             document.getElementById("imageSelector").removeAttribute("hidden");
-            for(let i = 0; i < data.postImage.length; i++) {
-                document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
-                document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
+            for (let i = 0; i < data.postImage.length; i++) {
+                document.getElementById("image".concat(i + 1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i + 1, "Label")).innerHTML = data.postImage[i];
             }
 
         }
@@ -209,14 +209,14 @@ $(document).on('click', '#EditCardButton', function () {
 
 
 ////////////////////// Delete timeline post//////////////////
-$(document).on('click', '#DeleteCardButton', function () {
+$(document).on('click', '#DeleteCardButton', function() {
     $.ajax({
         url: '/deletePost',
         type: 'POST',
         data: {
             _id: $(this).parent().attr('id')
         },
-        success: function (data) {
+        success: function(data) {
             location.reload();
         }
     })
@@ -226,11 +226,11 @@ $(document).on('click', '#DeleteCardButton', function () {
 
 /////////////////////////////////////// Doctor info form ////////////////////////////////////////////////////////////////
 
-$(document).ready(function () {
+$(document).ready(function() {
     $.ajax({
         url: "/getAllDoctorsInfo",
         type: "GET",
-        success: function (data) {
+        success: function(data) {
             if (data == "noPost") {
                 // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
@@ -240,17 +240,31 @@ $(document).ready(function () {
                     // if(a == 1){
                     // console.log(post);
 
-                    var s = `<table class='table'>`
-                    s += `<td>${post.Name}</td>`
-                    s += `<br><br>`
-                    s += `<td>${post.Address}</td>`
-                    s += `<td>${post.Qualification}</td>`
-                    s += `<td>${post.Email}</td>`
-                    s += `<td>${post.Contact}</td>`
-                    s += `<td>${post.openAt}</td>`
-                    s += `<td>${post.closeAt}</td>`
-                    s += `<td><a href="appointment.html?id=${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</a></td>`
+                    var s;
 
+                    s += `<tr>`;
+                    s += `<td>`;
+                    s += `${post.Name}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Address}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Qualification}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Email}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Contact}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.openAt}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.closeAt}`;
+                    s += `</td>`;
+                    s += `<td><a href="appointment.html?id=${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</a></td>`
 
                     // s += `<div class="modal" id="myModal${post._id}">`
                     // s += `<div class="modal-dialog">`
@@ -284,7 +298,7 @@ $(document).ready(function () {
                     // s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652" required>`
                     // s += `</div>`
                     // s += `<div class="d-grid">`
-                   
+
                     // s += `<button class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3" type="submit">Book an Appointment</button>`
 
                     // s += `</div>`
@@ -301,7 +315,7 @@ $(document).ready(function () {
                     s += `</table>`
                     $('#allDoctors').append(s);
 
-                        
+
 
                     // }
                     // a++;
@@ -313,12 +327,12 @@ $(document).ready(function () {
 
 
 ////////////////////////////////////Appointment Booking/////////////////////////////////////////
-$(document).ready(function () {
+$(document).ready(function() {
     var a;
     $.ajax({
         url: "/viewappointment",
         type: "GET",
-        success: function (user) {
+        success: function(user) {
             // console.log(user);
             user.forEach((succ) => {
                 a += `<tr>`;
@@ -356,21 +370,21 @@ const file = document.querySelector('#file');
 const uploadBtn = document.querySelector('#uploadBtn');
 
 //if user hover on img div
-imgDiv.addEventListener('mouseenter', function () {
+imgDiv.addEventListener('mouseenter', function() {
     uploadBtn.style.display = "block";
 });
 
 //if we hover out from img div
-imgDiv.addEventListener('mouseleave', function () {
+imgDiv.addEventListener('mouseleave', function() {
     uploadBtn.style.display = "none";
 });
 
 //when we choose a photo to upload
-file.addEventListener('change', function () {
+file.addEventListener('change', function() {
     const chosen = this.files[0];
     if (chosen) {
         const reader = new FileReader();
-        reader.addEventListener('load', function () {
+        reader.addEventListener('load', function() {
             img.setAttribute('src', reader.result);
         });
         reader.readAsDataURL(chosen);
