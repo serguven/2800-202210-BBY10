@@ -504,6 +504,8 @@ app.post('/booknewappointment', (req,res) => {
 
     newappointment.save().then((succ) => {
     //     // res.send('Ok');
+       console.log('Appointment booking successful.');
+       res.send('Appointment booking successful.');
        res.redirect('profile.html');
     })
 
