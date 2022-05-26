@@ -9,7 +9,9 @@ body {
 }
 
 #drtext {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: rgb(107, 47, 4);
+    font-style: oblique;
 }
 
 .mt-8 {
