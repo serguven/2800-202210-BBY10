@@ -193,6 +193,14 @@ h1 {
     color: red;
 }
 
+#noPostExist {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
 
 /* Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout */
 

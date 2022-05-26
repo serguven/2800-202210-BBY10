@@ -74,7 +74,7 @@
                                     <input type="text" id="postIdValue" class="form-control" name="postId" hidden>
                                     <label class="profile-label">Title</label>
                                     <div class="profile-info">
-                                        <input type="text" id="postTitleValue" class="form-control" name="postTitle" placeholder="Post Title">
+                                        <input type="text" id="postTitleValue" class="form-control" name="postTitle" placeholder="Post Title" required>
                                     </div>
                                     <label class="profile-label">Content</label>
                                     <div class="profile-info">
@@ -97,7 +97,6 @@
                                     <br>
                                     <div class="profile-container">
                                         <button type="submit" class="btn btn-primary" id="postButton">Save</button>
-                                        <button type="button" class="btn btn-success" id="cancelPostButton">Cancel</button>
                                     </div>
                                 </fieldset>
                             </div>
@@ -110,22 +109,9 @@
         <!------------------------------------------------------------------------------------------------------------------------------------->
         <!--------------------------------------------- end of adding post part --------------------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------------------------------->
-
-
-
-
-
-        <div class="btn-group  mt-3 mb-3" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-primary mx-2" id="addPostButton">Add post</button>
-        </div>
-
+        <h1>Blog Posts</h1>
+        <div id="populatePosts"></div>
         <p id="noPostExist">&nbsp;</p>
-
-
-
-        <div id="populatePosts">
-
-        </div>
 
     </div>
 

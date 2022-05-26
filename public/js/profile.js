@@ -233,7 +233,7 @@ $(document).ready(function() {
         success: function(data) {
             if (data == "noPost") {
                 // console.log("nopost");
-                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display.";
             } else {
                 // var a = 1;
                 data.forEach(post => {

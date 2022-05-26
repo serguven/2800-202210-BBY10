@@ -22,9 +22,8 @@
             <a class="navbar-brand" href="#">icarus</a>
         </div>
         <div class="profile-container">
-            <form action="/profile" method="GET">
-                <button type="submit" class="btn btn-success" id="profileButton">Profile</button>
-            </form>
+            <span id="redirect"></span>
+            <button type="button" class="btn btn-success" id="profileButton">Profile</button>
             <button class="btn btn-secondary" data-modal-target="#modal-id">Log out</button>
         </div>
     </nav>
@@ -98,7 +97,7 @@
                     </div>
                 </div>
             </section>
-            <div class="modal ease" id="reg-modal22">
+            <div class="modal" id="reg-modal22">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

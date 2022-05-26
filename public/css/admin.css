@@ -107,6 +107,12 @@ body {
     opacity: 0;
 }
 
+#redirect {
+    color: white !important;
+    text-align: center;
+    align-items: center;
+}
+
 
 /* #populate2 {
     display: none;

@@ -47,7 +47,22 @@ $(document).ready(function() {
     })
 })
 
+////direct to profile page////
+$(document).on('click', '#profileButton', function() {
+    $.ajax({
+        url: '/profile',
+        type: 'GET',
+        data: {},
+        success: function(data) {
 
+            document.getElementById('redirect').innerHTML = "Redirecting to Profile...";
+            setTimeout(() => {
+                window.location = './profile';
+            }, 1000);
+
+        }
+    })
+})
 
 //////////////////////////////////////////delete card data //////////////////////////////////////////////////////////
 $(document).on('click', '#action-button-2', function() {
