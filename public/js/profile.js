@@ -38,6 +38,7 @@ $(document).ready(function () {
             $("#lnameInput").attr('value', user.lastName);
             $("#emailInput").attr('value', user.email);
             $("#userTypeInput").attr('value', user.userType);
+            $("#photo").attr('src', './../uploads/'+user.Image);
         }
     })
 })
@@ -372,6 +373,7 @@ file.addEventListener('change', function () {
         const reader = new FileReader();
         reader.addEventListener('load', function () {
             img.setAttribute('src', reader.result);
+            document.getElementById('upd').style.display = 'block';
         });
         reader.readAsDataURL(chosen);
     }
