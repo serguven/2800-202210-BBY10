@@ -178,6 +178,13 @@ $(document).ready(function () {
     })
 })
 
+///////////////////////////////////// show post submission form /////////////////////////////////
+function showPostSubmissionForm() {
+    document.getElementById("addPostForm").removeAttribute("hidden");
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
 $(document).on('click', '#EditCardButton', function () {
@@ -188,15 +195,19 @@ $(document).on('click', '#EditCardButton', function () {
             _id: $(this).parent().attr('id')
         },
         success: function(data) {
+            document.getElementById("addPostForm").removeAttribute("hidden");
             window.scrollTo({ top: 0, behavior: 'smooth' })
             console.log(data);
+            document.getElementById("addBlogHeading").innerHTML = "Update Post";
             $('#postIdValue').val(data._id);
             $('#postTitleValue').val(data.title);
             tinymce.activeEditor.setContent(data.content);
 
+            document.getElementById("imageSelectorHeading").removeAttribute("hidden");
             document.getElementById("imageSelector").removeAttribute("hidden");
             for(let i = 0; i < data.postImage.length; i++) {
                 document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i+1, "src")).setAttribute("src", "/uploads/".concat(data.postImage[i]));
                 document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
             }
 

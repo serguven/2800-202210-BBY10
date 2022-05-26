@@ -285,6 +285,15 @@ h1 {
     text-align: center;
 }
 
+.changingImageContainer {
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+.changingImages {
+    width: 80%;
+    height: 80%;
+}
 
 /* derived from https://stackoverflow.com/questions/39710969/css-variable-font-size-depending-on-text-length */
 

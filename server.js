@@ -343,6 +343,7 @@ const upload = multer({ storage: storage });
 
 //////////////////////////// timeline part //////////////////////////////////////////
 app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
+    console.log(req.body);
     let filenames = [];
     for (let i = 0; i < req.files.length; i++) {
         if (req.files[i].filename) {

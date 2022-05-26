@@ -63,13 +63,13 @@
         <!------------------------------------------------ adding post part (text editor etc) ------------------------------------------------->
         <!------------------------------------------------------------------------------------------------------------------------------------->
 
-        <form action="/submitPost" method="POST" enctype="multipart/form-data" id="addPostForm">
+        <form action="/submitPost" method="POST" enctype="multipart/form-data" id="addPostForm" hidden>
             <div class="container mt-3 mb-3">
                 <div class="row">
                     <div class="col-sm-9 col-md-9 col-lg-7 mx-auto">
                         <div class="card mb-5 border-1 rounded-5 my-5">
                             <div class="card-body p-4 p-sm-5">
-                                <h4>Add Blog</h4>
+                                <h4 id="addBlogHeading">Add Post</h4>
                                 <fieldset>
                                     <input type="text" id="postIdValue" class="form-control" name="postId" hidden>
                                     <label class="profile-label">Title</label>
@@ -81,18 +81,28 @@
                                         <textarea id="postContentValue" name="postContent"></textarea>
                                     </div>
 
-                                    <label class="profile-label form-label" for="formFileLg2">Select Image</label>
+                                    <label class="profile-label form-label" for="formFileLg2">Select Image <small><i>(Select Up to 3 Images)</i></small></label>
                                     <div class="profile-info">
                                         <input class="form-control" id="formFileLg2" type="file" name="postImages" multiple>
                                     </div>
                                     <br>
-                                    <div class="profile-container" id="imageSelector" hidden>
-                                        <input type="radio" id="image1" name="postImage1">
-                                        <label for="image1" id="image1Label"></label><br>
-                                        <input type="radio" id="image2" name="postImage2">
-                                        <label for="image2" id="image2Label"></label><br>
-                                        <input type="radio" id="image3" name="postImage3">
-                                        <label for="image3" id="image3Label"></label>
+                                    <label class="profile-label" id="imageSelectorHeading" hidden>Select Images You Want to change</label>
+                                    <div class="changingImageContainer" id="imageSelector" hidden>
+                                        <div>
+                                            <input type="checkbox" id="image1" name="postImage1">
+                                            <img class="changingImages" id="image1src" src="..." alt="unsuccessful" />
+                                            <label for="image1" id="image1Label"></label><br>
+                                        </div>
+                                        <div>
+                                            <input type="checkbox" id="image2" name="postImage2">
+                                            <img class="changingImages" id="image2src" src="..." alt="unsuccessful" />
+                                            <label for="image2" id="image2Label"></label><br>
+                                        </div>
+                                        <div >
+                                            <input type="checkbox" id="image3" name="postImage3">
+                                            <img class="changingImages" id="image3src" src="..." alt="unsuccessful" />
+                                            <label for="image3" id="image3Label"></label>
+                                        </div>
                                     </div>
                                     <br>
                                     <div class="profile-container">
@@ -116,7 +126,7 @@
 
 
         <div class="btn-group  mt-3 mb-3" role="group" aria-label="Basic mixed styles example">
-            <button type="button" class="btn btn-primary mx-2" id="addPostButton">Add post</button>
+            <button type="button" class="btn btn-primary mx-2" id="addPostButton" onclick="showPostSubmissionForm()">Add post</button>
         </div>
 
         <p id="noPostExist">&nbsp;</p>
