@@ -5,7 +5,8 @@
 }
 
 body {
-    background-image: url("../images/pexels-ekaterina-12203460.jpg");
+    /* source: https://www.pexels.com/photo/scenic-photo-of-clouds-2849133/ */
+    background-image: url("../images/pexels-ahmad-qime-2849133.jpg");
     background-position: center;
     background-repeat: no-repeat;
 }
