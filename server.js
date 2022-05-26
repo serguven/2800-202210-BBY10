@@ -327,7 +327,7 @@ app.post('/adminCreatesUser', async(req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./public/uploads");
+        cb(null, "./public/uploads/");
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname);
@@ -565,6 +565,36 @@ app.post('/getOneDoctorsInfo', (req, res) => {
         }
     });
 })
+
+
+////////////////////////////////Profile image storage////////////////////////////////////////
+const storage2 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./public/uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+})
+
+const upload2 = multer({ storage: storage2 });
+
+
+app.post('/profileupload', upload2.single('file'), function(req,res) {
+    console.log(req.session.user._id);
+    console.log(req.file.filename);
+    User.updateOne({ "_id": req.session.user._id }, {
+     //   lastName:'raju',
+        Image:req.file.filename
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/profile');
+    })
+
+})
+
 
 
 
