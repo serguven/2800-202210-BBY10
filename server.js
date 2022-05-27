@@ -97,6 +97,7 @@ function authenticate(req, res, user) {
 app.get('/profile', async(req, res) => {
     if (req.session.isLoggedIn) {
         res.sendFile(path.resolve('public/profile.html'));
+
     } else {
         res.redirect('/login');
     }
@@ -217,18 +218,6 @@ app.post('/update', (req, res) => {
         })
         ///////////////////////////////////
 
-    // if (req.session.isLoggedIn) {
-    //     User.updateOne({ "_id": req.session.user._id }, {
-    //         "firstName": req.body.firstName,
-    //         "lastName": req.body.lastName,
-    //         "userName": req.body.userName
-    //     }, function(err, result) {
-    //         if (err) {
-    //             console.log(err);
-    //         }
-    //         res.send();
-    //     })
-    // }
 })
 
 app.post('/changePassword', (req, res) => {
@@ -339,7 +328,7 @@ app.post('/adminCreatesUser', async(req, res) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "./public/uploads");
+        cb(null, "./public/uploads/");
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + '-' + file.originalname);
@@ -355,6 +344,7 @@ const upload = multer({ storage: storage });
 
 //////////////////////////// timeline part //////////////////////////////////////////
 app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
+    console.log(req.body);
     let filenames = [];
     for (let i = 0; i < req.files.length; i++) {
         if (req.files[i].filename) {
@@ -428,9 +418,7 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
             .then((result) => {
                 console.log(result);
             });
-
-        //res.send();
-        res.redirect("/profile");
+        res.redirect('./profile');
     }
 })
 
@@ -448,6 +436,7 @@ app.get('/getUserPosts', (req, res) => {
             res.send("noPost");
         } else {
             //console.log(post);
+            //console.log(JSON.stringify(post));
             res.json(post);
         }
     })
@@ -502,15 +491,38 @@ app.post('/addNewDoctor', (req, res) => {
 })
 
 ///////////////////////////////Appointment booking/////////////////////////////////////////////
-app.post('/bookappointment', (req, res) => {
+app.post('/booknewappointment', (req, res) => {
 
     console.log(req.body);
-    //   const new_appointment = new appointment(req.body);
-    //    console.log(req.body);
-    //    new_appointment.save().then((succ) => {
-    //        res.send('Ok');
-    //     res.redirect('/profile');
-    //   })
+    const newappointment = new Appointment(req.body);
+    // console.log(req.body);
+
+    // new_user.save()
+    // .then((result) => {
+    //     console.log(result);
+    // });
+
+    newappointment.save().then((succ) => {
+        //     // res.send('Ok');
+        res.redirect('profile.html');
+    })
+
+})
+
+
+app.get('/viewappointment', (req, res) => {
+
+    // console.log(req.body);
+    // const new_appointment = new Appointment(req.body);
+    // console.log(req.body);
+    // new_appointment.save().then((succ) => {
+    // res.send('Ok');
+    //    res.redirect('/profile.html');
+    // })
+    Appointment.find({}, function(err, succ) {
+        // console.log(succ);
+        res.send(succ);
+    })
 
 
 })
@@ -518,7 +530,7 @@ app.post('/bookappointment', (req, res) => {
 ////////////////////////////getting all doctors info/////////////////////////////////////////////////
 app.get('/getAllDoctorsInfo', (req, res) => {
     Doctor.find({}, function(err, user) {
-        console.log(user);
+        // console.log(user);
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -527,11 +539,62 @@ app.get('/getAllDoctorsInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            //console.log(JSON.stringify(user))
+            // console.log(JSON.stringify(user))
             res.json(user);
         }
     });
 })
+
+
+app.post('/getOneDoctorsInfo', (req, res) => {
+    var id = req.body.id;
+    // console.log(id);
+    Doctor.findOne({ _id: id }, function(err, user) {
+        // console.log(user);
+        if (err) {
+            console.log(err);
+            res.redirect('/login');
+        }
+        if (!user) {
+            console.log('User not found while populating data on profile page');
+            res.redirect('/login');
+        } else {
+            // console.log(user);
+            res.json(user);
+        }
+    });
+})
+
+
+////////////////////////////////Profile image storage////////////////////////////////////////
+const storage2 = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, "./public/uploads/");
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname);
+    }
+})
+
+const upload2 = multer({ storage: storage2 });
+
+
+app.post('/profileupload', upload2.single('file'), function(req,res) {
+    console.log(req.session.user._id);
+    console.log(req.file.filename);
+    User.updateOne({ "_id": req.session.user._id }, {
+     //   lastName:'raju',
+        Image:req.file.filename
+    }, function(err, result) {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect('/profile');
+    })
+
+})
+
+
 
 
 app.listen(port, () => {

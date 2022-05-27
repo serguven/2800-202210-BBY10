@@ -1,0 +1,67 @@
+[{
+    "_id": "62882fb84e44573765e568f2",
+    "firstName": "John",
+    "lastName": "Alamo",
+    "userName": "Jalamo",
+    "email": "John@mail.com",
+    "password": "password",
+    "userType": "Patient",
+    "createdAt": "2022-05-21T00:18:00.620Z",
+    "updatedAt": "2022-05-21T00:18:00.620Z",
+    "__v": 0
+}, {
+    "_id": "628830164e44573765e568f6",
+    "firstName": "John",
+    "lastName": "Snow",
+    "userName": "Jsnow",
+    "email": "john@mail.com",
+    "password": "12345",
+    "userType": "Patient",
+    "createdAt": "2022-05-21T00:19:34.621Z",
+    "updatedAt": "2022-05-21T00:19:34.621Z",
+    "__v": 0
+}, {
+    "_id": "6288315f4e44573765e56910",
+    "firstName": "Kendrick",
+    "lastName": "Olsen",
+    "userName": "Kolsen",
+    "email": "kolsen@mail.com",
+    "password": "password",
+    "userType": "Patient",
+    "createdAt": "2022-05-21T00:25:03.119Z",
+    "updatedAt": "2022-05-21T00:25:03.119Z",
+    "__v": 0
+}, {
+    "_id": "6288314f929f77f7a9af5a0e",
+    "firstName": "admin",
+    "lastName": "doctor",
+    "userName": "doctorAdmin",
+    "email": "doctorAdmin@test.com",
+    "password": "12345",
+    "userType": "Doctor",
+    "createdAt": "2022-05-21T00:24:47.753Z",
+    "updatedAt": "2022-05-21T00:24:47.753Z",
+    "__v": 0
+}, {
+    "_id": "628832194e44573765e5691c",
+    "firstName": "Priscilla",
+    "lastName": "Sontano",
+    "userName": "psontano",
+    "email": "psontano@mail.com",
+    "password": "admintest",
+    "userType": "Doctor",
+    "createdAt": "2022-05-21T00:28:09.790Z",
+    "updatedAt": "2022-05-21T00:28:09.790Z",
+    "__v": 0
+}, {
+    "_id": "628833f74e44573765e56932",
+    "firstName": "Usuf",
+    "lastName": "Nurkic",
+    "userName": "Usuf",
+    "email": "unurkic@mail.com",
+    "password": "5555",
+    "userType": "Patient",
+    "createdAt": "2022-05-21T00:36:07.355Z",
+    "updatedAt": "2022-05-21T00:36:07.355Z",
+    "__v": 0
+}]

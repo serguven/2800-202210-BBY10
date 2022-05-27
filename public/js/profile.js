@@ -38,6 +38,7 @@ $(document).ready(function() {
             $("#lnameInput").attr('value', user.lastName);
             $("#emailInput").attr('value', user.email);
             $("#userTypeInput").attr('value', user.userType);
+            $("#photo").attr('src', './../uploads/' + user.Image);
         }
     })
 })
@@ -138,7 +139,7 @@ $(document).ready(function() {
         type: "GET",
         success: function(data) {
             if (data == "noPost") {
-                console.log("nopost");
+                // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
                 data.forEach(post => {
@@ -178,6 +179,13 @@ $(document).ready(function() {
     })
 })
 
+///////////////////////////////////// show post submission form /////////////////////////////////
+function showPostSubmissionForm() {
+    document.getElementById("addPostForm").removeAttribute("hidden");
+}
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
 $(document).on('click', '#EditCardButton', function() {
@@ -188,16 +196,20 @@ $(document).on('click', '#EditCardButton', function() {
             _id: $(this).parent().attr('id')
         },
         success: function(data) {
+            document.getElementById("addPostForm").removeAttribute("hidden");
             window.scrollTo({ top: 0, behavior: 'smooth' })
             console.log(data);
+            document.getElementById("addBlogHeading").innerHTML = "Update Post";
             $('#postIdValue').val(data._id);
             $('#postTitleValue').val(data.title);
             tinymce.activeEditor.setContent(data.content);
 
+            document.getElementById("imageSelectorHeading").removeAttribute("hidden");
             document.getElementById("imageSelector").removeAttribute("hidden");
-            for(let i = 0; i < data.postImage.length; i++) {
-                document.getElementById("image".concat(i+1)).setAttribute("value", data.postImage[i]);
-                document.getElementById("image".concat(i+1, "Label")).innerHTML = data.postImage[i];
+            for (let i = 0; i < data.postImage.length; i++) {
+                document.getElementById("image".concat(i + 1)).setAttribute("value", data.postImage[i]);
+                document.getElementById("image".concat(i + 1, "src")).setAttribute("src", "/uploads/".concat(data.postImage[i]));
+                document.getElementById("image".concat(i + 1, "Label")).innerHTML = data.postImage[i];
             }
 
         }
@@ -232,88 +244,134 @@ $(document).ready(function() {
         type: "GET",
         success: function(data) {
             if (data == "noPost") {
-                console.log("nopost");
-                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
+                // console.log("nopost");
+                document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display.";
             } else {
+                // var a = 1;
                 data.forEach(post => {
-                    console.log(post);
+                    // if(a == 1){
+                    // console.log(post);
 
-                    var s = `<table class='table'>`
-                    s += `<td>${post.Name}</td>`
-                    s += `<br><br>`
-                    s += `<td>${post.Address}</td>`
-                    s += `<td>${post.Qualification}</td>`
-                    s += `<td>${post.Email}</td>`
-                    s += `<td>${post.Contact}</td>`
-                    s += `<td>${post.openAt}</td>`
-                    s += `<td>${post.closeAt}</td>`
-                    s += `<td><button type="button" data-bs-toggle="modal" data-bs-target="#myModal${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</button></td>`
+                    var s;
 
+                    s += `<tr>`;
+                    s += `<td>`;
+                    s += `${post.Name}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Address}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Qualification}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Email}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.Contact}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.openAt}`;
+                    s += `</td>`;
+                    s += `<td>`;
+                    s += `${post.closeAt}`;
+                    s += `</td>`;
+                    s += `<td><a href="appointment.html?id=${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</a></td>`
 
-                    s += `<div class="modal" id="myModal${post._id}">`
-                    s += `<div class="modal-dialog">`
-                    s += `<div class="modal-content">`
-                    s += `<div class="modal-header">`
-                    s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
-                    s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
-                    s += `</div>`
-                    s += `<div class="modal-body">`
+                    // s += `<div class="modal" id="myModal${post._id}">`
+                    // s += `<div class="modal-dialog">`
+                    // s += `<div class="modal-content">`
+                    // s += `<div class="modal-header">`
+                    // s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
+                    // s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
+                    // s += `</div>`
+                    // s += `<div class="modal-body">`
 
-                    s += `<form class="booking-info" action="/bookappointment" method="POST">`
-                    s += `<input type='hidden' name='uid' value="${post.Name}" >`
-                    s += `<label class="booking-label" for="name">Name</label>`
-                    s += `<div class="mb-3">`
-                    s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name"`
-                    s += `required>`
-                    s += `</div>`
-                    s += `<label class="booking-label" for="date">Date</label>`
-                    s += `<div class="mb-3">`
-                    s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date"`
-                    s += `required>`
-                    s += `</div>`
-                    s += `<label class="booking-label" for="day">Day</label>`
-                    s += `<div class="mb-3">`
-                    s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day"`
-                    s += `required>`
-                    s += `</div>`
-                    s += `<label class="booking-label" for="time">Time</label>`
-                    s += `<div class="mb-3">`
-                    s += `<input id="time" type="time" name="time" class="form-control" placeholder="time"`
-                    s += `required>`
-                    s += `</div>`
-                    s += `<label class="booking-label" for="Contact">Contact</label>`
-                    s += `<div class="mb-3">`
-                    s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652"`
-                    s += `pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>`
-                    s += `</div>`
-                    s += `<div class="d-grid">`
-                    s += `<button id="confirmbutton" class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3"`
-                    s += `type="submit">Book an Appointment</button>`
-                    s += `</div>`
-                    s += `</form>`
+                    // s += `<form id="myform${post._id}" action="/booknewappointment" method="get">`
+                    // s += `<input type='text' name='uid' value="${post.Name}" >`
+                    // s += `<label class="booking-label" for="name">Name</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="date">Date</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="day">Day</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day" required />`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="time">Time</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="time" type="time" name="time" class="form-control" placeholder="time" required>`
+                    // s += `</div>`
+                    // s += `<label class="booking-label" for="Contact">Contact</label>`
+                    // s += `<div class="mb-3">`
+                    // s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652" required>`
+                    // s += `</div>`
+                    // s += `<div class="d-grid">`
 
+                    // s += `<button class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3" type="submit">Book an Appointment</button>`
 
+                    // s += `</div>`
+                    // s += `</form>`
 
-
-                    s += `</div>`
-                    s += `<div class="modal-footer">`
-                    s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
-                    s += `</div>`
-                    s += `</div>`
-                    s += `</div>`
-                    s += `</div>`
-
-
+                    // s += `</div>`
+                    // s += `<div class="modal-footer">`
+                    // s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
+                    // s += `</div>`
+                    // s += `</div>`
+                    // s += `</div>`
+                    // s += `</div>`
 
                     s += `</table>`
                     $('#allDoctors').append(s);
 
+
+
+                    // }
+                    // a++;
                 })
             }
         }
     })
 })
 
+
+////////////////////////////////////Appointment Booking/////////////////////////////////////////
+$(document).ready(function() {
+    var a;
+    $.ajax({
+        url: "/viewappointment",
+        type: "GET",
+        success: function(user) {
+            // console.log(user);
+            user.forEach((succ) => {
+                a += `<tr>`;
+                a += `<td>`;
+                a += `${succ.dname}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.name}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.dateInput}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.text}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.time}`;
+                a += `</td>`;
+                a += `<td>`;
+                a += `${succ.Contact}`;
+                a += `</td>`;
+                a += `</tr>`;
+            })
+            $('#myapoin').html(a);
+        }
+    })
+})
 
 
 
@@ -340,6 +398,7 @@ file.addEventListener('change', function() {
         const reader = new FileReader();
         reader.addEventListener('load', function() {
             img.setAttribute('src', reader.result);
+            document.getElementById('upd').style.display = 'block';
         });
         reader.readAsDataURL(chosen);
     }

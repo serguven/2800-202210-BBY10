@@ -47,7 +47,22 @@ $(document).ready(function() {
     })
 })
 
+////direct to profile page////
+$(document).on('click', '#profileButton', function() {
+    $.ajax({
+        url: '/profile',
+        type: 'GET',
+        data: {},
+        success: function(data) {
 
+            document.getElementById('redirect').innerHTML = "Redirecting to Profile...";
+            setTimeout(() => {
+                window.location = './profile';
+            }, 1000);
+
+        }
+    })
+})
 
 //////////////////////////////////////////delete card data //////////////////////////////////////////////////////////
 $(document).on('click', '#action-button-2', function() {
@@ -111,3 +126,43 @@ $("#addCardButton").click(function() {
         }
     })
 })
+
+/////logout modal, code could possibly be reused in other sections/////
+// code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay = document.getElementById('overlay')
+
+openModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = document.querySelector(button.dataset.modalTarget)
+        openModal(modal)
+    })
+})
+
+overlay.addEventListener('click', () => {
+    const modals = document.querySelectorAll('.popup-modal.active')
+    modals.forEach(modal => {
+        closeModal(modal)
+    })
+})
+
+closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        const modal = button.closest('.popup-modal')
+        closeModal(modal)
+    })
+})
+
+
+function openModal(modal) {
+    if (modal == null) return
+    modal.classList.add('active')
+    overlay.classList.add('active')
+}
+
+function closeModal(modal) {
+    if (modal == null) return
+    modal.classList.remove('active')
+    overlay.classList.remove('active')
+}

@@ -22,3 +22,13 @@ password. We missed changing email was a requirement. So it will be modifiable t
 we cannot store profile picture yet. Thus we cannot edit too. We will fix that too.
 Admin user(doctors) can see all of the users in the dashboard. Also admin create new user, update user data, and
 delete user through admin dashboard.
+
+
+COMP-2537 Milestone-1 90% complete
+
+Timeline is implemented. User can see their own posts within profile page when they select "Blog" tab. They can
+add title, context and image to the picture. Cards are populated with these information. Also if the post created
+for the first time they can see creation date of the post, if it is updated they can see the date the post updated
+last time. User can delete post using delete button. By using edit button they can change title, context and images
+at the post. Even though user can accomplish every task of the timeline assignment, changing pictures needs some more
+work to do. Other than that some work on css has been made. Everyone in the team equally got involved in this milestone.
