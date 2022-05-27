@@ -299,11 +299,20 @@ h1 {
     height: 80%;
 }
 
+.imgfilelabel {
+    text-align: center;
+}
+
+.changingImageSection {
+    margin-bottom: 1rem;
+}
+
+
 /* derived from https://stackoverflow.com/questions/39710969/css-variable-font-size-depending-on-text-length */
 
 @media (max-width: 300px) {
     .profile-menu {
-        font-size: 7.5px;
+        font-size: 6.5px;
     }
     .post-images {
         display: flex;
@@ -311,6 +320,15 @@ h1 {
     }
     #responsive {
         max-width: 90%;
+    }
+    .changingImageContainer {
+        grid-template-columns: auto;
+    }
+    .changingImageSection {
+        margin-bottom: 2rem;
+    }
+    .changingImages {
+        margin-left: .5rem;
     }
 }
 
@@ -325,6 +343,18 @@ h1 {
     #responsive {
         max-width: 80%;
     }
+    .changingImageContainer {
+        grid-template-columns: auto;
+    }
+    .changingImageSection {
+        margin-bottom: 2rem;
+    }
+    .changingImages {
+        margin-left: .5rem;
+    }
+    .imgfilelabel {
+        margin-left: 1.5rem;
+    }
 }
 
 @media (min-width: 576px) and (max-width: 991px) {
@@ -337,6 +367,15 @@ h1 {
     }
     #responsive {
         max-width: 70%;
+    }
+    .changingImageContainer {
+        grid-template-columns: auto;
+    }
+    .changingImages {
+        margin-left: .5rem;
+    }
+    .imgfilelabel {
+        margin-left: 1.5rem;
     }
 }
 
