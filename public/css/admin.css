@@ -9,6 +9,32 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #BBDBD1;
+}
+
+.nav-item {
+    border-color: #6F58C9 !important;
+    background-color: #6F58C9;
+    margin-bottom: 1px !important;
+}
+
+.nav-link {
+    border-color: #6F58C9;
+    color: white !important;
+    border-top-left-radius: 0rem !important;
+    border-top-right-radius: 0rem !important;
+}
+
+.nav-link:hover {
+    border-color: #7E78D2 !important;
+}
+
+.nav-link.active {
+    border: transparent;
+    background-color: #7E78D2 !important;
+}
+
 .navbar-brand {
     font-family: 'Kidstar-Regular';
 }
@@ -63,7 +89,96 @@
     margin-top: 1rem;
 }
 
+.btn-primary {
+    color: #fff;
+    background-color: #7E78D2!important;
+    border-color: #7E78D2;
+}
+
+.btn-primary:hover {
+    color: #fff;
+    background-color: #B6B8D6 !important;
+    border-color: #dcdefa !important;
+}
+
+.alert {
+    position: fixed;
+    top: 0;
+    opacity: 0;
+}
+
+#redirect {
+    color: white !important;
+    text-align: center;
+    align-items: center;
+}
+
 
 /* #populate2 {
     display: none;
 } */
+
+
+/* Code derived from https://www.youtube.com/watch?v=MBaw_6cPmAw, modified for logout */
+
+.popup-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 1rem;
+    z-index: 10;
+    background-color: white;
+    width: 500px;
+    max-width: 80%;
+}
+
+.popup-modal.active {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+    text-align: center;
+    padding: 1rem;
+    border-bottom: 1px solid black;
+}
+
+.modal-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.modal-body {
+    padding: 1rem;
+}
+
+.modal-message {
+    margin-bottom: 1rem;
+}
+
+#overlay {
+    position: fixed;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(112, 112, 112, 0.315);
+    transition: 200ms ease-in-out;
+    pointer-events: none;
+}
+
+#overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.modalbtn-group {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
+/*  */

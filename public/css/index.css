@@ -9,6 +9,17 @@
     box-sizing: border-box;
 }
 
+body {
+    background-image: url("../images/pexels-pok-rie-1655166.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+h1,
+p {
+    color: white;
+}
+
 .navbar-brand {
     font-family: 'Kidstar-Regular';
 }

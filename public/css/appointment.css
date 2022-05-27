@@ -4,6 +4,16 @@
     box-sizing: border-box;
 }
 
+body {
+    background-color: #BBDBD1;
+}
+
+#drtext {
+    font-size: 2.5rem;
+    color: rgb(107, 47, 4);
+    font-style: oblique;
+}
+
 .mt-8 {
     margin-top: 4rem !important;
 }
@@ -23,18 +33,5 @@
 
 .booking-label {
     margin-bottom: 1rem;
-    color: white;
     font-size: 1.5rem;
-}
-
-.btn-primary {
-    color: black;
-    background-color: #BDEDE0 !important;
-    border-color: #BBDBD1;
-}
-
-.btn-primary:hover {
-    color: #000;
-    background-color: #BBDBD1 !important;
-    border-color: #BBDBD1 !important;
 }
