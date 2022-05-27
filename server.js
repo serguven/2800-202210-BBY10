@@ -9,9 +9,7 @@ const Appointment = require("./models/appointment");
 const session = require('express-session');
 const multer = require('multer');
 const fs = require("fs");
-///////////////////////////////////////////
 const Post = require("./models/post");
-///////////////////////////////////////////
 
 
 const port = process.env.PORT || 8000;
@@ -310,12 +308,10 @@ app.post('/adminCreatesUser', async(req, res) => {
                     console.log(result);
                 });
 
-            // res.redirect('/login');
             res.send("newAccount");
 
         } else {
             console.log('Account with this email adress exists.');
-            // res.redirect('/signUp');
             res.send("emailExists");
         }
     })
@@ -390,7 +386,6 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
 
 
                 Post.updateOne({ "_id": req.body.postId }, {
-                    //"userId": req.session.user._id,
                     "title": req.body.postTitle,
                     "content": req.body.postContent,
                     "postImage": changedImages
@@ -398,7 +393,6 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
                     if (err) {
                         console.log(err);
                     }
-                    //res.send();
                     res.redirect("/profile");
                 })
             }
@@ -411,8 +405,6 @@ app.post('/submitPost', upload.array("postImages", 3), async(req, res) => {
             postImage: filenames
 
         });
-
-        //console.log(req.files);
 
         new_post.save()
             .then((result) => {
@@ -435,14 +427,13 @@ app.get('/getUserPosts', (req, res) => {
             console.log("nopost");
             res.send("noPost");
         } else {
-            //console.log(post);
             //console.log(JSON.stringify(post));
             res.json(post);
         }
     })
 })
 
-//////////////////////////////// semih update version timeline //////////////////////////////////
+//////////////////////////////// update timeline //////////////////////////////////
 app.post('/getPostInfo', (req, res) => {
     Post.findOne({
         _id: req.body._id
@@ -495,15 +486,8 @@ app.post('/booknewappointment', (req, res) => {
 
     console.log(req.body);
     const newappointment = new Appointment(req.body);
-    // console.log(req.body);
-
-    // new_user.save()
-    // .then((result) => {
-    //     console.log(result);
-    // });
 
     newappointment.save().then((succ) => {
-        //     // res.send('Ok');
         res.redirect('profile.html');
     })
 
@@ -511,16 +495,7 @@ app.post('/booknewappointment', (req, res) => {
 
 
 app.get('/viewappointment', (req, res) => {
-
-    // console.log(req.body);
-    // const new_appointment = new Appointment(req.body);
-    // console.log(req.body);
-    // new_appointment.save().then((succ) => {
-    // res.send('Ok');
-    //    res.redirect('/profile.html');
-    // })
     Appointment.find({}, function(err, succ) {
-        // console.log(succ);
         res.send(succ);
     })
 
@@ -530,7 +505,6 @@ app.get('/viewappointment', (req, res) => {
 ////////////////////////////getting all doctors info/////////////////////////////////////////////////
 app.get('/getAllDoctorsInfo', (req, res) => {
     Doctor.find({}, function(err, user) {
-        // console.log(user);
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -548,9 +522,7 @@ app.get('/getAllDoctorsInfo', (req, res) => {
 
 app.post('/getOneDoctorsInfo', (req, res) => {
     var id = req.body.id;
-    // console.log(id);
     Doctor.findOne({ _id: id }, function(err, user) {
-        // console.log(user);
         if (err) {
             console.log(err);
             res.redirect('/login');
@@ -559,7 +531,6 @@ app.post('/getOneDoctorsInfo', (req, res) => {
             console.log('User not found while populating data on profile page');
             res.redirect('/login');
         } else {
-            // console.log(user);
             res.json(user);
         }
     });
@@ -583,7 +554,6 @@ app.post('/profileupload', upload2.single('file'), function(req,res) {
     console.log(req.session.user._id);
     console.log(req.file.filename);
     User.updateOne({ "_id": req.session.user._id }, {
-     //   lastName:'raju',
         Image:req.file.filename
     }, function(err, result) {
         if (err) {

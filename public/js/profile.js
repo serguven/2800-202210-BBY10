@@ -1,7 +1,5 @@
 "use strict";
 
-// const { format } = require("path");
-
 //////////////// Full page tab /////////////
 //https://www.w3schools.com/howto/howto_js_full_page_tabs.asp
 function openMenu(pageName, elmnt, color) {
@@ -46,10 +44,7 @@ $(document).ready(function() {
 
 ////////////////////////////////// edit button enables form for editing //////////////////////////////////////
 function editProfile() {
-    /////////////////////////////////////////
     document.getElementById("emailInput").disabled = false;
-    /////////////////////////////////////////
-
     document.getElementById("userNameInput").disabled = false;
     document.getElementById("fnameInput").disabled = false;
     document.getElementById("lnameInput").disabled = false;
@@ -95,7 +90,6 @@ $('#submitNewPassword').click(function() {
 
 /////////////////////////////edit profile///////////////////////////////////////////////////////
 $('#saveInfo').click(function() {
-    //console.log("Hello world");
     $.ajax({
         url: '/update',
         type: 'POST',
@@ -110,17 +104,13 @@ $('#saveInfo').click(function() {
             if (data == "emailExist") {
                 document.getElementById("emailExist").innerHTML = "This email address already exists.";
             } else {
-                //location.reload();
                 document.getElementById("updatedMessage").innerHTML = "User profile updated";
 
                 document.getElementById("userNameInput").disabled = true;
                 document.getElementById("fnameInput").disabled = true;
                 document.getElementById("lnameInput").disabled = true;
                 document.getElementById("formFileLg").disabled = true;
-
-                /////////////////////////////////////////////////////
                 document.getElementById("emailInput").disabled = true;
-                ///////////////////////////////////////////////////////
             }
 
 
@@ -139,7 +129,6 @@ $(document).ready(function() {
         type: "GET",
         success: function(data) {
             if (data == "noPost") {
-                // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display."
             } else {
                 data.forEach(post => {
@@ -182,10 +171,9 @@ $(document).ready(function() {
 ///////////////////////////////////// show post submission form /////////////////////////////////
 function showPostSubmissionForm() {
     document.getElementById("addPostForm").removeAttribute("hidden");
+    window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////////// update post ////////////////////////////////////////////////
 $(document).on('click', '#EditCardButton', function() {
@@ -217,9 +205,6 @@ $(document).on('click', '#EditCardButton', function() {
 })
 
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 ////////////////////// Delete timeline post//////////////////
 $(document).on('click', '#DeleteCardButton', function() {
     $.ajax({
@@ -244,14 +229,9 @@ $(document).ready(function() {
         type: "GET",
         success: function(data) {
             if (data == "noPost") {
-                // console.log("nopost");
                 document.getElementById("noPostExist").innerHTML = "User doesn't have any posts to display.";
             } else {
-                // var a = 1;
                 data.forEach(post => {
-                    // if(a == 1){
-                    // console.log(post);
-
                     var s;
 
                     s += `<tr>`;
@@ -278,59 +258,9 @@ $(document).ready(function() {
                     s += `</td>`;
                     s += `<td><a href="appointment.html?id=${post._id}" class="btn btn-secondary mx-2 br" id="Book an appointment">Book an appointment</a></td>`
 
-                    // s += `<div class="modal" id="myModal${post._id}">`
-                    // s += `<div class="modal-dialog">`
-                    // s += `<div class="modal-content">`
-                    // s += `<div class="modal-header">`
-                    // s += `<h4 class="modal-title">Book with ${post.Name}</h4>`
-                    // s += `<button type="button" class="btn-close" data-bs-dismiss="modal"></button>`
-                    // s += `</div>`
-                    // s += `<div class="modal-body">`
-
-                    // s += `<form id="myform${post._id}" action="/booknewappointment" method="get">`
-                    // s += `<input type='text' name='uid' value="${post.Name}" >`
-                    // s += `<label class="booking-label" for="name">Name</label>`
-                    // s += `<div class="mb-3">`
-                    // s += `<input id="name" type="text" name="name" class="form-control" placeholder="Enter your name" required />`
-                    // s += `</div>`
-                    // s += `<label class="booking-label" for="date">Date</label>`
-                    // s += `<div class="mb-3">`
-                    // s += `<input id="dateInput" type="date" name="dateInput" class="form-control" placeholder="date" required />`
-                    // s += `</div>`
-                    // s += `<label class="booking-label" for="day">Day</label>`
-                    // s += `<div class="mb-3">`
-                    // s += `<input id="date" type="text" name="date" class="form-control" placeholder="Day" required />`
-                    // s += `</div>`
-                    // s += `<label class="booking-label" for="time">Time</label>`
-                    // s += `<div class="mb-3">`
-                    // s += `<input id="time" type="time" name="time" class="form-control" placeholder="time" required>`
-                    // s += `</div>`
-                    // s += `<label class="booking-label" for="Contact">Contact</label>`
-                    // s += `<div class="mb-3">`
-                    // s += `<input id="Contact" type="tel" name="Contact" class="form-control" placeholder="456-975-9652" required>`
-                    // s += `</div>`
-                    // s += `<div class="d-grid">`
-
-                    // s += `<button class="btn btn-primary btn-confirm text-uppercase fw-bold mb-3" type="submit">Book an Appointment</button>`
-
-                    // s += `</div>`
-                    // s += `</form>`
-
-                    // s += `</div>`
-                    // s += `<div class="modal-footer">`
-                    // s += `<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>`
-                    // s += `</div>`
-                    // s += `</div>`
-                    // s += `</div>`
-                    // s += `</div>`
 
                     s += `</table>`
                     $('#allDoctors').append(s);
-
-
-
-                    // }
-                    // a++;
                 })
             }
         }
